@@ -9,3 +9,14 @@ C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\Presenter.exe.config
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\obj\Debug\Presenter.exe
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\obj\Debug\Presenter.pdb
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\Presenter.exe
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\Presenter.pdb
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\UW.ClassroomPresenter.dll
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\UW.ClassroomPresenter.pdb
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\es-ES\UW.ClassroomPresenter.resources.dll
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
+C:\Users\Eric\Dropbox\Algonquin\2014S\CP3\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
