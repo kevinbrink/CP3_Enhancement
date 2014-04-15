@@ -1,0 +1,11 @@
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\Presenter.exe.config
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.exe
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.pdb
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\Presenter.exe
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\Presenter.pdb
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\UW.ClassroomPresenter.dll
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\UW.ClassroomPresenter.pdb
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\es-ES\UW.ClassroomPresenter.resources.dll
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
+C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
