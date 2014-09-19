@@ -1,11 +1,16 @@
 // $Id: HelpMenu.cs 1709 2008-08-13 20:52:07Z fred $
 
 using System;
-using System.Windows.Forms;
+using System.Diagnostics;
 using System.Drawing;
 using System.Net;
-using System.Diagnostics;
 using System.Net.Sockets;
+using System.Windows;
+using System.Windows.Forms;
+using NativeWifi;
+using System.Collections.ObjectModel;
+using System.Text;
+using System.Net.NetworkInformation;
 
 namespace UW.ClassroomPresenter.Viewer.Menus
 {
@@ -73,69 +78,34 @@ namespace UW.ClassroomPresenter.Viewer.Menus
             {
                 base.OnClick(e);
 
-                IPAddressMessageBox mb = new IPAddressMessageBox(detectIPInformation());
+                IPAddressMessageBox mb = new IPAddressMessageBox();
                 DialogResult dr = mb.ShowDialog();
                 //string chosenIP = mb.chosenIP;
 
             }
 
-            /// <summary>
-            /// Return IP address for the IP Address menu command.  The goal is to return one address
-            /// and have it be useful most of the time.  There is no guarantee that the address we return
-            /// will be the one the user wants in all cases.
-            /// -Since it will be less practical for users to manually enter IPv6 addresses, we return them
-            /// only if there are no IPv4 addresses.  IPv6 users will probably prefer to use DNS names for manual
-            /// connections.
-            /// -Othewise we prefer routable over non-routable addresses..
-            /// </summary>
-            /// <returns></returns>
-            private String[] detectIPInformation()
-            {
-                int counter = 0;
-                String computerHostName = Dns.GetHostName();
-                IPAddress[] IPlist = Dns.GetHostAddresses(computerHostName);
-
-                foreach (IPAddress ip in IPlist)
-                {
-                    int ipDigit = ip.ToString().Length;
-                    if (7 <= ipDigit && ipDigit <= 15)
-                    {
-                        counter++;
-                    }
-                }
-
-                String[] IPAddressList = new String[counter];
-                counter = 0;
-                foreach (IPAddress ip in IPlist)
-                {
-                    int ipDigit = ip.ToString().Length;
-                    if (7 <= ipDigit && ipDigit <= 15)
-                    {
-                        IPAddressList[counter] = ip.ToString();
-                        counter++;
-                    }
-                }
-                return IPAddressList;
-            }
-            
         }
 
 
         public class IPAddressMessageBox : Form
         {
-            /*
-            string currentItem;
+            Label label = new Label();
+            Label selectedLabel = new Label();
+            ListBox viewer = new ListBox();
+            Button button = new Button();
+            String ip;
 
-             public string chosenIP
+
+            public IPAddressMessageBox()
             {
-                get
+                WlanClient wlan = new WlanClient();
+                Collection<String> connectedSsids = new Collection<string>();
+
+                foreach (WlanClient.WlanInterface wlanInterface in wlan.Interfaces)
                 {
-                    return currentItem;
+                    Wlan.Dot11Ssid ssid = wlanInterface.CurrentConnection.wlanAssociationAttributes.dot11Ssid;
+                    connectedSsids.Add(new String(Encoding.ASCII.GetChars(ssid.SSID, 0, (int)ssid.SSIDLength)));
                 }
-            }
-            */
-            public IPAddressMessageBox(string[] ipAddressString)
-            {
 
                 this.Font = Model.Viewer.ViewerStateModel.FormFont;
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -143,56 +113,107 @@ namespace UW.ClassroomPresenter.Viewer.Menus
                 this.MinimizeBox = false;
                 this.ShowInTaskbar = false;
 
-                Label label = new Label();
                 label.FlatStyle = FlatStyle.System;
-                label.Location = new Point(10, 15);
+                label.Location = new Point(10, 10);
 
-                label.Font = new Font("Arial", 20);
-                label.Text = "The IP is one of:";
+                label.Font = new Font("Arial", 12);
+                label.Text = "IP addresses available";
 
-                ListBox viewer = new ListBox();
-                viewer.Size = new System.Drawing.Size(200, 130);
-                viewer.Location = new System.Drawing.Point(20, 45);
+                viewer.Size = new System.Drawing.Size(300, 130);
+                viewer.Location = new System.Drawing.Point(20, 55);
                 viewer.MultiColumn = true;
                 this.Controls.Add(viewer);
 
-                // Add the ListBox to the form. 
                 viewer.BeginUpdate();
-                foreach (String ip in ipAddressString)
+                foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
-                    viewer.Items.Add(ip);
+                    if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    {
+                        foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            {
+                                if (ni.Name == "Ethernet" || ni.Name == "Wi-Fi")
+                                    foreach (String ssid in connectedSsids)
+                                    {
+
+                                        viewer.Items.Add(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n");
+
+                                    }
+                            }
+                        }
+                    }
                 }
                 viewer.EndUpdate();
 
-               // currentItem = viewer.SelectedItem.ToString();
-                
 
                 label.TextAlign = ContentAlignment.MiddleCenter;
                 label.Parent = this;
                 label.Size = label.PreferredSize;
 
-                this.Width = 265;
+                this.Width = 360;
                 this.Height = 270;
 
-
-                Button button = new Button();
                 button.FlatStyle = FlatStyle.System;
                 button.Font = Model.Viewer.ViewerStateModel.StringFont1;
                 button.Parent = this;
                 button.Text = Strings.OK;
-                button.Location = new Point(this.Width / 2 - 115, 180);
+                button.Location = new Point(this.Width / 2 - 115, 190);
                 button.Size = new Size(60, 40);
-                button.DialogResult = DialogResult.OK;
+                button.Click += new EventHandler(button_Click);
             }
 
+            void button_Click(object sender, EventArgs e)
+            {
+                ip = getSelected();
+                this.Controls.Remove(viewer);
+
+                label.FlatStyle = FlatStyle.System;
+                label.Location = new Point(10, 15);
+
+                label.Font = new Font("Arial", 12);
+                label.Text = "IP address is : ";
+
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Parent = this;
+                label.Size = label.PreferredSize;
+
+                selectedLabel.Text = ip;
+                selectedLabel.Font = new Font("Arial", 16);
+                selectedLabel.Size = selectedLabel.PreferredSize;
+                selectedLabel.Location = new System.Drawing.Point(20, 45);
+                selectedLabel.TextAlign = ContentAlignment.MiddleCenter;
+                selectedLabel.Parent = this;
+
+                button.Font = Model.Viewer.ViewerStateModel.StringFont1;
+                button.Parent = this;
+                button.Text = Strings.OK;
+                button.DialogResult = DialogResult.OK;
+                button.Location = new Point(this.Width / 2 - 50, 80);
+                button.Size = new Size(50, 30);
+
+                this.Height = 160;
+                this.Width = 500;
+                this.Update();
+            }
+
+            private string getSelected()
+            {
+                for (int x = 0; x < viewer.Items.Count; x++)
+                {
+                    if (viewer.GetSelected(x) == true)
+                    {
+                        return viewer.SelectedItem.ToString();
+                    }
+                }
+                return "No IP Selected";
+            }
         }
-
-
 
         public class LicenseMenuItem : MenuItem
         {
             public LicenseMenuItem()
-            {   
+            {
                 this.Text = Strings.License;
             }
 

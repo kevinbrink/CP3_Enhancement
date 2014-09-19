@@ -126,6 +126,10 @@
       <Name>LSTCommon</Name>
       <HintPath>..\Libraries\LSTCommon.dll</HintPath>
     </Reference>
+    <Reference Include="ManagedWifi, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\ManagedWifi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Ink">
       <Name>Microsoft.Ink</Name>
       <HintPath>..\..\..\..\..\..\Program Files\Microsoft Tablet PC Platform SDK\Include\Microsoft.Ink.dll</HintPath>

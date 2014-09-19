@@ -5,17 +5,22 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Presentation;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Model.Workspace;
+using UW.ClassroomPresenter.Model.Viewer;
 
-namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
+namespace UW.ClassroomPresenter.Viewer.SecondMonitor
+{
     /// <summary>
     /// Represents the deck navigation buttons
     /// </summary>
-    public class FullScreenButtons {
+    public class FullScreenButtons
+    {
         /// <summary>
         /// The model that this UI component modifies
         /// </summary>
@@ -23,11 +28,13 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
 
         NavigationToolBarButton back, forward;
         Button ret;
+        Button displayIP;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="model">The model that this class modifies</param>
-        public FullScreenButtons(PresenterModel model, ControlEventQueue dispatcher) {
+        public FullScreenButtons(PresenterModel model, ControlEventQueue dispatcher)
+        {
             this.m_Model = model;
 
 
@@ -38,7 +45,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// <param name="dispatcher">The event queue to use for events</param>
 
             this.ret = new ReturnButton(this.m_Model);
-
+            this.displayIP = new DisplayIPButton(this.m_Model);
 
             // Create the back button
             this.back = new BackwardNavigationToolBarButton(dispatcher, this.m_Model);
@@ -50,26 +57,32 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             this.forward.Image = UW.ClassroomPresenter.Properties.Resources.right;
 
         }
-            // Add the buttons to the parent 
-        public void AddButtons(ViewerPresentationLayout parent) {
-   
+        // Add the buttons to the parent 
+        public void AddButtons(ViewerPresentationLayout parent)
+        {
+
             this.back.Size = new Size(50, 50);
             this.forward.Size = new Size(50, 50);
             this.ret.Size = new Size(50, 50);
+            this.displayIP.Size = new Size(100, 50);
             this.back.Location = new Point(0, 0);//parent.MainSlideView.Height);
             this.forward.Location = new Point(this.back.Right, 0);
             this.ret.Location = new Point(this.forward.Right, 0);
+            this.displayIP.Location = new Point(this.ret.Right, 0);
 
             parent.MainSlideView.Controls.Add(this.back);
             parent.MainSlideView.Controls.Add(this.forward);
             parent.MainSlideView.Controls.Add(this.ret);
+            parent.MainSlideView.Controls.Add(this.displayIP);
 
         }
 
-        public void RemoveButtons(ViewerPresentationLayout parent) {
+        public void RemoveButtons(ViewerPresentationLayout parent)
+        {
             parent.MainSlideView.Controls.Remove(this.forward);
             parent.MainSlideView.Controls.Remove(this.back);
             parent.MainSlideView.Controls.Remove(this.ret);
+            parent.MainSlideView.Controls.Remove(this.displayIP);
         }
 
 
@@ -80,7 +93,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
         /// <summary>
         /// Abstract class representing navigation toolbar buttons
         /// </summary>
-        protected abstract class NavigationToolBarButton : Button {
+        protected abstract class NavigationToolBarButton : Button
+        {
             /// <summary>
             /// Event queue to post events to
             /// </summary>
@@ -112,7 +126,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// </summary>
             /// <param name="dispatcher">The event queue</param>
             /// <param name="model">The model</param>
-            protected NavigationToolBarButton(ControlEventQueue dispatcher, PresenterModel model) {
+            protected NavigationToolBarButton(ControlEventQueue dispatcher, PresenterModel model)
+            {
                 this.m_EventQueue = dispatcher;
                 this.m_Model = model;
 
@@ -122,27 +137,34 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
                 // because it needs to be delayed until Initialize() below.
                 this.m_CurrentDeckTraversalDispatcher =
                     this.m_Model.Workspace.CurrentDeckTraversal.Listen(dispatcher,
-                    delegate(Property<DeckTraversalModel>.EventArgs args) {
+                    delegate(Property<DeckTraversalModel>.EventArgs args)
+                    {
                         this.CurrentDeckTraversal = args.New;
                     });
             }
 
-            protected virtual void Initialize() {
-                using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot)) {
+            protected virtual void Initialize()
+            {
+                using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
+                {
                     this.CurrentDeckTraversal = this.m_Model.Workspace.CurrentDeckTraversal.Value;
                 }
             }
 
-            protected override void Dispose(bool disposing) {
+            protected override void Dispose(bool disposing)
+            {
                 if (this.m_Disposed) return;
-                try {
-                    if (disposing) {
+                try
+                {
+                    if (disposing)
+                    {
                         this.m_CurrentDeckTraversalDispatcher.Dispose();
                         // Unregister event listeners via the CurrentDeckTraversal setter
                         this.CurrentDeckTraversal = null;
                     }
                 }
-                finally {
+                finally
+                {
                     base.Dispose(disposing);
                 }
                 this.m_Disposed = true;
@@ -150,16 +172,20 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
 
             protected abstract string TraversalProperty { get; }
 
-            protected virtual DeckTraversalModel CurrentDeckTraversal {
+            protected virtual DeckTraversalModel CurrentDeckTraversal
+            {
                 get { return this.m_CurrentDeckTraversal; }
-                set {
-                    if (this.m_CurrentDeckTraversal != null) {
+                set
+                {
+                    if (this.m_CurrentDeckTraversal != null)
+                    {
                         this.m_CurrentDeckTraversal.Changed[this.TraversalProperty].Remove(this.m_TraversalChangedDispatcher.Dispatcher);
                     }
 
                     this.m_CurrentDeckTraversal = value;
 
-                    if (this.m_CurrentDeckTraversal != null) {
+                    if (this.m_CurrentDeckTraversal != null)
+                    {
                         this.m_CurrentDeckTraversal.Changed[this.TraversalProperty].Add(this.m_TraversalChangedDispatcher.Dispatcher);
                     }
 
@@ -177,7 +203,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
         /// <summary>
         /// Button handling forward navigation in decks
         /// </summary>
-        protected class ForwardNavigationToolBarButton : NavigationToolBarButton {
+        protected class ForwardNavigationToolBarButton : NavigationToolBarButton
+        {
             /// <summary>
             /// The presenter model
             /// NOTE: Is this replicated with the base class???
@@ -190,7 +217,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// <param name="dispatcher">The event queue</param>
             /// <param name="model">The model</param>
             public ForwardNavigationToolBarButton(ControlEventQueue dispatcher, PresenterModel model)
-                : base(dispatcher, model) {
+                : base(dispatcher, model)
+            {
                 this.m_Model = model;
                 //this.ToolTipText = "Go to the next slide.";
 
@@ -200,7 +228,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// <summary>
             /// This class listens to changes in the "Next" property of the deck traversal
             /// </summary>
-            protected override string TraversalProperty {
+            protected override string TraversalProperty
+            {
                 get { return "Next"; }
             }
 
@@ -209,13 +238,18 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// </summary>
             /// <param name="sender">The event sender</param>
             /// <param name="args">Arguments</param>
-            protected override void HandleTraversalChanged(object sender, PropertyEventArgs args) {
-                if (this.CurrentDeckTraversal == null) {
+            protected override void HandleTraversalChanged(object sender, PropertyEventArgs args)
+            {
+                if (this.CurrentDeckTraversal == null)
+                {
                     this.Enabled = false;
                 }
-                else {
-                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot)) {
-                        using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.SyncRoot)) {
+                else
+                {
+                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot))
+                    {
+                        using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.SyncRoot))
+                        {
                             // Update the button state.  Enable the button if there is a "next" slide,
                             // OR if this is a non-remote whiteboard deck (to which we can add additional slides).
                             if (((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Whiteboard) != 0) && ((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Remote) == 0))
@@ -223,7 +257,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
                             else
                                 this.Enabled = (this.CurrentDeckTraversal.Next != null);
 
-     
+
                         }
                     }
                 }
@@ -233,20 +267,27 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// Handle the button being clicked
             /// </summary>
             /// <param name="args">The event arguments</param>
-            protected override void OnClick(EventArgs args) {
-                using (Synchronizer.Lock(this)) {
+            protected override void OnClick(EventArgs args)
+            {
+                using (Synchronizer.Lock(this))
+                {
                     if (this.CurrentDeckTraversal == null) return;
-                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot)) {
+                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot))
+                    {
                         if (this.CurrentDeckTraversal.Next != null)
                             this.CurrentDeckTraversal.Current = this.CurrentDeckTraversal.Next;
-                        else {
+                        else
+                        {
                             // Add a whiteboard slide if we are at the end of the deck
-                            using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.SyncRoot)) {
-                                if (((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Whiteboard) != 0) && ((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Remote) == 0)) {
+                            using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.SyncRoot))
+                            {
+                                if (((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Whiteboard) != 0) && ((this.CurrentDeckTraversal.Deck.Disposition & DeckDisposition.Remote) == 0))
+                                {
                                     // Add the new slide
                                     SlideModel slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);
                                     this.CurrentDeckTraversal.Deck.InsertSlide(slide);
-                                    using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.TableOfContents.SyncRoot)) {
+                                    using (Synchronizer.Lock(this.CurrentDeckTraversal.Deck.TableOfContents.SyncRoot))
+                                    {
                                         // Add the new table of contents entry
                                         TableOfContentsModel.Entry entry = new TableOfContentsModel.Entry(Guid.NewGuid(), this.CurrentDeckTraversal.Deck.TableOfContents, slide);
                                         this.CurrentDeckTraversal.Deck.TableOfContents.Entries.Add(entry);
@@ -270,7 +311,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
         /// <summary>
         /// Button handling backward navigation in decks
         /// </summary>
-        protected class BackwardNavigationToolBarButton : NavigationToolBarButton {
+        protected class BackwardNavigationToolBarButton : NavigationToolBarButton
+        {
             /// <summary>
             /// The presenter model
             /// NOTE: Is this replicated with the base class???
@@ -283,7 +325,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// <param name="dispatcher">The event queue</param>
             /// <param name="model">The model</param>
             public BackwardNavigationToolBarButton(ControlEventQueue dispatcher, PresenterModel model)
-                : base(dispatcher, model) {
+                : base(dispatcher, model)
+            {
                 this.m_Model = model;
 
                 this.Initialize();
@@ -292,7 +335,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// <summary>
             /// This class listens to changes in the "Previous" property of the deck traversal
             /// </summary>
-            protected override string TraversalProperty {
+            protected override string TraversalProperty
+            {
                 get { return "Previous"; }
             }
 
@@ -301,12 +345,16 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// </summary>
             /// <param name="sender">The event sender</param>
             /// <param name="args">Arguments</param>
-            protected override void HandleTraversalChanged(object sender, PropertyEventArgs args) {
-                if (this.CurrentDeckTraversal == null) {
+            protected override void HandleTraversalChanged(object sender, PropertyEventArgs args)
+            {
+                if (this.CurrentDeckTraversal == null)
+                {
                     this.Enabled = false;
                 }
-                else {
-                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot)) {
+                else
+                {
+                    using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot))
+                    {
                         this.Enabled = (this.CurrentDeckTraversal.Previous != null);
                     }
                 }
@@ -316,9 +364,11 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
             /// Handle the button being clicked
             /// </summary>
             /// <param name="args">The event arguments</param>
-            protected override void OnClick(EventArgs args) {
+            protected override void OnClick(EventArgs args)
+            {
                 if (this.CurrentDeckTraversal == null) return;
-                using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot)) {
+                using (Synchronizer.Lock(this.CurrentDeckTraversal.SyncRoot))
+                {
                     this.CurrentDeckTraversal.Current = this.CurrentDeckTraversal.Previous;
                 }
                 base.OnClick(args);
@@ -327,19 +377,123 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor{
 
         #endregion
 
-        protected class ReturnButton:Button {
+        protected class ReturnButton : Button
+        {
             PresenterModel m_Model;
-            public ReturnButton(PresenterModel model) {
+            public ReturnButton(PresenterModel model)
+            {
                 this.m_Model = model;
-                this.Text = "Return";
+                this.Text = "Exit";
             }
-            protected override void OnClick(EventArgs e) {
-                using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot)) {
+            protected override void OnClick(EventArgs e)
+            {
+                using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot))
+                {
                     this.m_Model.ViewerState.PrimaryMonitorFullScreen = false;
                 }
                 base.OnClick(e);
             }
         }
- 
+        protected class DisplayIPButton : Button
+        {
+            PresenterModel m_Model;
+            public DisplayIPButton(PresenterModel model)
+            {
+                this.m_Model = model;
+                this.Text = "Display IP";
+            }
+            protected override void OnClick(EventArgs e)
+            {
+                base.OnClick(e);
+
+                IPAddressMessageBox mb = new IPAddressMessageBox(detectIPInformation());
+                DialogResult dr = mb.ShowDialog();
+            }
+
+            private String[] detectIPInformation()
+            {
+                int counter = 0;
+                String computerHostName = Dns.GetHostName();
+                IPAddress[] IPlist = Dns.GetHostAddresses(computerHostName);
+
+                foreach (IPAddress ip in IPlist)
+                {
+                    int ipDigit = ip.ToString().Length;
+                    if (7 <= ipDigit && ipDigit <= 15)
+                    {
+                        counter++;
+                    }
+                }
+
+                String[] IPAddressList = new String[counter];
+                counter = 0;
+                foreach (IPAddress ip in IPlist)
+                {
+                    int ipDigit = ip.ToString().Length;
+                    if (7 <= ipDigit && ipDigit <= 15)
+                    {
+                        IPAddressList[counter] = ip.ToString();
+                        counter++;
+                    }
+                }
+                return IPAddressList;
+            }
+
+        }
+
+        public class IPAddressMessageBox : Form
+        {
+            public IPAddressMessageBox(string[] ipAddressString)
+            {
+
+                this.Font = Model.Viewer.ViewerStateModel.FormFont;
+                this.FormBorderStyle = FormBorderStyle.FixedDialog;
+                this.MaximizeBox = false;
+                this.MinimizeBox = false;
+                this.ShowInTaskbar = false;
+
+                Label label = new Label();
+                label.FlatStyle = FlatStyle.System;
+                label.Location = new Point(10, 15);
+
+                label.Font = new Font("Arial", 20);
+                label.Text = "The IP is one of:";
+
+                ListBox viewer = new ListBox();
+                viewer.Size = new System.Drawing.Size(200, 130);
+                viewer.Location = new System.Drawing.Point(20, 45);
+                viewer.MultiColumn = true;
+                this.Controls.Add(viewer);
+
+                // Add the ListBox to the form. 
+                viewer.BeginUpdate();
+                foreach (String ip in ipAddressString)
+                {
+                    viewer.Items.Add(ip);
+                }
+                viewer.EndUpdate();
+
+                // currentItem = viewer.SelectedItem.ToString();
+
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Parent = this;
+                label.Size = label.PreferredSize;
+
+                this.Width = 265;
+                this.Height = 270;
+
+
+                Button button = new Button();
+                button.FlatStyle = FlatStyle.System;
+                button.Font = Model.Viewer.ViewerStateModel.StringFont1;
+                button.Parent = this;
+                button.Text = Strings.OK;
+                button.Location = new Point(this.Width / 2 - 115, 180);
+                button.Size = new Size(60, 40);
+                button.DialogResult = DialogResult.OK;
+            }
+
+        }
+
     }
 }
