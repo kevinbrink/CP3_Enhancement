@@ -1,0 +1,12 @@
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\Presenter.exe.config
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\Presenter.exe
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\Presenter.pdb
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\UW.ClassroomPresenter.dll
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\ManagedWifi.dll
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\UW.ClassroomPresenter.pdb
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\es-ES\UW.ClassroomPresenter.resources.dll
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\pt-BR\UW.ClassroomPresenter.resources.dll
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\bin\Release\zh-CN\UW.ClassroomPresenter.resources.dll
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\obj\Release\Presenter.csprojResolveAssemblyReference.cache
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\obj\Release\Presenter.exe
+E:\Code\Code Monkeys\SourceTree\CP3_Enhancement\Presenter\obj\Release\Presenter.pdb
