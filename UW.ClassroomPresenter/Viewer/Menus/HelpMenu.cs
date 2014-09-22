@@ -125,15 +125,17 @@ namespace UW.ClassroomPresenter.Viewer.Menus
                 this.Controls.Add(viewer);
 
                 viewer.BeginUpdate();
+                
                 foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
+                    ni.OperationalStatus.Equals(OperationalStatus.Up);
                     if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                     {
                         foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                         {
                             if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                             {
-                                if (ni.Name == "Ethernet" || ni.Name == "Wi-Fi")
+                                if ((ni.Name == "Ethernet" || ni.Name == "Wi-Fi") && (ni.OperationalStatus.Equals(OperationalStatus.Up)))
                                     foreach (String ssid in connectedSsids)
                                     {
 

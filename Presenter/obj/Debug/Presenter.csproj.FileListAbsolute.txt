@@ -9,3 +9,15 @@ C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.exe.config
+D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.exe
+D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.pdb
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.exe
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.pdb
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\UW.ClassroomPresenter.dll
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\ManagedWifi.dll
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\UW.ClassroomPresenter.pdb
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\es-ES\UW.ClassroomPresenter.resources.dll
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
+D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
+D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
