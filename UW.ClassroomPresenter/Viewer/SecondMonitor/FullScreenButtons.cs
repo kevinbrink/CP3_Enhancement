@@ -487,6 +487,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 viewer.BeginUpdate();
                 foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
+                    ni.OperationalStatus.Equals(OperationalStatus.Up);
                     if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                     {
                         foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
