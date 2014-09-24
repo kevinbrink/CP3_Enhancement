@@ -99,10 +99,11 @@ namespace UW.ClassroomPresenter.Viewer.Menus
             public IPAddressMessageBox()
             {
                 WlanClient wlan = new WlanClient();
-                Collection<String> connectedSsids = new Collection<string>();
+                Collection<String> connectedSsids = new Collection<string>();                
 
                 foreach (WlanClient.WlanInterface wlanInterface in wlan.Interfaces)
                 {
+                    if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Disconnected) continue;
                     Wlan.Dot11Ssid ssid = wlanInterface.CurrentConnection.wlanAssociationAttributes.dot11Ssid;
                     connectedSsids.Add(new String(Encoding.ASCII.GetChars(ssid.SSID, 0, (int)ssid.SSIDLength)));
                 }
@@ -128,24 +129,32 @@ namespace UW.ClassroomPresenter.Viewer.Menus
                 
                 foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
+                    
                     ni.OperationalStatus.Equals(OperationalStatus.Up);
                     if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                    {
+                    {                        
                         foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                         {
+                            
                             if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                             {
-                                if ((ni.Name == "Ethernet" || ni.Name == "Wi-Fi") && (ni.OperationalStatus.Equals(OperationalStatus.Up)))
+
+                                if ((ni.Name.Equals("Ethernet") || ni.Name.Equals("Wi-Fi")) && (ni.OperationalStatus == OperationalStatus.Up))
+                                {
+                                    if (ni.Name.Equals("Wi-Fi"))
                                     foreach (String ssid in connectedSsids)
                                     {
-
-                                        viewer.Items.Add(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n");
+                                        if (!viewer.Items.Contains(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n"))
+                                            viewer.Items.Add(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n");
 
                                     }
+                                    if (ni.Name.Equals("Ethernet"))
+                                        viewer.Items.Add(ip.Address.ToString() + " on " + ni.Name + "\n");
+                                }
                             }
                         }
                     }
-                }
+                }                
                 viewer.EndUpdate();
 
 
