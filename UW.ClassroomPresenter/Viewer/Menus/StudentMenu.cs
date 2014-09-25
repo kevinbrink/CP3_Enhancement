@@ -440,6 +440,34 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
             // Create the quickpoll
             QuickPollModel newQuickPoll = null;
             using( Synchronizer.Lock( model.ViewerState.SyncRoot ) ) {
+                int questions = 0;
+                String [] questionvalues={"A","B","C","D","E"};
+                if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
+                {
+                    questions = 3;
+                }
+                else if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABCD)
+                {
+                    questions = 4;
+                }
+                else if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABCDE)
+                {
+                    questions = 5;
+                }
+                else
+                {
+                    questions = 1;
+                }
+                List<String> questionList = new List<String>();
+                questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1));
+                if (questions != 1)
+                {
+                    for (int i = 0; i < questions; i++)
+                    {
+                        questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + questionvalues.GetValue(i), "", -1, -1));
+
+                    }
+                }
                 newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle );
             }
 

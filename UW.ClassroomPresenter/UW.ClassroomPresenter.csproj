@@ -131,6 +131,7 @@
       <HintPath>..\..\..\..\..\..\Program Files\Microsoft Tablet PC Platform SDK\Include\Microsoft.Ink.dll</HintPath>
       <AssemblyFolderKey>hklm\dn\tablet pc assemblies</AssemblyFolderKey>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MSR.LST.Net.Rtp" Condition=" '$(Configuration)' == 'RTPDebug' Or '$(Configuration)' == 'RTPRelease' ">
       <Name>MSR.LST.Net.Rtp</Name>
       <HintPath>..\Libraries\MSR.LST.Net.Rtp.dll</HintPath>
