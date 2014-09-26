@@ -142,12 +142,12 @@ namespace UW.ClassroomPresenter.Viewer.Menus
                                 if ((ni.Name.Equals("Ethernet") || ni.Name.Equals("Wi-Fi")) && (ni.OperationalStatus == OperationalStatus.Up))
                                 {
                                     if (ni.Name.Equals("Wi-Fi"))
-                                    foreach (String ssid in connectedSsids)
-                                    {
-                                        if (!viewer.Items.Contains(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n"))
-                                            viewer.Items.Add(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n");
+                                        foreach (String ssid in connectedSsids)
+                                        {
+                                            if (!viewer.Items.Contains(ip.Address.ToString() + " on " + ssid + " using " + ni.Name + "\n"))
+                                                viewer.Items.Add(ip.Address.ToString() + " on " + ssid + " using " + ni.Name + "\n");
 
-                                    }
+                                        }
                                     if (ni.Name.Equals("Ethernet"))
                                         viewer.Items.Add(ip.Address.ToString() + " on " + ni.Name + "\n");
                                 }

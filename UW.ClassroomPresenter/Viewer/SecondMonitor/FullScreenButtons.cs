@@ -463,6 +463,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
 
                 foreach (WlanClient.WlanInterface wlanInterface in wlan.Interfaces)
                 {
+                    if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Disconnected) continue;
                     Wlan.Dot11Ssid ssid = wlanInterface.CurrentConnection.wlanAssociationAttributes.dot11Ssid;
                     connectedSsids.Add(new String(Encoding.ASCII.GetChars(ssid.SSID, 0, (int)ssid.SSIDLength)));
                 }
@@ -485,22 +486,31 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 this.Controls.Add(viewer);
 
                 viewer.BeginUpdate();
+
                 foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
+
                     ni.OperationalStatus.Equals(OperationalStatus.Up);
                     if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                     {
                         foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                         {
+
                             if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                             {
-                                if (ni.Name == "Ethernet" || ni.Name == "Wi-Fi")
-                                    foreach (String ssid in connectedSsids)
-                                    {
 
-                                        viewer.Items.Add(ssid + " at " + ip.Address.ToString() + " on " + ni.Name + "\n");
+                                if ((ni.Name.Equals("Ethernet") || ni.Name.Equals("Wi-Fi")) && (ni.OperationalStatus == OperationalStatus.Up))
+                                {
+                                    if (ni.Name.Equals("Wi-Fi"))
+                                        foreach (String ssid in connectedSsids)
+                                        {
+                                            if (!viewer.Items.Contains(ip.Address.ToString() + " on " + ssid + " using " + ni.Name + "\n"))
+                                                viewer.Items.Add(ip.Address.ToString() + " on " + ssid + " using " + ni.Name + "\n");
 
-                                    }
+                                        }
+                                    if (ni.Name.Equals("Ethernet"))
+                                        viewer.Items.Add(ip.Address.ToString() + " on " + ni.Name + "\n");
+                                }
                             }
                         }
                     }
@@ -528,33 +538,25 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
             {
                 ip = getSelected();
                 this.Controls.Remove(viewer);
-
-                label.FlatStyle = FlatStyle.System;
-                label.Location = new Point(10, 15);
-
-                label.Font = new Font("Arial", 12);
-                label.Text = "IP address is : ";
-
-                label.TextAlign = ContentAlignment.MiddleCenter;
-                label.Parent = this;
-                label.Size = label.PreferredSize;
-
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Location = new Point(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Right - 400, 2);
+                label.Text = "";
                 selectedLabel.Text = ip;
                 selectedLabel.Font = new Font("Arial", 16);
                 selectedLabel.Size = selectedLabel.PreferredSize;
-                selectedLabel.Location = new System.Drawing.Point(20, 45);
+                selectedLabel.Location = new System.Drawing.Point(10, 45);
                 selectedLabel.TextAlign = ContentAlignment.MiddleCenter;
                 selectedLabel.Parent = this;
 
                 button.Font = Model.Viewer.ViewerStateModel.StringFont1;
                 button.Parent = this;
-                button.Text = Strings.OK;
+                button.Text = "Close";
                 button.DialogResult = DialogResult.OK;
-                button.Location = new Point(this.Width / 2 - 50, 80);
+                button.Location = new Point(this.Width / 2, 80);
                 button.Size = new Size(50, 30);
 
-                this.Height = 160;
-                this.Width = 500;
+                this.Height = 150;
+                this.Width = 400;
                 this.Update();
             }
 
