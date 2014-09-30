@@ -206,7 +206,7 @@ namespace UW.ClassroomPresenter.Decks {
                 }
 
                 /* Create a new poll */
-                CustomPoll poll = new CustomPoll(pollXML.SelectSingleNode("/CP3Poll/PollQuestion").Text, pollXML.SelectSingleNode("/CP3Poll/PollType").Text, Convert.ToInt32(pollXML.SelectSingleNode("/CP3Poll/PollSlide").Text),
+                CustomPoll poll = new CustomPoll(pollXML.SelectSingleNode("/CP3Poll/PollQuestion").Text, pollXML.SelectSingleNode("/CP3Poll/PollType").Text, currentSlide.SlideNumber,
                     pollXML.SelectSingleNode("/CP3Poll/PollCorrectAnswer").Text, answrs);
             }
 

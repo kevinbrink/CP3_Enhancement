@@ -31,3 +31,6 @@ C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\Presenter\bi
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\CP3_Enhancement\Presenter\bin\Debug\Presenter.exe.config
+C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\CP3_Enhancement\Presenter\obj\Debug\Presenter.exe
+C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\CP3_Enhancement\Presenter\obj\Debug\Presenter.pdb
