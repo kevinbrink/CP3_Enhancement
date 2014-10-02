@@ -188,29 +188,11 @@ namespace UW.ClassroomPresenter.Decks {
 
             List<TaggedShape> taggedShapeList = PPTDeckIO.BuildTaggedShapeList(currentShapes, pptpm);
 
-            /* The following code was added by Gabriel Martin on Sept 24, 2014 */
-
-            /* Check to see if there is any custom XML in the slide */
-            if (currentSlide.CustomerData.Count != 0)
-            {
-                /* Grab the custom XML for a poll */
-                CustomXMLPart pollXML = (CustomXMLPart)currentSlide.CustomerData._Index(1);
-
-                /* Set answrs to null */
-                CustomXMLNodes answrs = null;
-
-                /* If the poll type is not "true or false" then set answrs to the child nodes of /CP3Poll/PollAnswers */
-                if (!pollXML.SelectSingleNode("/CP3Poll/PollType").Text.Equals("True or False"))
-                {
-                    answrs = pollXML.SelectSingleNode("/CP3Poll/PollAnswers").ChildNodes;
-                }
-
-                /* Create a new poll */
-                CustomPoll poll = new CustomPoll(pollXML.SelectSingleNode("/CP3Poll/PollQuestion").Text, pollXML.SelectSingleNode("/CP3Poll/PollType").Text, currentSlide.SlideNumber,
-                    pollXML.SelectSingleNode("/CP3Poll/PollCorrectAnswer").Text, answrs);
-            }
-
-            /* End of modification */
+            CustomXMLPart pollXML = (CustomXMLPart)currentSlide.CustomerData._Index(1);
+            CustomXMLNodes answrs = (CustomXMLNodes)pollXML.SelectNodes("/CP3Poll/PollAnswers");
+            
+            CustomPoll poll = new CustomPoll(pollXML.SelectSingleNode("/CP3Poll/PollQuestion").Text, pollXML.SelectSingleNode("/CP3Poll/PollType").Text, Convert.ToInt32(pollXML.SelectSingleNode("/CP3Poll/PollSlide").Text),
+                pollXML.SelectSingleNode("/CP3Poll/PollCorrectAnswer").Text);
 
             //Create a new SlideModel
             SlideModel newSlideModel = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, new Rectangle(0, 0, slideWidth, slideHeight));
