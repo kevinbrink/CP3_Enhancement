@@ -1,2 +1,6 @@
 *.suo
 *.cache
+Presenter/bin/
+Presenter/obj/
+UW.ClassroomPresenter/bin/
+UW.ClassroomPresenter/obj/
