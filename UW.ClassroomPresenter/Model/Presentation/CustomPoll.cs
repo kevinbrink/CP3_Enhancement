@@ -6,6 +6,7 @@
 
 using Microsoft.Office.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,13 +20,13 @@ namespace UW.ClassroomPresenter.Model.Presentation
         private string pollType;
         private int slide;
         private string correctAnswr;
-        private CustomXMLNodes answrs;
+        private ArrayList answrs;
 
         #endregion
 
         #region Constructors
 
-        public CustomPoll(string question, string pollType, int slide, string correctAnswr, CustomXMLNodes answrs)
+        public CustomPoll(string question, string pollType, int slide, string correctAnswr, ArrayList answrs)
         {
             this.question = question;
             this.pollType = pollType;
@@ -54,7 +55,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
         {
             return correctAnswr;
         }
-        public CustomXMLNodes GetAnswrs()
+        public ArrayList GetAnswrs()
         {
             return answrs;
         }
