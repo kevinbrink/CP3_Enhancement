@@ -1,0 +1,1026 @@
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Instructors
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Receivers of Student Submissions
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":70:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            PropertyPublisher.Initialize in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":92:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":84:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":73:9
+            SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":35:9
+            CreateBlankWhiteboardDeckMenuItem.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\DecksMenu.cs":94:21
+            MenuItem.ShortcutClick
+            Menu.ProcessCmdKey
+            Form.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.PreProcessMessage
+            Control.PreProcessControlMessageInternal
+            ThreadContext.PreTranslateMessage
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.TableOfContentsModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":77:29
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            FilmStripSlideViewer.LayoutSlide in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":312:21
+            FilmStripSlideViewer.HandleEntriesChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":289:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.DeckModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.DeckModel:
+            WorkspaceModelAdapter.<.ctor>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Slides\MainSlideViewer.cs":1034:25
+            <>c__DisplayClass5.<.ctor>b__1 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Property.cs":138:91
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.DeckModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":64:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.DeckModel:
+            WorkspaceModelAdapter.<.ctor>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Slides\MainSlideViewer.cs":1034:25
+            <>c__DisplayClass5.<.ctor>b__1 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Property.cs":138:91
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.TableOfContentsModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":77:29
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            FilmStripSlideViewer.LayoutSlide in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":312:21
+            FilmStripSlideViewer.HandleEntriesChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":289:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.TableOfContentsModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":565:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            FilmStripSlideViewer.LayoutSlide in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":312:21
+            FilmStripSlideViewer.HandleEntriesChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\FilmStripSlideViewer.cs":289:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\DeckNavigationToolBarButtons.cs":254:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        ForwardNavigationToolBarButton.HandleTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\SecondMonitor\FullScreenButtons.cs":218:25
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        RuntimeMethodHandle._InvokeMethodFast
+        RuntimeMethodInfo.Invoke
+        Delegate.DynamicInvokeImpl
+        Control.InvokeMarshaledCallbackDo
+        Control.InvokeMarshaledCallbackHelper
+        ExecutionContext.runTryCode
+        RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+        ExecutionContext.Run
+        Control.InvokeMarshaledCallback
+        Control.InvokeMarshaledCallbacks
+        Control.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel:
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":499:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\View

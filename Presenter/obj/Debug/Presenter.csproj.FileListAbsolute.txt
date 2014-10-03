@@ -9,3 +9,14 @@ C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Xesas\Documents\Algonquin\2014W\Project\CP3 Source\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\Presenter.exe.config
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\obj\Debug\Presenter.exe
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\obj\Debug\Presenter.pdb
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\Presenter.exe
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\Presenter.pdb
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\UW.ClassroomPresenter.dll
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\UW.ClassroomPresenter.pdb
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\es-ES\UW.ClassroomPresenter.resources.dll
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
+C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache

@@ -421,9 +421,25 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
                 // Add a slide to the quickpoll deck containing a new slide for this quickpoll
                 if( this.Checked ) {
-                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll( this.m_Model, this.m_Role );
+                    PollOptions pollOptions = new PollOptions();
+                    pollOptions.Show();
+                    //DialogResult displayPoll = MessageBox.Show("Begin Poll",
+                    //                                            "Start polling",
+                    //                                            MessageBoxButtons.YesNo);
+                    // TODO: At this point, we want to create a new slide, and potentially switch to it
+                    //AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role);
                 } else {
-                    AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll( this.m_Model );
+                    AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll(this.m_Model); 
+                    
+                    // Just ended a quickpoll
+                    DialogResult displayPoll = MessageBox.Show("Display results from poll?",
+                                                                "Display polling results",
+                                                                MessageBoxButtons.YesNo);
+                    if (displayPoll == DialogResult.Yes)
+                    {   // Yes, we want to display
+                        // TODO: We need to actually switch to the polling results and figure out how we want to display it all
+                        MessageBox.Show("Results here!");
+                    }
                 }
 
                 // Handle changing the value of whether a quickpoll is enabled or not

@@ -1,0 +1,461 @@
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Instructors
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Receivers of Student Submissions
+UW.ClassroomPresenter.Network.TCP.TCPClassroomManager: HandleConnectedChanging
+UW.ClassroomPresenter.Network.TCP.TCPServer: TCPServer setting queue timeout to 10 minutes.
+UW.ClassroomPresenter.Network.TCP.TCPServerSender: TCPServerSender setting Max Concurrent Sends to 50.
+UW.ClassroomPresenter.Network.TCP.TCPServer: Started TCPListener on 0.0.0.0:5664
+Message send caller=SendRoleChangedMessage sequence=1 chunk count=1 type=InstructorMessage; priority=Default
+  NO TAGS
+UW.ClassroomPresenter.Network.Broadcast.BroadcastManager: ServerStartedChangedHandler
+  new value=True
+Message send caller=SendGroupAddedMessage sequence=2 chunk count=1 type=ParticipantGroupAddedMessage; priority=Default
+  NO TAGS
+Message send caller=SendGroupAddedMessage sequence=3 chunk count=1 type=ParticipantGroupAddedMessage; priority=Default
+  NO TAGS
+Message send caller=SendGroupAddedMessage sequence=4 chunk count=1 type=ParticipantGroupAddedMessage; priority=Default
+  NO TAGS
+Message send caller=SendGroupAddedMessage sequence=5 chunk count=1 type=ParticipantGroupAddedMessage; priority=Default
+  NO TAGS
+UW.ClassroomPresenter.Network.Broadcast.BroadcastListener: Adding Instructor Table Entry: Kevin - Untitled Presentation: 192.168.0.193:5664
+Message send caller=SendPresentationStartedMessage sequence=6 chunk count=1 type=InstructorMessage;child={InstructorCurrentPresentationChangedMessage;}; priority=Default
+  NO TAGS
+Message send caller=SendTraversalInformation sequence=7 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideDeckTraversalMessage;pred={SlideInformationMessage;child={TableOfContentsEntryMessage;};};};}; priority=Default
+  NO TAGS
+Message send caller=SendSlideInformation sequence=8 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;};}; priority=Default
+  MessageTags: Guid=cc14bff9-6b4a-410b-90a6-82c4dd2d9d9b; Priority=Default
+Message send caller=SendEntryAdded sequence=9 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={TableOfContentsEntryMessage;};};}; priority=Default
+  NO TAGS
+DECK CHANGE (635476736375510640): Pres -- WhiteBoard 1, Deck -- WhiteBoard 1, Slide -- 0, Guid -- cc14bff9-6b4a-410b-90a6-82c4dd2d9d9b
+Message send caller=SendCurrentDeckTraversalChange sequence=10 chunk count=1 type=InstructorMessage;child={InstructorCurrentDeckTraversalChangedMessage;pred={SlideInformationMessage;child={TableOfContentsEntryMessage;};};}; priority=Default
+  MessageTags: Guid=00000000-0000-0000-0000-000000000000; Priority=Default
+Message send caller=SendSheetInformation sequence=11 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={RealTimeInkSheetInformationMessage;};};}; priority=Default
+  MessageTags: Guid=cc14bff9-6b4a-410b-90a6-82c4dd2d9d9b; Priority=Default
+Message send caller=HandleInkAddedHelper sequence=12 chunk count=1 type=InkSheetStrokesAddedMessage; priority=Default
+  MessageTags: Guid=cc14bff9-6b4a-410b-90a6-82c4dd2d9d9b; Priority=Default
+Message send caller=SendQuickPollChanged sequence=13 chunk count=1 type=PresentationInformationMessage;child={QuickPollInformationMessage;}; priority=Default
+  NO TAGS
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.PresentationModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":59:21
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            DeckNetworkService.SendSlideInformation in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":192:17
+            DeckNetworkService.SendAllSlidesAndContent in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":159:21
+            DeckNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":53:21
+            DeckTraversalNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalNetworkService.cs":30:13
+            DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":121:17
+            PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":64:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            SlideMessage..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\SlideMessages.cs":35:13
+            SlideInformationMessage..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\SlideMessages.cs":127:9
+            DeckTraversalMessage.ForDeckTraversal in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalMessages.cs":71:21
+            DeckTraversalsCollectionHelper.SendTraversalInformation in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":145:17
+            DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":119:17
+            PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":70:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            PropertyPublisher.Initialize in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":92:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":84:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":73:9
+            SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":35:9
+            CreateBlankWhiteboardDeckMenuItem.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\DecksMenu.cs":94:21
+            MenuItem.ShortcutClick
+            Menu.ProcessCmdKey
+            Form.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.PreProcessMessage
+            Control.PreProcessControlMessageInternal
+            ThreadContext.PreTranslateMessage
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.TableOfContentsModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":77:29
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            TCPServerSender.OnCurrentDeckTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\TCP\TCPServerSender.cs":338:25
+            PropertyEventHandler.Invoke
+            PropertyEventHandlerWrapper.Invoke in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":218:25
+            PropertyPublisher.SetPublishedProperty in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":307:17
+            InstructorModel.set_CurrentDeckTraversal in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Network\InstructorModel.cs":37:19
+            DeckTraversalsMirror.SetUp in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\DeckStrip.cs":404:33
+            CollectionMirror`2.<Initialize>b__1 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\CollectionMirror.cs":161:25
+            <>c__DisplayClassa.<.ctor>b__6 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Collection.cs":282:98
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            TabControl.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Message send caller=SendTraversalInformation sequence=14 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideDeckTraversalMessage;};}; priority=Default
+  NO TAGS
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.PresentationModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        DeckNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":46:17
+        DeckTraversalNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalNetworkService.cs":30:13
+        DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":121:17
+        PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+        <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+        ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.PresentationModel:
+            SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":59:21
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+            QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+            ToolStripItem.HandleClick
+            ToolStripItem.HandleMouseUp
+            ToolStrip.OnMouseUp
+            Control.WmMouseUp
+            Control.WndProc
+            ToolStrip.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Message send caller=SendSlideInformation sequence=15 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;};}; priority=Default
+  MessageTags: Guid=8037f1ec-ba39-48a0-815c-cf0533f01356; Priority=Default
+Message send caller=SendGenericChange sequence=16 chunk count=1 type=InstructorMessage; priority=Default
+  NO TAGS
+Message send caller=SendEntryAdded sequence=17 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={TableOfContentsEntryMessage;};};}; priority=Default
+  NO TAGS
+Message send caller=SendSheetInformation sequence=18 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={QuickPollInformationMessage;child={QuickPollSheetMessage;};};};}; priority=Default
+  MessageTags: Guid=8037f1ec-ba39-48a0-815c-cf0533f01356; Priority=Default
+Message send caller=SendSheetInformation sequence=19 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={RealTimeInkSheetInformationMessage;};};}; priority=Default
+  MessageTags: Guid=8037f1ec-ba39-48a0-815c-cf0533f01356; Priority=Default
+Message send caller=HandleInkAddedHelper sequence=20 chunk count=1 type=InkSheetStrokesAddedMessage; priority=Default
+  MessageTags: Guid=8037f1ec-ba39-48a0-815c-cf0533f01356; Priority=Default
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:01 AM
+Message send caller=SendQuickPollChanged sequence=21 chunk count=1 type=PresentationInformationMessage;child={QuickPollInformationMessage;}; priority=Default
+  NO TAGS
+Message send caller=SendGenericChange sequence=22 chunk count=1 type=InstructorMessage; priority=Default
+  NO TAGS
+Message send caller=SendQuickPollChanged sequence=23 chunk count=1 type=PresentationInformationMessage;child={QuickPollInformationMessage;}; priority=Default
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.PresentationModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, UW.ClassroomPresenter.Model.Presentation.DeckModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+          NO TAGS
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":59:21
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            DeckNetworkService.SendSlideInformation in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":192:17
+            DeckNetworkService.SendAllSlidesAndContent in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":159:21
+            DeckNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":53:21
+            DeckTraversalNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalNetworkService.cs":30:13
+            DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":121:17
+            PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+        Object of type UW.ClassroomPresenter.Model.Presentation.DeckModel:
+            DeckNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckNetworkService.cs":46:17
+            DeckTraversalNetworkService..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalNetworkService.cs":30:13
+            DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":121:17
+            PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.SlideDeckTraversalModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":64:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            SlideMessage..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\SlideMessages.cs":35:13
+            SlideInformationMessage..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\SlideMessages.cs":127:9
+            DeckTraversalMessage.ForDeckTraversal in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\DeckTraversalMessages.cs":71:21
+            DeckTraversalsCollectionHelper.SendTraversalInformation in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":145:17
+            DeckTraversalsCollectionHelper.SetUpMember in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\Messages\Presentation\PresentationNetworkService.cs":119:17
+            PropertyCollectionHelper.HandlePropertyChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyCollectionHelper.cs":236:21
+            <>c__DisplayClass1.<HandlePropertyEvent>b__0 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\EventQueue.cs":127:48
+            ThreadEventQueue.ProcessMessages in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\ThreadEventQueue.cs":119:29
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.DeckModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":70:25
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            PropertyPublisher.Initialize in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":92:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":84:13
+            PropertyPublisher..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":73:9
+            SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":35:9
+            CreateBlankWhiteboardDeckMenuItem.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\DecksMenu.cs":94:21
+            MenuItem.ShortcutClick
+            Menu.ProcessCmdKey
+            Form.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.ProcessCmdKey
+            ContainerControl.ProcessCmdKey
+            Control.PreProcessMessage
+            Control.PreProcessControlMessageInternal
+            ThreadContext.PreTranslateMessage
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Synchronizer+LockTrace: An object of type UW.ClassroomPresenter.Model.Presentation.TableOfContentsModel was locked after the following other objects: UW.ClassroomPresenter.Model.Presentation.SlideModel, whereas they were previously locked in a different order.
+    Stack trace of the current lock:
+        SlideModel..ctor in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Presentation\SlideModel.cs":77:29
+        AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Menus\StudentMenu.cs":509:29
+        QuickPollToolBarButton.OnClick in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\ToolBars\InstructorToolBarButtons.cs":424:21
+        ToolStripItem.HandleClick
+        ToolStripItem.HandleMouseUp
+        ToolStrip.OnMouseUp
+        Control.WmMouseUp
+        Control.WndProc
+        ToolStrip.WndProc
+        ControlNativeWindow.WndProc
+        NativeWindow.DebuggableCallback
+        ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+        ThreadContext.RunMessageLoopInner
+        ThreadContext.RunMessageLoop
+        ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+        Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+        AppDomain._nExecuteAssembly
+        HostProc.RunUsersAssembly
+        ExecutionContext.Run
+        ThreadHelper.ThreadStart
+    Stack traces of the previous lock in the different order:
+        Object of type UW.ClassroomPresenter.Model.Presentation.SlideModel:
+            TCPServerSender.OnCurrentDeckTraversalChanged in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Network\TCP\TCPServerSender.cs":338:25
+            PropertyEventHandler.Invoke
+            PropertyEventHandlerWrapper.Invoke in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":218:25
+            PropertyPublisher.SetPublishedProperty in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\PropertyPublisher.cs":307:17
+            InstructorModel.set_CurrentDeckTraversal in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Network\InstructorModel.cs":37:19
+            DeckTraversalsMirror.SetUp in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\FilmStrips\DeckStrip.cs":404:33
+            CollectionMirror`2.<Initialize>b__1 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\CollectionMirror.cs":161:25
+            <>c__DisplayClassa.<.ctor>b__6 in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Model\Collection.cs":282:98
+            RuntimeMethodHandle._InvokeMethodFast
+            RuntimeMethodInfo.Invoke
+            Delegate.DynamicInvokeImpl
+            Control.InvokeMarshaledCallbackDo
+            Control.InvokeMarshaledCallbackHelper
+            ExecutionContext.runTryCode
+            RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup
+            ExecutionContext.Run
+            Control.InvokeMarshaledCallback
+            Control.InvokeMarshaledCallbacks
+            Control.WndProc
+            TabControl.WndProc
+            ControlNativeWindow.WndProc
+            NativeWindow.DebuggableCallback
+            ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop
+            ThreadContext.RunMessageLoopInner
+            ThreadContext.RunMessageLoop
+            ViewerForm.ViewerThreadStart in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\UW.ClassroomPresenter\Viewer\Viewer.cs":792:53
+            Presenter.Main in "c:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\Presenter.cs":79:13
+            AppDomain._nExecuteAssembly
+            HostProc.RunUsersAssembly
+            ExecutionContext.Run
+            ThreadHelper.ThreadStart
+Message send caller=SendSlideInformation sequence=24 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;};}; priority=Default
+  MessageTags: Guid=aa50e785-0818-4418-85ab-479ce71181db; Priority=Default
+Message send caller=SendEntryAdded sequence=25 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={TableOfContentsEntryMessage;};};}; priority=Default
+  NO TAGS
+Message send caller=SendGenericChange sequence=26 chunk count=1 type=InstructorMessage; priority=Default
+  NO TAGS
+Message send caller=SendSheetInformation sequence=27 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={QuickPollInformationMessage;child={QuickPollSheetMessage;};};};}; priority=Default
+  MessageTags: Guid=aa50e785-0818-4418-85ab-479ce71181db; Priority=Default
+Message send caller=SendSheetInformation sequence=28 chunk count=1 type=PresentationInformationMessage;child={DeckInformationMessage;child={SlideInformationMessage;child={RealTimeInkSheetInformationMessage;};};}; priority=Default
+  MessageTags: Guid=aa50e785-0818-4418-85ab-479ce71181db; Priority=Default
+Message send caller=HandleInkAddedHelper sequence=29 chunk count=1 type=InkSheetStrokesAddedMessage; priority=Default
+  MessageTags: Guid=aa50e785-0818-4418-85ab-479ce71181db; Priority=Default
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:11 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:21 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:31 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:41 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:34:51 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:35:01 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:35:12 AM
+UW.ClassroomPresenter.Network.TCP.TCPServer: 9/30/2014 11:35:22 AM
+UW.Class

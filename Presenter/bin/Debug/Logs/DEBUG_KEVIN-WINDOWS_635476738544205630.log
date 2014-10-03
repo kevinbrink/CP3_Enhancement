@@ -1,0 +1,13 @@
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Instructors
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Receivers of Student Submissions
+UW.ClassroomPresenter.Network.TCP.TCPClassroomManager: HandleConnectedChanging
+UW.ClassroomPresenter.Network.TCP.TCPServer: TCPServer setting queue timeout to 10 minutes.
+UW.ClassroomPresenter.Network.TCP.TCPServerSender: TCPServerSender setting Max Concurrent Sends to 50.
+UW.ClassroomPresenter.Network.TCP.TCPServer: Started TCPListener on 0.0.0.0:5664
+Message send caller=SendRoleChangedMessage sequence=1 chunk count=1 type=InstructorMessage; priority=Default
+  NO TAGS
+UW.ClassroomPresenter.Network.Broadcast.BroadcastManager: ServerStartedChangedHandler
+  new value=True
+Message send caller=SendGroupAddedMessage sequence=2 chunk count=1 type=ParticipantGroupAddedMessage; priority=Default
+  NO TAGS
+Message send caller=SendGroupAddedMessage sequence=3 chunk count=1 type=Participant
