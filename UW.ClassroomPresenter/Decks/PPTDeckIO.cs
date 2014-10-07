@@ -188,9 +188,11 @@ namespace UW.ClassroomPresenter.Decks {
 
             List<TaggedShape> taggedShapeList = PPTDeckIO.BuildTaggedShapeList(currentShapes, pptpm);
 
+
             /* The following code was added by Gabriel Martin on Sept 24, 2014 */
             CustomPoll poll;
             ArrayList answrs;
+            poll = null;
 
             /* Check to see if there is any custom XML in the slide */
             if (currentSlide.CustomerData.Count != 0)
@@ -216,10 +218,12 @@ namespace UW.ClassroomPresenter.Decks {
                     pollXML.SelectSingleNode("/CP3Poll/PollCorrectAnswer").Text, answrs);
             }
 
+            /* Create a new SlideModel */
+            SlideModel newSlideModel = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, new Rectangle(0, 0, slideWidth, slideHeight), poll);
+
             /* End of modification */
 
-            //Create a new SlideModel
-            SlideModel newSlideModel = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, new Rectangle(0, 0, slideWidth, slideHeight));
+
             //Lock it
             using (Synchronizer.Lock(newSlideModel.SyncRoot)) {
                 //Set the slide's title

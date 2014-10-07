@@ -93,7 +93,6 @@ C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.Classroom
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\bin\Debug\es-ES\UW.ClassroomPresenter.resources.dll
-C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.csprojResolveAssemblyReference.cache
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.csproj.ResolveComReference.cache
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.Misc.AboutForm.resources
 C:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.Misc.ProgressBarForm.resources
