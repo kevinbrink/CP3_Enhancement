@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using UW.ClassroomPresenter.Model.Presentation;
 
 namespace UW.ClassroomPresenter.Viewer.Slides
 {
@@ -28,14 +29,31 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             stopPollButton.Enabled = true;
             // Start timer
             pollTimer.Start();
+            // Get the deck
+            var deck = PresentationModel.CurrentPresentation.DeckTraversals[0].Deck;
+            // Create a lock on the deck
+            using (Synchronizer.Lock(deck.SyncRoot))
+            {
+                // Create a new, blank slide
+                SlideModel slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);
+                // Insert it
+                deck.InsertSlide(slide);
+                // Add to the table of contents
+                using (Synchronizer.Lock(deck.TableOfContents.SyncRoot))
+                {
+                    TableOfContentsModel.Entry entry = new TableOfContentsModel.Entry(Guid.NewGuid(), deck.TableOfContents, slide);
+                    deck.TableOfContents.Entries.Add(entry);
+                }
+            }
+            // TODO: Need to add actual polling results to the slide, and potentially advance to it
         }
 
         private void stopPollButton_Click(object sender, EventArgs e)
         {
             // Close out dialog
             this.Close();
-            // TODO: Advance to results slide
-            // TODO: Create a new slide in the presentation to display the polling results
+            // TODO: Advance to results slide, and end quick poll 
+            
         }
 
         // An event handler for each tick (in this case, 1 second) of the timer
