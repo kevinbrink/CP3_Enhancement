@@ -29,10 +29,13 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         private string m_Title;
         private float m_Zoom;
         private Color m_BackgroundColor;
+        private CustomPoll m_Poll;
 
-        public SlideModel(Guid id, LocalId localId, SlideDisposition disposition) : this(id, localId, disposition, Rectangle.Empty) {}
+        public SlideModel(Guid id, LocalId localId, SlideDisposition disposition) : this(id, localId, disposition, Rectangle.Empty, null) {}
 
-        public SlideModel(Guid id, LocalId localId, SlideDisposition disposition, Rectangle bounds) {
+        public SlideModel(Guid id, LocalId localId, SlideDisposition disposition, Rectangle bounds) : this(id, localId, disposition, bounds, null) { }
+
+        public SlideModel(Guid id, LocalId localId, SlideDisposition disposition, Rectangle bounds, CustomPoll poll) {
             this.m_Id = id;
             this.m_LocalId = localId;
             this.m_Disposition = disposition;
@@ -44,10 +47,11 @@ namespace UW.ClassroomPresenter.Model.Presentation {
             this.m_BackgroundColor = Color.Empty;
             this.m_SubmissionSlideGuid = Guid.Empty;
             this.m_SubmissionStyle = StudentSubmissionStyle.Normal;
+            this.m_Poll = poll;
         }
 
         public SlideModel(Guid id, LocalId localId, SlideDisposition disposition, Rectangle bounds, Guid associationId)
-            : this(id, localId, disposition, bounds) {
+            : this(id, localId, disposition, bounds, null) {
             this.m_AssociationId = associationId;
 
             //If this is a student submission, the associationID should be set.  In this case we
@@ -129,6 +133,11 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         [Published] public Rectangle Bounds {
             get { return this.GetPublishedProperty("Bounds", ref this.m_Bounds); }
             set { this.SetPublishedProperty("Bounds", ref this.m_Bounds, value); }
+        }
+
+        [Published] public CustomPoll Poll {
+            get { return this.GetPublishedProperty("Poll", ref this.m_Poll); }
+            set { this.SetPublishedProperty("Poll", ref this.m_Poll, value); }
         }
 
         [Published] public float Zoom {

@@ -311,6 +311,7 @@
     </Compile>
     <Compile Include="Model\Network\SubmissionStatusModel.cs" />
     <Compile Include="Model\Network\VersionExchangeModel.cs" />
+    <Compile Include="Model\Presentation\CustomPoll.cs" />
     <Compile Include="Model\Presentation\DeckDisposition.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -991,7 +992,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Viewer\TextAndImageEditing\privatesubmission.png" />
   </ItemGroup>
   <ItemGroup>

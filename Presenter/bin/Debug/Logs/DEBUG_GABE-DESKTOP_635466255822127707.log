@@ -1,0 +1,11 @@
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Instructors
+UW.ClassroomPresenter.Viewer.Slides.RoleSynchronizer: RoleSynchronizer adding group: All Receivers of Student Submissions
+UW.ClassroomPresenter.Decks.DefaultDeckMarshalService: Failed to open "CP3_Poll.pptx": System.Runtime.InteropServices.COMException (0x80048240): Application (unknown member) : Invalid request.  There is no currently active document window.
+   at Microsoft.Office.Interop.PowerPoint.ApplicationClass.get_ActiveWindow()
+   at UW.ClassroomPresenter.Decks.PPTDeckIO.CreateSlide(PageSetup pageSetup, PPTPaneManager pptpm, DeckModel deck, TempFileCollection tempFileCollection, String dirpath, _Slide currentSlide) in c:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\Decks\PPTDeckIO.cs:line 192
+   at UW.ClassroomPresenter.Decks.PPTDeckIO.OpenPPT(FileInfo file, BackgroundWorker worker, DoWorkEventArgs progress) in c:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\Decks\PPTDeckIO.cs:line 122
+   at UW.ClassroomPresenter.Decks.DefaultDeckMarshalService.ReadDeckAsync(FileInfo file, BackgroundWorker worker, DoWorkEventArgs progress) in c:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\Decks\DeckMarshalService.cs:line 49
+       at Microsoft.Office.Interop.PowerPoint.ApplicationClass.get_ActiveWindow()
+   at UW.ClassroomPresenter.Decks.PPTDeckIO.CreateSlide(PageSetup pageSetup, PPTPaneManager pptpm, DeckModel deck, TempFileCollection tempFileCollection, String dirpath, _Slide currentSlide) in c:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\Decks\PPTDeckIO.cs:line 192
+   at UW.ClassroomPresenter.Decks.PPTDeckIO.OpenPPT(FileInfo file, BackgroundWorker worker, DoWorkEventArgs progress) in c:\Users\Gabe\Documents\Visual Studio 2013\Projects\CP3_Enhancement\UW.ClassroomPresenter\Decks\PPTDeckIO.cs:line 122
+   at UW.ClassroomPresenter.Decks.DefaultDec
