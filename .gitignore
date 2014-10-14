@@ -1,13 +1,5 @@
 *.suo
-UW.ClassroomPresenter/bin/Debug/**
-UW.ClassroomPresenter/obj/Debug/**
-Presenter/bin/Debug/**
-Presenter/obj/Debug/**
-UW.ClassroomPresenter/bin/Release/**
-UW.ClassroomPresenter/obj/Release/**
-Presenter/bin/Release/**
-Presenter/obj/Release/**
-UW.ClassroomPresenter/obj/**
-UW.ClassroomPresenter/bin/**
-Presenter/bin/**
-Presenter/obj/**
+UW.ClassroomPresenter/obj/*
+UW.ClassroomPresenter/bin/*
+Presenter/bin/*
+Presenter/obj/*
