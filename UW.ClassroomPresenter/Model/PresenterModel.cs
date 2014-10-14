@@ -9,6 +9,7 @@ using UW.ClassroomPresenter.Model.Undo;
 using UW.ClassroomPresenter.Model.Viewer;
 using UW.ClassroomPresenter.Model.Workspace;
 
+
 namespace UW.ClassroomPresenter.Model {
     public class PresenterModel : PropertyPublisher {
         private readonly NetworkModel m_Network;
@@ -28,6 +29,7 @@ namespace UW.ClassroomPresenter.Model {
         private QuickPollResultModel m_CurrentResult;
         private PenStateModel m_PenState;
 
+   
         public PresenterModel() {
             this.m_Stylus = null;
             this.m_CurrentResult = null;

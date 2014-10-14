@@ -420,8 +420,8 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 this.Checked = !this.Checked;
 
                 // Add a slide to the quickpoll deck containing a new slide for this quickpoll
-                if( this.Checked ) {
-                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll( this.m_Model, this.m_Role );
+                if (this.Checked){
+                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role); 
                 } else {
                     AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll( this.m_Model );
                 }

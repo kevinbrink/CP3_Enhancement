@@ -4,6 +4,7 @@ using System;
 
 using UW.ClassroomPresenter.Model.Presentation;
 
+
 namespace UW.ClassroomPresenter.Model.Network {
     [Serializable]
     public class InstructorModel : RoleModel {
@@ -26,6 +27,11 @@ namespace UW.ClassroomPresenter.Model.Network {
             this.m_AcceptingQuickPollSubmissions = false;
             this.m_ForcingStudentNavigationLock = false;
         }
+
+
+
+       
+
 
         [Published] public PresentationModel CurrentPresentation {
             get { return this.GetPublishedProperty("CurrentPresentation", ref this.m_CurrentPresentation);; }
