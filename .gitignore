@@ -1,3 +1,4 @@
+*.suo
 UW.ClassroomPresenter/bin/Debug/**
 UW.ClassroomPresenter/obj/Debug/**
 Presenter/bin/Debug/**
