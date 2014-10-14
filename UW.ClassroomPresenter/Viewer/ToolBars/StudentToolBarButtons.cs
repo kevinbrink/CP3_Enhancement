@@ -3,17 +3,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
-
-using UW.ClassroomPresenter.Network.Messages.Presentation;
 
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Model.Presentation;
-using UW.ClassroomPresenter.Model.Viewer;
-using UW.ClassroomPresenter.Viewer.Slides;
-using UW.ClassroomPresenter.Viewer.Menus;
-
+using UW.ClassroomPresenter.Network.Messages.Presentation;
 
 namespace UW.ClassroomPresenter.Viewer.ToolBars {
     /// <summary>
@@ -68,7 +62,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         /// <param name="dispatcher">The event queue to dispatch message onto</param>
         public void MakeButtons(ToolStrip main, ToolStrip extra, ControlEventQueue dispatcher) {
             ParticipantToolBarButton submit, yes, no, both, neither, a, b, c, d, e;
-            
+
             submit = new SubmitStudentSubmissionToolBarButton( dispatcher, this.m_Model );
             submit.AutoSize = false;
             submit.Width = 54;
@@ -456,7 +450,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             private readonly IDisposable m_CurrentPresentationDispatcher;
 
             #endregion
-       
+
             /// <summary>
             /// Constructor
             /// </summary>
@@ -524,8 +518,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         }
 
                         // Update the UI
-                       
-                       this.HandleQuickPollChanged( null, null );
+                        this.HandleQuickPollChanged( null, null );
                     } );
 
                 base.InitializeRole();
@@ -645,7 +638,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             private void HandleQuickPollChanged( object sender, PropertyEventArgs args ) {
                 InstructorModel instructor = null;
                 ParticipantModel participant = null;
-       
+
                 // Determine if the button should be visible based on the quick poll style
                 bool IsValidButton = false;
                 using( this.m_Model.Workspace.Lock() ) {
@@ -683,36 +676,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                     if( instructor != null ) {
                         using( Synchronizer.Lock( instructor.SyncRoot ) ) {
                             this.Enabled = instructor.AcceptingQuickPollSubmissions & IsValidButton;
-                            this.Visible = false;
-                            //this.Visible = instructor.AcceptingQuickPollSubmissions & IsValidButton;
-                            if (instructor.AcceptingQuickPollSubmissions & IsValidButton)
-                            {
-
-                                using (this.m_Model.Workspace.Lock())
-                                {
-                                    if (~this.m_Model.Workspace.CurrentPresentation != null)
-                                    {
-                                        using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).SyncRoot))
-                                        {
-                                            if ((~this.m_Model.Workspace.CurrentPresentation).QuickPoll != null)
-                                            {
-                                                using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
-                                                {
-                                                    if (UW.ClassroomPresenter.Model.Presentation.QuickPollModel.GetVoteStringsFromStyle((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle).Contains(this.m_Value))
-                                                    {
-                                                        foreach (String q in (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA)
-                                                        {
-                                                            MessageBox.Show(q);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                      
-                                
-                            }
+                            this.Visible = instructor.AcceptingQuickPollSubmissions & IsValidButton;
                             if( instructor.AcceptingQuickPollSubmissions == false ) {
                                 this.Checked = false;
                                 using( Synchronizer.Lock( this.m_Model.SyncRoot ) ) {

@@ -3,6 +3,7 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+
 using UW.ClassroomPresenter.Decks;
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
@@ -52,7 +53,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                     this.MenuItems.Add( new AcceptingStudentSubmissionsMenuItem( this.m_EventQueue, this.m_Model ) );
                     this.MenuItems.Add( new AcceptingQuickPollSubmissionsMenuItem( this.m_EventQueue, this.m_Model ) );
                     this.MenuItems.Add( new LinkedNavigationMenuItem( this.m_EventQueue, this.m_Model ) );
-                    
                     //this.MenuItems.Add( new StudentSubmissionStyleMenu( this.m_EventQueue, this.m_Model ) );
                     this.Enabled = this.Visible = true;
                 } else {
@@ -67,8 +67,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 }
             }
         }
-
-       
     }
 
     #endregion
@@ -223,8 +221,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         }
 
         protected override void HandleRoleChanged(object sender, PropertyEventArgs args) {
-
-
             //Unregister the previous role's handler, if needed
             if (this.m_Role is InstructorModel) {
                 using (Synchronizer.Lock(this.m_Role.SyncRoot)) {
@@ -283,9 +279,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// </summary>
         private SlideModel m_Slide;
 
- 
-       
-
         #endregion
 
         #region Constructors
@@ -297,7 +290,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="model">The model to work with</param>
         public AcceptingQuickPollSubmissionsMenuItem( ControlEventQueue dispatcher, PresenterModel model )
             : base( dispatcher, model ) {
-             
             this.Text = Strings.EnableQuickPolling;
             this.m_HandleAcceptingQPChangedDispatcher = new EventQueue.PropertyEventDispatcher( this.m_EventQueue, new PropertyEventHandler( this.HandleAcceptingQPChanged ) );
             using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
@@ -309,7 +301,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 }
             }
             this.HandleAcceptingQPChanged( this, null );
-            
+
             // Enable or disable based on there being a valid slide
             this.Enabled = false;
             this.m_Adapter = new WorkspaceModelAdapter( this.m_EventQueue, this, this.m_Model );
@@ -375,7 +367,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="args">The arguments</param>
         protected override void HandleRoleChanged( object sender, PropertyEventArgs args ) {
             //Unregister the previous role's handler, if needed
-
             if( this.m_Role is InstructorModel ) {
                 using( Synchronizer.Lock( this.m_Role.SyncRoot ) ) {
                     ((InstructorModel)this.m_Role).Changed["AcceptingQuickPollSubmissions"].Remove( this.m_HandleAcceptingQPChangedDispatcher.Dispatcher );
@@ -414,11 +405,10 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
             if( this.m_Role is InstructorModel ) {
                 // Update the checked state
                 this.Checked = !this.Checked;
-                
+
                 // Start or end the QuickPoll as needed
                 if( this.Checked ) {
-                  AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role);
-                   
+                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll( this.m_Model, this.m_Role );
                 } else {
                     AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll( this.m_Model );
                 }
@@ -445,13 +435,11 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// </summary>
         /// <param name="model">The PresenterModel</param>
         /// <param name="role">The RoleModel</param>
-        public static void CreateNewQuickPoll(PresenterModel model, RoleModel role)
+        public static void CreateNewQuickPoll( PresenterModel model, RoleModel role )
         {
             // Create the quickpoll
             QuickPollModel newQuickPoll = null;
-            List<String> instructorQA = new List<String>();
             using( Synchronizer.Lock( model.ViewerState.SyncRoot ) ) {
-
                 int questions = 0;
                 String [] questionvalues={"A","B","C","D","E"};
                 if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
@@ -470,18 +458,17 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 {
                     questions = 1;
                 }
-         
-                instructorQA.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1));
+                List<String> questionList = new List<String>();
+                questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1));
                 if (questions != 1)
                 {
                     for (int i = 0; i < questions; i++)
                     {
-                        instructorQA.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + questionvalues.GetValue(i), "", -1, -1));
+                        questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + questionvalues.GetValue(i), "", -1, -1));
 
                     }
                 }
-                newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle, instructorQA );
-             
+                newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle );
             }
 
             // Add a new QuickPoll to the model

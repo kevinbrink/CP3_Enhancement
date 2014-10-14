@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using System.Collections.Generic;
+
 using UW.ClassroomPresenter.Model.Network;
 
 namespace UW.ClassroomPresenter.Model.Presentation {
@@ -113,9 +113,6 @@ namespace UW.ClassroomPresenter.Model.Presentation {
 
         #region Private Members
 
-
-        private List<String> m_instructorQA;
-  
         /// <summary>
         /// The unique ID representing this QuickPoll
         /// </summary>
@@ -144,11 +141,6 @@ namespace UW.ClassroomPresenter.Model.Presentation {
 
         #region Public Members
 
-        public List<String> instructorQA
-        {
-            get { return this.m_instructorQA;}
-            set { this.instructorQA = value; }
-        }
         /// <summary>
         /// Public accessor to the Id
         /// </summary>
@@ -199,7 +191,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
                 this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults" );
                 this.m_Changed = false;
                 this.m_Choices = (string[])m.m_Choices.Clone();
-                this.m_instructorQA = m.instructorQA;
+
                 // Update the results
                 foreach( QuickPollResultModel res in m.QuickPollResults ) {
                     this.AddResult( res );
@@ -212,15 +204,13 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         /// <param name="slideId"></param>
         /// <param name="style"></param>
-        public QuickPollModel(Guid id, Guid slideId, QuickPollStyle style, List<String> instructorQA)
-        {
+        public QuickPollModel( Guid id, Guid slideId, QuickPollStyle style ) {
             this.m_Id = id;
             this.m_OriginalSlideId = slideId;
             this.m_QuickPollStyle = style;
             this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults");
             this.m_Changed = false;
             this.m_Choices = new string[0];
-            this.m_instructorQA = instructorQA;
         }
 
         #endregion
