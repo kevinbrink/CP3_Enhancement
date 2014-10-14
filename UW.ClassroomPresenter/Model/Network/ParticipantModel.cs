@@ -2,7 +2,7 @@
 
 using System;
 using System.Runtime.Serialization;
-
+using System.Collections.Generic;
 using UW.ClassroomPresenter.Network.Groups;
 
 namespace UW.ClassroomPresenter.Model.Network {
@@ -42,6 +42,8 @@ namespace UW.ClassroomPresenter.Model.Network {
             get { return this.m_Id; }
             set { this.m_Id = value; }
         }
+
+     
 
         [Published] public string HumanName {
             get { return this.GetPublishedProperty("HumanName", ref this.m_HumanName); }

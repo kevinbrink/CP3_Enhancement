@@ -105,12 +105,16 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars
         }
         
         private void ToolBarModeChanged(object o, PropertyEventArgs args) {
+            
             using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot)) {
+            
                 if (this.m_Model.ViewerState.ClassmateMode) {
+    
                     this.m_MainToolBar.Visible = false;
                     this.m_MainClassmateToolBar.Visible = true;
                     this.m_ExtraClassmateToolBar.Visible = true;
                 } else {
+  
                     this.m_MainClassmateToolBar.Visible = false;
                     this.m_ExtraClassmateToolBar.Visible = false;
                     this.m_MainToolBar.Visible = true;

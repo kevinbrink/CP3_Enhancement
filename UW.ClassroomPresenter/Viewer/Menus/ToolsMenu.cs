@@ -174,6 +174,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
             /// </summary>
             /// <param name="model">The PresenterModel to operate over</param>
             public PollTypeMenuItem( PresenterModel model ) {
+                
                 m_Model = model;
                 this.Text = Strings.PollType;
 
@@ -187,18 +188,21 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
                     this.m_Model.Participant.Changed["Role"].Add( new PropertyEventHandler( this.HandleRoleChanged ) );
                 }
-
+             
                 // Initialize the state of the menu items.
                 this.HandleRoleChanged( this, null );
             }
 
             protected void HandleRoleChanged( object sender, PropertyEventArgs e ) {
+              
                 using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
+          
                     this.Enabled = this.Visible = this.m_Model.Participant.Role is InstructorModel;
                 }
             }
 
             protected override void Dispose( bool disposing ) {
+                
                 if( disposing ) {
                     using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
                         this.m_Model.Participant.Changed["Role"].Remove( new PropertyEventHandler( this.HandleRoleChanged ) );
@@ -248,7 +252,9 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
             }
 
             protected void HandleStyleChanged( object sender, PropertyEventArgs e ) {
+             
                 using( Synchronizer.Lock( this.localModel.ViewerState.SyncRoot ) ) {
+     
                     this.Checked = (this.localModel.ViewerState.PollStyle == this.m_Style);
                 }
             }
@@ -258,7 +264,9 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
             /// </summary>
             /// <param name="e">The event arguments </param>
             protected override void OnClick( EventArgs e ) {
+          
                 using( Synchronizer.Lock( this.localModel.ViewerState.SyncRoot ) ) {
+              
                     this.localModel.ViewerState.PollStyle = this.m_Style;
                 }
             }
