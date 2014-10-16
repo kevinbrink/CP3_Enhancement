@@ -315,6 +315,7 @@
     </Compile>
     <Compile Include="Model\Network\SubmissionStatusModel.cs" />
     <Compile Include="Model\Network\VersionExchangeModel.cs" />
+    <Compile Include="Model\Presentation\CustomPoll.cs" />
     <Compile Include="Model\Presentation\DeckDisposition.cs">
       <SubType>Code</SubType>
     </Compile>
