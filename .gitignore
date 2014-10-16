@@ -3,3 +3,5 @@
 
 # Except .cs files
 !*.cs
+*.exe
+*.txt
