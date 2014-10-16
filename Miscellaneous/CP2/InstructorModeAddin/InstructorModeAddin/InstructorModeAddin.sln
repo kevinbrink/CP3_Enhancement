@@ -1,0 +1,84 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstructorModeAddin", "InstructorModeAddin.csproj", "{A31E6B0C-EC18-4372-A4CF-4E10FB9688D6}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstructorModeAddinSetup", "InstructorModeAddinSetup\InstructorModeAddinSetup.vdproj", "{8146A70C-AAD3-49C5-899B-755CA28A4DD1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPTLibrary", "..\PPTLibrary\PPTLibrary.csproj", "{88DB7CFB-3BBC-4689-A959-7DE405D37090}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPTDeckBuilder", "..\PPTDeckBuilder\PPTDeckBuilder.csproj", "{7DA64BF3-E14E-43E3-A96C-093B730A74F4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPTPaneManagement", "..\PPTPaneManagement\PPTPaneManagement.csproj", "{37974DEB-DDA1-4B95-B41F-209E66FD65B6}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlideViewer", "..\SlideViewer\SlideViewer.csproj", "{3C61BED7-C158-45BE-BFC5-54594B73993A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPNav", "..\CPNav\CPNav.csproj", "{4E8D3EEE-169C-4B50-BFE7-E99240587750}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccProjectUniqueName0 = ..\\SlideViewer\\SlideViewer.csproj
+		SccProjectName0 = \u0022$/InstructorModeAddin/SlideViewer\u0022,\u0020SDHAAAAA
+		SccLocalPath0 = ..\\SlideViewer
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+		SccProjectUniqueName1 = ..\\CPNav\\CPNav.csproj
+		SccProjectName1 = \u0022$/InstructorModeAddin/CPNav\u0022,\u0020HNIAAAAA
+		SccLocalPath1 = ..\\CPNav
+		SccProvider1 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A31E6B0C-EC18-4372-A4CF-4E10FB9688D6}.Debug.ActiveCfg = Debug|.NET
+		{A31E6B0C-EC18-4372-A4CF-4E10FB9688D6}.Debug.Build.0 = Debug|.NET
+		{A31E6B0C-EC18-4372-A4CF-4E10FB9688D6}.Release.ActiveCfg = Release|.NET
+		{A31E6B0C-EC18-4372-A4CF-4E10FB9688D6}.Release.Build.0 = Release|.NET
+		{8146A70C-AAD3-49C5-899B-755CA28A4DD1}.Debug.ActiveCfg = Debug
+		{8146A70C-AAD3-49C5-899B-755CA28A4DD1}.Release.ActiveCfg = Release
+		{88DB7CFB-3BBC-4689-A959-7DE405D37090}.Debug.ActiveCfg = Debug|.NET
+		{88DB7CFB-3BBC-4689-A959-7DE405D37090}.Debug.Build.0 = Debug|.NET
+		{88DB7CFB-3BBC-4689-A959-7DE405D37090}.Release.ActiveCfg = Release|.NET
+		{88DB7CFB-3BBC-4689-A959-7DE405D37090}.Release.Build.0 = Release|.NET
+		{7DA64BF3-E14E-43E3-A96C-093B730A74F4}.Debug.ActiveCfg = Debug|.NET
+		{7DA64BF3-E14E-43E3-A96C-093B730A74F4}.Debug.Build.0 = Debug|.NET
+		{7DA64BF3-E14E-43E3-A96C-093B730A74F4}.Release.ActiveCfg = Release|.NET
+		{7DA64BF3-E14E-43E3-A96C-093B730A74F4}.Release.Build.0 = Release|.NET
+		{37974DEB-DDA1-4B95-B41F-209E66FD65B6}.Debug.ActiveCfg = Debug|.NET
+		{37974DEB-DDA1-4B95-B41F-209E66FD65B6}.Debug.Build.0 = Debug|.NET
+		{37974DEB-DDA1-4B95-B41F-209E66FD65B6}.Release.ActiveCfg = Release|.NET
+		{37974DEB-DDA1-4B95-B41F-209E66FD65B6}.Release.Build.0 = Release|.NET
+		{3C61BED7-C158-45BE-BFC5-54594B73993A}.Debug.ActiveCfg = Debug|.NET
+		{3C61BED7-C158-45BE-BFC5-54594B73993A}.Debug.Build.0 = Debug|.NET
+		{3C61BED7-C158-45BE-BFC5-54594B73993A}.Release.ActiveCfg = Release|.NET
+		{3C61BED7-C158-45BE-BFC5-54594B73993A}.Release.Build.0 = Release|.NET
+		{4E8D3EEE-169C-4B50-BFE7-E99240587750}.Debug.ActiveCfg = Debug|.NET
+		{4E8D3EEE-169C-4B50-BFE7-E99240587750}.Debug.Build.0 = Debug|.NET
+		{4E8D3EEE-169C-4B50-BFE7-E99240587750}.Release.ActiveCfg = Release|.NET
+		{4E8D3EEE-169C-4B50-BFE7-E99240587750}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
