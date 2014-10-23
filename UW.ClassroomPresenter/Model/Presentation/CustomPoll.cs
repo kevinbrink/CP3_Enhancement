@@ -13,6 +13,7 @@ using System.Text;
 
 namespace UW.ClassroomPresenter.Model.Presentation
 {
+    [Serializable]
     public class CustomPoll
     {
         #region Private Members
