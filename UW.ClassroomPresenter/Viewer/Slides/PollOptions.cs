@@ -25,11 +25,24 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             InitializeComponent();
         }
 
-        public PollOptions(PresenterModel modelIn, RoleModel roleIn)
+        public PollOptions(PresenterModel modelIn)
         {
             InitializeComponent();
             m_Model = modelIn;
-            m_Role = roleIn;
+            using (Synchronizer.Lock(modelIn.Participant))
+            {
+                m_Role = modelIn.Participant.Role;
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            e.Cancel = true;
+            this.Hide();
         }
 
 
@@ -46,6 +59,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             pollTimer.Start();
             // Get the deck
             var deck = PresentationModel.CurrentPresentation.DeckTraversals[0].Deck;
+
             // Create a lock on the deck
             using (Synchronizer.Lock(deck.SyncRoot))
             {
@@ -100,8 +114,19 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             }          
 
             // Close out dialog
-            this.Close();
+            //this.Close();
             // TODO: Advance to results slide, and end quick poll 
+
+            pollTimer.Stop();
+
+            whenDoneRadioButton.Enabled = true;
+            liveRadioButton.Enabled = true;
+            neverRadioButton.Enabled = true;
+            startPollButton.Enabled = true;
+            stopPollButton.Enabled = false;
+
+            //seconds = 0;
+            //minutes = 0;
 
             // Just ended a quickpoll
             DialogResult displayPoll = MessageBox.Show("Display results from poll?",

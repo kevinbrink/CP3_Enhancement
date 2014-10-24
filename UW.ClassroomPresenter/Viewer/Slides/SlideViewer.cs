@@ -32,6 +32,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         public int SlideWidth;
         public int SlideHeight;
 
+
         // HACK: The PixelTransform will become invalid and some SheetRenderers will fail
         //   if the size of the control becomes too small.  This prevents this from happening.
         //   The slide is useless if it's smaller than about this size anyway.
@@ -56,8 +57,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
 
             this.m_SlideDisplay.Invalidated += new InvalidateEventHandler(this.HandleDisplayInvalidated);
 
-            this.Name = "SlideViewer";
-
+            this.Name = "SlideViewer";            
         }
 
 
@@ -121,7 +121,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                     this.m_Slide.Changed["BackgroundColor"].Add(new PropertyEventHandler(this.HandleSlideBoundsChanged));
                 }
 
-                this.HandleSlideBoundsChanged(this.m_Slide, null);
+                this.HandleSlideBoundsChanged(this.m_Slide, null);                
             }
         }
 

@@ -22,6 +22,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
 
         private static string NO_SLIDE_MESSAGE = Strings.NoSlide;
         public PresenterModel presenter_model_;
+        private PollOptions pollOptions;
+
 
         /// <summary>
         /// when we receive a message, this keeps the message up for a little before 
@@ -103,6 +105,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// </summary>
         public MainSlideViewer() {
             this.Name = "MainSlideViewer";
+            //pollOptions = new PollOptions();
+
         }
 
         /// <summary>
@@ -112,6 +116,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// <param name="is_editable">whether text editing mode is enabled in this view (i.e. in filmstrips it is not).</param>
         public MainSlideViewer(PresenterModel model, bool is_editable) {
             ///Initialize variables
+            pollOptions = new PollOptions(model);
             this.Name = "MainSlideViewer";
             presenter_model_ = model;
             editable_page_ = is_editable;
@@ -622,7 +627,16 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                         } else if( current_stylus_ is ImageStylusModel ) {
                             current_image_helper_ = new ImageItCollectionHelper(this, value);
                         }
-                    }
+
+                        using (Synchronizer.Lock(value))
+                        {
+                            if (pollOptions != null)
+                            {
+                                if (value.Poll == null && pollOptions.Visible) pollOptions.Close();
+                                if (value.Poll != null && !pollOptions.Visible) pollOptions.Show();
+                            }
+                        }
+                    }                    
                 }
 
             }
@@ -939,6 +953,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         private readonly DeckTraversalModel m_DeckTraversal;
         private readonly IAdaptee m_Viewer;
         private bool m_Disposed;
+        
 
         public DeckTraversalModelAdapter(EventQueue dispatcher, IAdaptee viewer, DeckTraversalModel traversal) {
             this.m_EventQueue = dispatcher;
@@ -982,7 +997,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                 }
 
                 else {
-                    this.m_Viewer.Slide = this.m_DeckTraversal.Current.Slide;
+                    this.m_Viewer.Slide = this.m_DeckTraversal.Current.Slide;                    
                 }
             }
         }
@@ -996,7 +1011,10 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         }
 
         public interface IAdaptee {
-            SlideModel Slide { set; }
+            SlideModel Slide
+            {
+                set;
+            }
             Color DefaultDeckBGColor { set; }
         }
     }

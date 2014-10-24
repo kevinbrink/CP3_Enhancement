@@ -422,7 +422,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
                 // Add a slide to the quickpoll deck containing a new slide for this quickpoll
                 if( this.Checked ) {
-                    PollOptions pollOptions = new PollOptions(this.m_Model, this.m_Role);
+                    PollOptions pollOptions = new PollOptions(this.m_Model);
                     pollOptions.Show();
                     //DialogResult displayPoll = MessageBox.Show("Begin Poll",
                     //                                            "Start polling",

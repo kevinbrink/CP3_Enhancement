@@ -21,8 +21,6 @@ C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\pt-B
 C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 C:\Users\Kevin\Documents\School\Project\CP3_Enhancement\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.exe.config
-D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.exe
-D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.pdb
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.exe
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\Presenter.pdb
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\UW.ClassroomPresenter.dll
@@ -31,3 +29,5 @@ D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\es-ES\UW.ClassroomPresenter.reso
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\pt-BR\UW.ClassroomPresenter.resources.dll
 D:\Dropbox\VS_Workspace\CP3\Presenter\bin\Debug\zh-CN\UW.ClassroomPresenter.resources.dll
 D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.exe
+D:\Dropbox\VS_Workspace\CP3\Presenter\obj\Debug\Presenter.pdb

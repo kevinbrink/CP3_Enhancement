@@ -1,5 +1,5 @@
 *.suo
-UW.ClassroomPresenter/obj/*
-UW.ClassroomPresenter/bin/*
-Presenter/bin/*
-Presenter/obj/*
+/UW.ClassroomPresenter/obj/*
+/UW.ClassroomPresenter/bin/*
+/Presenter/bin/*
+/Presenter/obj/*

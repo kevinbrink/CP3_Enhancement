@@ -5,6 +5,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+using UW.ClassroomPresenter.Viewer.Slides;
 
 namespace UW.ClassroomPresenter.Model.Presentation {
     [Serializable]
@@ -60,7 +61,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         private readonly MethodInvoker m_HandleEntriesChangedHelperDelegate;
         private readonly AsyncCallback m_HandleEntriesChangedCallbackDelegate;
 
-        private bool m_Disposed;
+        private bool m_Disposed;        
+
 
         protected DefaultDeckTraversalModel(Guid id, DeckModel deck, EntryFilterDelegate filter)
             : base(id, deck) {
@@ -80,7 +82,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
                 }
             }
 
-            this.HandleEntriesChanged(this.Deck.TableOfContents, null);
+            this.HandleEntriesChanged(this.Deck.TableOfContents, null);            
         }
 
         protected override void Dispose(bool disposing) {
@@ -100,7 +102,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         public override TableOfContentsModel.Entry Current {
             get { return this.GetPublishedProperty("Current", ref this.m_Current); }
             set {
-                this.SetPublishedProperty("Current", ref this.m_Current, value);
+                this.SetPublishedProperty("Current", ref this.m_Current, value);                
 
                 // Update the Next and Previous entries.
                 this.UpdateEntries();
@@ -153,7 +155,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
             // but the order in which the locks are acquired cannot be reconciled with other
             // parts of the application.  Delegating to a different thread allows any
             // unexpected locks to be released, avoiding deadlocks.
-            this.m_HandleEntriesChangedHelperDelegate.BeginInvoke(this.m_HandleEntriesChangedCallbackDelegate, null);
+            this.m_HandleEntriesChangedHelperDelegate.BeginInvoke(this.m_HandleEntriesChangedCallbackDelegate, null);          
         }
 
         private void HandleEntriesChangedCallback(IAsyncResult result) {
@@ -172,7 +174,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
                         // The current entry is no longer be accepted by the filter.
                         // Find the next entry relative to the current, or the previous entry if there is no next.
                         TableOfContentsModel.Entry replacement = this.FindNext(this.Current);
-                        this.Current = (replacement != null) ? replacement : this.FindPrevious(this.Current);
+                        this.Current = (replacement != null) ? replacement : this.FindPrevious(this.Current);                        
 
                         // Setting the current entry will have updated the Next and Previous properties,
                         // so there's nothing more to do.
