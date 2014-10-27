@@ -29,7 +29,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
         {
             InitializeComponent();
             m_Model = modelIn;
-            using (Synchronizer.Lock(modelIn.Participant))
+            using (Synchronizer.Lock(modelIn.Participant.SyncRoot))
             {
                 m_Role = modelIn.Participant.Role;
             }
@@ -60,44 +60,82 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             // Get the deck
             var deck = PresentationModel.CurrentPresentation.DeckTraversals[0].Deck;
 
-            // Create a lock on the deck
-            using (Synchronizer.Lock(deck.SyncRoot))
+            // create results slide if whenDone or live is checked
+            if (whenDoneRadioButton.Checked || liveRadioButton.Checked)
             {
-                ///insert the new slide into our deck
-                SlideModel slide;
+
+                // Create a lock on the deck
                 using (Synchronizer.Lock(deck.SyncRoot))
                 {
-                    slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);
-                    deck.Dirty = true;                    
-                    deck.InsertSlide(slide);
-                }
-
-                ///get the index of the current slide that's selected,
-                ///so that we can insert our blank slide there
-                int current_slide_index;
-                using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
-                {
-                    using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value))
+                    ///insert the new slide with poll data into our deck
+                    SlideModel slide;
+                    using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
                     {
-                        current_slide_index = this.m_Model.Workspace.CurrentDeckTraversal.Value.AbsoluteCurrentSlideIndex;
+                        using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value))
+                        {
+                            using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value.Current.Slide))
+                            {
+                                slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);
+
+                            }
+                        }
+                    }
+                    using (Synchronizer.Lock(deck.SyncRoot))
+                    {
+                        deck.Dirty = true;
+                        deck.InsertSlide(slide);
+                    }
+
+                    ///get the index of the current slide that's selected,
+                    ///so that we can insert our blank slide there
+                    int current_slide_index;
+                    using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
+                    {
+                        using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value))
+                        {
+                            current_slide_index = this.m_Model.Workspace.CurrentDeckTraversal.Value.AbsoluteCurrentSlideIndex;
+                        }
+                    }
+
+                    ///don't do anything if no object is selected
+                    if (current_slide_index < 0)
+                    {
+                        return;
+                    }
+
+                    ///Insert our blank slide after the current index. This is modeled after the powerpoint
+                    ///UI
+                    using (Synchronizer.Lock(deck.TableOfContents.SyncRoot))
+                    {
+                        entry = new TableOfContentsModel.Entry(Guid.NewGuid(), deck.TableOfContents, slide);
+                        deck.TableOfContents.Entries.Insert(current_slide_index, entry);
+
                     }
                 }
+            }
 
-                ///don't do anything if no object is selected
-                if (current_slide_index < 0)
+            // switch to slide if live is checked
+            if (liveRadioButton.Checked)
+            {   // Yes, we want to display                   
+
+                // lock and switch to new slide
+                using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
                 {
-                    return;
-                }
-
-                ///Insert our blank slide after the current index. This is modeled after the powerpoint
-                ///UI
-                using (Synchronizer.Lock(deck.TableOfContents.SyncRoot))
-                {
-                    entry = new TableOfContentsModel.Entry(Guid.NewGuid(), deck.TableOfContents, slide);
-                    deck.TableOfContents.Entries.Insert(current_slide_index, entry);
-
+                    DeckTraversalModel tmpTrav = this.m_Model.Workspace.CurrentDeckTraversal.Value;
+                    using (Synchronizer.Lock(tmpTrav.SyncRoot))
+                    {
+                        tmpTrav.Current = entry;
+                    }
                 }
             }
+            using (Synchronizer.Lock(m_Model.Participant.SyncRoot))
+            {
+                using (Synchronizer.Lock(m_Model.Participant.Role.SyncRoot))
+                {
+                    ((InstructorModel)m_Role).AcceptingQuickPollSubmissions = true;
+                }
+            }
+
             // TODO: Need to add actual polling results to the slide, and potentially advance to it
         }
 
@@ -128,13 +166,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             //seconds = 0;
             //minutes = 0;
 
-            // Just ended a quickpoll
-            DialogResult displayPoll = MessageBox.Show("Display results from poll?",
-                                                        "Display polling results",
-                                                        MessageBoxButtons.YesNo);
-            if (displayPoll == DialogResult.Yes)
-            {   // Yes, we want to display
-                // TODO: We need to actually switch to the polling results and figure out how we want to display it all                     
+
+            if (whenDoneRadioButton.Checked)
+            {   // Yes, we want to display                   
 
                 // lock and switch to new slide
                 using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
@@ -145,8 +179,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                         tmpTrav.Current = entry;
                     }
                 }
-
-                MessageBox.Show("Results Slide here! ");
             }
             
         }

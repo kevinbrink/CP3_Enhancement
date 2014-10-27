@@ -116,7 +116,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// <param name="is_editable">whether text editing mode is enabled in this view (i.e. in filmstrips it is not).</param>
         public MainSlideViewer(PresenterModel model, bool is_editable) {
             ///Initialize variables
-            pollOptions = new PollOptions(model);
             this.Name = "MainSlideViewer";
             presenter_model_ = model;
             editable_page_ = is_editable;
@@ -628,12 +627,24 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                             current_image_helper_ = new ImageItCollectionHelper(this, value);
                         }
 
-                        using (Synchronizer.Lock(value))
+                        if (pollOptions == null)
+                            pollOptions = new PollOptions(presenter_model_);
+
+                        using (Synchronizer.Lock(presenter_model_.Participant.SyncRoot))
                         {
-                            if (pollOptions != null)
+                            if (presenter_model_.Participant.Role is InstructorModel)
                             {
-                                if (value.Poll == null && pollOptions.Visible) pollOptions.Close();
-                                if (value.Poll != null && !pollOptions.Visible) pollOptions.Show();
+                                using (Synchronizer.Lock(value))
+                                {
+                                    using (Synchronizer.Lock(presenter_model_.Participant.Role.SyncRoot))
+                                    {
+                                        if (pollOptions != null)
+                                        {
+                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Close();
+                                            if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Show();
+                                        }
+                                    }
+                                }
                             }
                         }
                     }                    

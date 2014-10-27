@@ -134,3 +134,4 @@ D:\Dropbox\VS_Workspace\CP3\UW.ClassroomPresenter\obj\Debug\pt-BR\UW.ClassroomPr
 D:\Dropbox\VS_Workspace\CP3\UW.ClassroomPresenter\obj\Debug\es-ES\UW.ClassroomPresenter.resources.dll
 D:\Dropbox\VS_Workspace\CP3\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.dll
 D:\Dropbox\VS_Workspace\CP3\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.pdb
+D:\Dropbox\VS_Workspace\CP3\UW.ClassroomPresenter\obj\Debug\UW.ClassroomPresenter.csprojResolveAssemblyReference.cache
