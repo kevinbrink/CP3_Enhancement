@@ -895,6 +895,28 @@ namespace UW.ClassroomPresenter.Decks
                 bf.Serialize(fs, deck);
                 fs.Flush();
             }
+            catch (IOException)
+            {
+                // Probably ran out of disk space
+                MessageBox.Show("An error occured while saving presentation. Please ensure you have enough space on the destination drive, and try again",
+                    "Error while saving", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                try
+                {
+                    // Attempt to close the filestream
+                    fs.Close();
+                }
+                catch
+                {
+                    // If that fails, we need to disable the 
+                    // default finalize for the filestream, which
+                    // happens when the garbage collector (GC) tries
+                    // to clean up. This probably leaks a FS handle, 
+                    // but it lets the code run
+                    GC.SuppressFinalize(fs);
+                }
+                // Delete the file
+                file.Delete();
+            }
             finally
             {
                 fs.Close();
