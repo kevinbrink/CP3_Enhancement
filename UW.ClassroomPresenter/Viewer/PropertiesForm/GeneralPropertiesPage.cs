@@ -691,6 +691,8 @@ namespace UW.ClassroomPresenter.Viewer.PropertiesForm {
                 public PagesDropDown( ViewerStateModel vsm, Point location, Size size, int tabIndex ) {
                     this.m_VSModel = vsm;
                     this.SuspendLayout();
+                    // Set the style so that the user cannot manually enter numbers
+                    this.DropDownStyle = ComboBoxStyle.DropDownList;
 
                     this.FlatStyle = FlatStyle.System;
                     this.Location = location;

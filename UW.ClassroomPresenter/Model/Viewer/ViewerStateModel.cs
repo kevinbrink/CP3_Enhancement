@@ -516,7 +516,7 @@ namespace UW.ClassroomPresenter.Model.Viewer {
             this.m_PollStyle = QuickPollModel.QuickPollStyle.ABCD;
             this.m_Document = new PrintDocument();
             this.m_PrintableDeck = null;
-            this.m_SlidesPerPage = 6;
+            this.m_SlidesPerPage = 4;
             this.m_LoggingEnabled = true;
             this.m_LoggingPath = ".\\Logs";
             this.m_SecondMonitorEnabled = true;

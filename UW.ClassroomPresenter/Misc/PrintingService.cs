@@ -25,7 +25,7 @@ namespace UW.ClassroomPresenter.Misc {
         private Font sheet_number_font = new Font( FontFamily.GenericSansSerif, 12.0f );
         private int m_SheetNumber = 1;
         private int m_PageNumber = -1;
-        private int m_PagesPerSheet = 6;
+        private int m_PagesPerSheet;
 
         #endregion
 
@@ -45,6 +45,11 @@ namespace UW.ClassroomPresenter.Misc {
 
             // Add even listeners
             this.m_ViewerState.Changed["SlidesPerPage"].Add( new PropertyEventHandler( this.OnPageSetupChanged ) );
+
+            // Set the default value for pages per sheet
+            using (Synchronizer.Lock(this.m_ViewerState.SyncRoot)) { // Get a lock first
+                m_PagesPerSheet = this.m_ViewerState.SlidesPerPage;
+            }
         }
 
         #endregion
