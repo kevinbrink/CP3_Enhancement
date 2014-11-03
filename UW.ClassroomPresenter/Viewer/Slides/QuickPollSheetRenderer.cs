@@ -20,6 +20,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// Variable to keep track of when this object is disposed
         /// </summary>
         private bool m_Disposed;        
+
+
+
         /// <summary>
         /// Listener for the SlideDisplay.PixelTransform property.
         /// </summary>
@@ -42,6 +45,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             this.m_Sheet.QuickPoll.Changed["Updated"].Add(new PropertyEventHandler(this.repaint_dispatcher_.Dispatcher));
             this.SlideDisplay.Changed["Slide"].Add(new PropertyEventHandler(this.repaint_dispatcher_.Dispatcher));
         }
+
+       
 
         #endregion
 
@@ -103,7 +108,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             StringFormat format = new StringFormat( StringFormat.GenericDefault );
             format.Alignment = StringAlignment.Center;
             format.LineAlignment = StringAlignment.Center;
-
+           
             // Sanity Check
             using( Synchronizer.Lock( this.m_Sheet.SyncRoot ) ) {
                 if( this.m_Sheet.QuickPoll == null ) {
@@ -132,7 +137,31 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             System.Collections.Hashtable table;
             using( Synchronizer.Lock( this.m_Sheet.SyncRoot ) ) {
                 using( Synchronizer.Lock( this.m_Sheet.QuickPoll.SyncRoot ) ) {
-                    names = QuickPollModel.GetVoteStringsFromStyle( this.m_Sheet.QuickPoll.PollStyle );
+
+                    if (this.m_Sheet.QuickPoll.PollStyle.ToString().Equals("YesNo"))
+                    {
+
+                        names = new System.Collections.ArrayList { "Yes", "No" };
+
+                    }
+                    else if (this.m_Sheet.QuickPoll.PollStyle.ToString().Equals("YesNoBoth"))
+                    {
+
+                        names = new System.Collections.ArrayList { "Yes", "No", "Both" };
+
+                    }
+                    else if (this.m_Sheet.QuickPoll.PollStyle.ToString().Equals("YesNoNeither"))
+                    {
+
+                        names = new System.Collections.ArrayList { "Yes", "No", "Neither" };
+
+                    }else
+                    {
+
+                        names = new System.Collections.ArrayList(this.m_Sheet.QuickPoll.instructorQA).GetRange(1, this.m_Sheet.QuickPoll.instructorQA.Count - 1);
+
+                    }
+                    
                     table = this.m_Sheet.QuickPoll.GetVoteCount();
                 }
             }

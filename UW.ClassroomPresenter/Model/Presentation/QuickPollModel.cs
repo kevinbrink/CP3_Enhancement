@@ -291,16 +291,37 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// <returns></returns>
         public Hashtable GetVoteCount() {
             // Get the possible strings
-            ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle );
+            //ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle );
+            ArrayList strings;
             Hashtable counts = new Hashtable();
-            foreach( string s in strings ) {
-                counts.Add( s, 0 );
-            }
+            if (PollStyle.ToString().Equals("YesNo")){
 
+                strings = new ArrayList { "Yes", "No" };
+
+            }else if (PollStyle.ToString().Equals("YesNoBoth") ){
+            
+                strings = new ArrayList { "Yes", "No", "Both" };
+
+            }
+            else if (PollStyle.ToString().Equals("YesNoNeither"))
+            {
+
+                strings = new ArrayList { "Yes", "No", "Neither" };
+
+            }else{
+
+                strings = new ArrayList(instructorQA.GetRange(1,instructorQA.Count-1));
+
+            }
+             for (int i = 0; i < strings.Count; i++)
+                {
+                    counts.Add(strings[i], 0);
+
+                }
             // Count up the votes
             foreach( QuickPollResultModel m in this.m_QuickPollResults ) {
                 using( Synchronizer.Lock( m.SyncRoot ) ) {
-                    System.Diagnostics.Debug.Assert( counts.ContainsKey( m.ResultString ) );
+                    System.Diagnostics.Debug.Assert( counts.ContainsKey( this.m_instructorQA.GetRange(1, this.m_instructorQA.Count-1 )));
                     counts[m.ResultString] = ((int)counts[m.ResultString]) + 1;
                 }
             }

@@ -524,7 +524,6 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         }
 
                         // Update the UI
-                       
                        this.HandleQuickPollChanged( null, null );
                     } );
 
@@ -642,10 +641,12 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// </summary>
             /// <param name="sender">The event sender</param>
             /// <param name="args">The arguments</param>
-            private void HandleQuickPollChanged( object sender, PropertyEventArgs args ) {
+            private void HandleQuickPollChanged( object sender, PropertyEventArgs args) {
                 InstructorModel instructor = null;
                 ParticipantModel participant = null;
-       
+
+                int counter = 0;
+
                 // Determine if the button should be visible based on the quick poll style
                 bool IsValidButton = false;
                 using( this.m_Model.Workspace.Lock() ) {
@@ -687,10 +688,9 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                             //this.Visible = instructor.AcceptingQuickPollSubmissions & IsValidButton;
                             if (instructor.AcceptingQuickPollSubmissions & IsValidButton)
                             {
-
                                 using (this.m_Model.Workspace.Lock())
                                 {
-                                    if (~this.m_Model.Workspace.CurrentPresentation != null)
+                                     if (~this.m_Model.Workspace.CurrentPresentation != null)
                                     {
                                         using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).SyncRoot))
                                         {
@@ -698,11 +698,18 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                             {
                                                 using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
                                                 {
+
                                                     if (UW.ClassroomPresenter.Model.Presentation.QuickPollModel.GetVoteStringsFromStyle((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle).Contains(this.m_Value))
                                                     {
                                                         foreach (String q in (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA)
                                                         {
-                                                            MessageBox.Show(q);
+                                                            counter++;
+                                                        }
+                                                       
+                                                        if (counter == (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.Count)
+                                                        {
+                                                            MyDialog newDialog = new MyDialog((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA, m_Model, m_Role);
+                                                            newDialog.ShowDialog();
                                                         }
                                                     }
                                                 }
@@ -710,8 +717,6 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                         }
                                     }
                                 }
-                      
-                                
                             }
                             if( instructor.AcceptingQuickPollSubmissions == false ) {
                                 this.Checked = false;
@@ -755,6 +760,193 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         using( Synchronizer.Lock( this.m_Model.CurrentStudentQuickPollResult.SyncRoot ) ) {
                             this.Checked = (this.m_Model.CurrentStudentQuickPollResult.ResultString == this.m_Value);
                         }
+                    }
+                }
+            }
+
+        }
+
+        #endregion
+
+        #region Quickpoll Dialog Class
+        /*
+         * This is the Form Shown to the Student once the teacher has Filled out the quick pool Question and Answers.  
+         */
+        class MyDialog : System.Windows.Forms.Form
+        {
+            //Question Set by the teacher to be shown to the user
+            private Label question;
+            private GroupBox radiogroup;
+            //Set of radio buttons displaying the answers set by the prof
+            private RadioButton[] radioButtons;
+            private readonly PresenterModel m_Model;
+            private RoleModel m_role;
+            /*
+             *The Dialog is passed the Question and answer list (QAlist in Quickpoll)  set by the prof 
+             */
+            public MyDialog(List<String> QAlist,  PresenterModel model, RoleModel role)
+            {
+                Size = new Size(400, 250);
+                FormBorderStyle = FormBorderStyle.FixedDialog;
+                Text = "Quickpoll";
+
+                question = new Label();
+                question.Location = new Point(10, 10);
+                question.Size = new Size(380, 30);
+                question.Text = QAlist[0];
+                Controls.Add(question);
+
+                radiogroup = new GroupBox();
+                radiogroup.Location = new Point(10, 40);
+                radiogroup.Size = new Size(380, 150);
+                Controls.Add(radiogroup);
+
+                m_Model = model;
+                m_role = role;
+
+                int x = 10;
+                int y = 10;
+
+                if (QAlist.Count > 1)
+                {
+
+                    radioButtons = new RadioButton[QAlist.Count - 1];
+
+                    for (int i = 1; i < QAlist.Count; i++)
+                    {
+                        radioButtons[i - 1] = new RadioButton();
+                        radioButtons[i - 1].Location = new Point(x, y);
+                        radioButtons[i - 1].Size = new Size(360, 25);
+                        radioButtons[i - 1].Text = QAlist[i];
+                        radioButtons[i - 1].CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+                        radiogroup.Controls.Add(radioButtons[i - 1]);
+                        y = y + 25;
+                    }
+                }
+                else if (QAlist.Count <= 1)
+                {
+                    String pollStyle = (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle.ToString();
+                    Console.WriteLine(pollStyle);
+                    switch(pollStyle){
+                        case "YesNo":
+                            radioButtons = new RadioButton[2];
+                            string[] yesNoStrings = new string[2] {"Yes","No"};
+
+                            for (int i = 0; i < yesNoStrings.Length; i++)
+                            {
+                                radioButtons[i] = new RadioButton();
+                                radioButtons[i].Location = new Point(x, y);
+                                radioButtons[i].Size = new Size(360, 25);
+                                radioButtons[i].Text = yesNoStrings[i];
+                                radioButtons[i].CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+                                radiogroup.Controls.Add(radioButtons[i]);
+                                if (i == 0)
+                                    radioButtons[i].Tag = "Yes";
+                                if (i == 1)
+                                    radioButtons[i].Tag = "No";
+                       
+                                y = y + 25;
+                            }
+                            break;
+                        case "YesNoBoth":
+                            radioButtons = new RadioButton[3];
+                            string[] YesNoBothStrings = new string[3] { "Yes", "No", "Both" };
+
+                            for (int i = 0; i < YesNoBothStrings.Length; i++)
+                            {
+                                radioButtons[i] = new RadioButton();
+                                radioButtons[i].Location = new Point(x, y);
+                                radioButtons[i].Size = new Size(360, 25);
+                                radioButtons[i].Text = YesNoBothStrings[i];
+                                radioButtons[i].CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+                                radiogroup.Controls.Add(radioButtons[i]);
+                                y = y + 25;
+                            }
+                            break;
+                        case "YesNoNeither":
+                            radioButtons = new RadioButton[3];
+                            string[] YesNoNeitherStrings = new string[3] { "Yes", "No", "Neither" };
+
+                            for (int i = 0; i < YesNoNeitherStrings.Length; i++)
+                            {
+                                radioButtons[i] = new RadioButton();
+                                radioButtons[i].Location = new Point(x, y);
+                                radioButtons[i].Size = new Size(360, 25);
+                                radioButtons[i].Text = YesNoNeitherStrings[i];
+                                radioButtons[i].CheckedChanged += new System.EventHandler(this.radioButtons_CheckedChanged);
+                                radiogroup.Controls.Add(radioButtons[i]);
+                                y = y + 25;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            private void CreateNewQuickPollResult(ParticipantModel owner, string result)
+            {
+                using (Synchronizer.Lock(this.m_Model))
+                {
+                    // Create the QuickPollResultModel
+                    using (Synchronizer.Lock(owner.SyncRoot))
+                    {
+                        this.m_Model.CurrentStudentQuickPollResult = new QuickPollResultModel(owner.Guid, result);
+                    }
+
+                    // Add to the QuickPollResults
+                    using (this.m_Model.Workspace.Lock())
+                    {
+                        if (~this.m_Model.Workspace.CurrentPresentation != null)
+                        {
+                            using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).SyncRoot))
+                            {
+                                if ((~this.m_Model.Workspace.CurrentPresentation).QuickPoll != null)
+                                {
+                                    using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
+                                    {
+                                        if ((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults != null)
+                                        {
+                                            (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults.Add(this.m_Model.CurrentStudentQuickPollResult);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            void radioButtons_CheckedChanged(object sender, EventArgs e)
+            {
+                RadioButton rb = sender as RadioButton;
+                if (rb != null)
+                {
+                    if (rb.Checked)
+                    {
+                        // Only one radio button will be checked
+                        Console.WriteLine("Changed: " + rb.Name);
+                        // Only do this if we are a student
+                        if (this.m_role is StudentModel)
+                        {
+                            using (Synchronizer.Lock(this.m_Model))
+                            {
+                                if (this.m_Model.CurrentStudentQuickPollResult != null)
+                                {
+                                    // Update the existing QuickPollResultModel
+                                    using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
+                                    {
+                                        this.m_Model.CurrentStudentQuickPollResult.ResultString = this.Text;
+                                    }
+                                }
+                                else
+                                {
+                                    // Create a new QuickPollResultModel and put it in all the right places
+                                    CreateNewQuickPollResult(this.m_Model.Participant, this.Text);
+                                }
+                            }
+                        }
+                        this.Close();
+                        base.OnClick(e);
                     }
                 }
             }
