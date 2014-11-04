@@ -8,8 +8,10 @@ using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Presentation;
 using UW.ClassroomPresenter.Model.Viewer;
 
-namespace UW.ClassroomPresenter.Viewer.Slides {
-    class QuickPollSheetRenderer : SheetRenderer {
+namespace UW.ClassroomPresenter.Viewer.Slides
+{
+    class QuickPollSheetRenderer : SheetRenderer
+    {
         #region Private Members
 
         /// <summary>
@@ -19,7 +21,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// <summary>
         /// Variable to keep track of when this object is disposed
         /// </summary>
-        private bool m_Disposed;        
+        private bool m_Disposed;
 
 
 
@@ -37,7 +39,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// </summary>
         /// <param name="display">The SlideDisplayModel</param>
         /// <param name="sheet">The QuickPollSheetModel</param>
-        public QuickPollSheetRenderer( SlideDisplayModel display, QuickPollSheetModel sheet) : base(display, sheet) {
+        public QuickPollSheetRenderer(SlideDisplayModel display, QuickPollSheetModel sheet)
+            : base(display, sheet)
+        {
             this.m_Sheet = sheet;
             repaint_dispatcher_ = new EventQueue.PropertyEventDispatcher(SlideDisplay.EventQueue, this.Repaint);
 
@@ -46,7 +50,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             this.SlideDisplay.Changed["Slide"].Add(new PropertyEventHandler(this.repaint_dispatcher_.Dispatcher));
         }
 
-       
+
 
         #endregion
 
@@ -56,16 +60,21 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// 
         /// </summary>
         /// <param name="disposing"></param>
-        protected override void Dispose(bool disposing) {
-            if(this.m_Disposed) return;
-            try {
-                if(disposing) {
+        protected override void Dispose(bool disposing)
+        {
+            if (this.m_Disposed) return;
+            try
+            {
+                if (disposing)
+                {
                     // TODO CMPRINCE: Change these also...
                     this.m_Sheet.QuickPoll.Changed["Updated"].Remove(new PropertyEventHandler(this.repaint_dispatcher_.Dispatcher));
                     this.SlideDisplay.Changed["Slide"].Remove(new PropertyEventHandler(this.repaint_dispatcher_.Dispatcher));
                     this.SlideDisplay.Invalidate();
                 }
-            } finally {
+            }
+            finally
+            {
                 base.Dispose(disposing);
             }
             this.m_Disposed = true;
@@ -77,7 +86,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// <summary>
         /// Specifies the different types of ways to display the quick poll results
         /// </summary>
-        public enum ResultDisplayType {
+        public enum ResultDisplayType
+        {
             Text = 0,
             Histogram = 1
         };
@@ -100,43 +110,50 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// Paints the text of the textsheetmodel onto the slide using the DrawString method.
         /// </summary>
         /// <param name="args"></param>
-        public override void Paint(PaintEventArgs args) {            
+        public override void Paint(PaintEventArgs args)
+        {
             Graphics g = args.Graphics;
             int startX, startY, endX, endY, width, height;
             RectangleF finalLocation;
-            Font writingFont = new Font( FontFamily.GenericSansSerif, 12.0f );
-            StringFormat format = new StringFormat( StringFormat.GenericDefault );
+            Font writingFont = new Font(FontFamily.GenericSansSerif, 12.0f);
+            StringFormat format = new StringFormat(StringFormat.GenericDefault);
             format.Alignment = StringAlignment.Center;
             format.LineAlignment = StringAlignment.Center;
-           
+
             // Sanity Check
-            using( Synchronizer.Lock( this.m_Sheet.SyncRoot ) ) {
-                if( this.m_Sheet.QuickPoll == null ) {
+            using (Synchronizer.Lock(this.m_Sheet.SyncRoot))
+            {
+                if (this.m_Sheet.QuickPoll == null)
+                {
                     return;
                 }
             }
 
             // Get everything we need from the SlideDisplay
-            using( Synchronizer.Lock( this.SlideDisplay.SyncRoot ) ) {
+            using (Synchronizer.Lock(this.SlideDisplay.SyncRoot))
+            {
                 ///transform what we will paint so that it will fit nicely into our slideview
                 g.Transform = this.SlideDisplay.PixelTransform;
 
-                using( Synchronizer.Lock( this.SlideDisplay.Slide.SyncRoot ) ) {
+                using (Synchronizer.Lock(this.SlideDisplay.Slide.SyncRoot))
+                {
                     startX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.5f);
                     endX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.95f);
                     startY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.3f);
                     endY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.85f);
                     width = endX - startX;
                     height = endY - startY;
-                    finalLocation = new RectangleF( startX, startY, width, height );
+                    finalLocation = new RectangleF(startX, startY, width, height);
                 }
             }
 
             // Get the vote data
             System.Collections.ArrayList names;
             System.Collections.Hashtable table;
-            using( Synchronizer.Lock( this.m_Sheet.SyncRoot ) ) {
-                using( Synchronizer.Lock( this.m_Sheet.QuickPoll.SyncRoot ) ) {
+            using (Synchronizer.Lock(this.m_Sheet.SyncRoot))
+            {
+                using (Synchronizer.Lock(this.m_Sheet.QuickPoll.SyncRoot))
+                {
 
                     if (this.m_Sheet.QuickPoll.PollStyle.ToString().Equals("YesNo"))
                     {
@@ -155,34 +172,38 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
 
                         names = new System.Collections.ArrayList { "Yes", "No", "Neither" };
 
-                    }else
+                    }
+                    else
                     {
 
                         names = new System.Collections.ArrayList(this.m_Sheet.QuickPoll.instructorQA).GetRange(1, this.m_Sheet.QuickPoll.instructorQA.Count - 1);
 
                     }
-                    
+
                     table = this.m_Sheet.QuickPoll.GetVoteCount();
                 }
             }
 
             // Draw the outline
-            g.FillRectangle( Brushes.White, startX - 1, startY - 1, width, height );
-            g.DrawRectangle( Pens.Black, startX - 1, startY - 1, width, height );
+            g.FillRectangle(Brushes.White, startX - 1, startY - 1, width, height);
+            g.DrawRectangle(Pens.Black, startX - 1, startY - 1, width, height);
 
-            switch( this.DisplayType ) {
+            switch (this.DisplayType)
+            {
                 case ResultDisplayType.Text: // Text
                     // Get the results string
                     string result = "";
-                    foreach( string s in table.Keys ) {
+                    foreach (string s in table.Keys)
+                    {
                         result += QuickPollModel.GetLocalizedQuickPollString(s) + " - " + table[s].ToString() + System.Environment.NewLine;
                     }
-                    g.DrawString( result, writingFont, Brushes.Black, finalLocation, format );
+                    g.DrawString(result, writingFont, Brushes.Black, finalLocation, format);
                     break;
-                case ResultDisplayType.Histogram:                    
+                case ResultDisplayType.Histogram:
                     // Count the total number of results
                     int totalVotes = 0;
-                    foreach( string s in table.Keys ) {
+                    foreach (string s in table.Keys)
+                    {
                         totalVotes += (int)table[s];
                     }
 
@@ -190,33 +211,37 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                     float columnWidth = width / names.Count;
                     int columnStartY = (int)((height * 0.9f) + startY);
                     int columnTotalHeight = columnStartY - startY;
-                    for( int i = 0; i < names.Count; i++ ) {
+                    for (int i = 0; i < names.Count; i++)
+                    {
                         // Draw the column
                         int columnHeight = 0;
-                        if( totalVotes != 0 ) {
-                            columnHeight = (int)Math.Round( (float)columnTotalHeight * ((int)table[names[i]] / (float)totalVotes) );
+                        if (totalVotes != 0)
+                        {
+                            columnHeight = (int)Math.Round((float)columnTotalHeight * ((int)table[names[i]] / (float)totalVotes));
                         }
-                        if( columnHeight == 0 ) {
+                        if (columnHeight == 0)
+                        {
                             columnHeight = 1;
                         }
-                        g.FillRectangle( this.columnBrushes[i], (int)(i * columnWidth) + startX, columnStartY - columnHeight, (int)columnWidth, columnHeight );
+                        g.FillRectangle(this.columnBrushes[i], (int)(i * columnWidth) + startX, columnStartY - columnHeight, (int)columnWidth, columnHeight);
 
                         // Draw the label
-                        g.DrawString( QuickPollModel.GetLocalizedQuickPollString( names[i].ToString() ),
+                        g.DrawString(QuickPollModel.GetLocalizedQuickPollString(names[i].ToString()),
                                       writingFont,
                                       Brushes.Black,
-                                      new RectangleF( (i * columnWidth) + startX, columnStartY, columnWidth, endY - columnStartY ),
-                                      format );
+                                      new RectangleF((i * columnWidth) + startX, columnStartY, columnWidth, endY - columnStartY),
+                                      format);
 
                         // Draw the number
-                        string percentage = String.Format( "{0:0%}", (totalVotes == 0) ? 0 : (float)(((int)table[names[i]] / (float)totalVotes)) );
+                        string percentage = String.Format("{0:0%}", (totalVotes == 0) ? 0 : (float)(((int)table[names[i]] / (float)totalVotes)));
                         int numberHeight = (endY - columnStartY) * 2;
-                        RectangleF numberRectangle = new RectangleF( (i * columnWidth) + startX,
+                        RectangleF numberRectangle = new RectangleF((i * columnWidth) + startX,
                                                                      (numberHeight > columnHeight) ? (columnStartY - columnHeight - numberHeight) : (columnStartY - columnHeight),
                                                                      columnWidth,
-                                                                     numberHeight );
+                                                                     numberHeight);
+
                         string numberString = percentage + System.Environment.NewLine + "(" + table[names[i]].ToString() + ")";
-                        g.DrawString( numberString, writingFont, Brushes.Black, numberRectangle, format );
+                        g.DrawString(numberString, writingFont, Brushes.Black, numberRectangle, format);
                     }
                     break;
             }
