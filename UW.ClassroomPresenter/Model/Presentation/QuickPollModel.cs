@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 using UW.ClassroomPresenter.Model.Network;
 
@@ -130,6 +132,9 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         private QuickPollResultCollection m_QuickPollResults;
 
+
+        private List<String> m_instructorQA;
+        private bool m_queryStudent;
         private bool m_Changed;
 
         /// <summary>
@@ -153,6 +158,17 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         public Guid OriginalSlideId {
             get { return this.m_OriginalSlideId; }
+        }
+
+        public List<String> instructorQA{
+            get{return this.m_instructorQA;}
+            set{ this.instructorQA=value;}
+        }
+
+        public bool queryStudent
+        {
+            get { return this.m_queryStudent;}
+            set { this.m_queryStudent = value; }
         }
 
         /// <summary>
@@ -183,7 +199,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// <summary>
         /// Constructor
         /// </summary>
-        public QuickPollModel( Guid id, QuickPollModel m ) {
+        public QuickPollModel( Guid id, QuickPollModel m) {
             using( Synchronizer.Lock( m.SyncRoot ) ) {
                 this.m_Id = id;
                 this.m_OriginalSlideId = m.OriginalSlideId;
@@ -191,7 +207,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
                 this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults" );
                 this.m_Changed = false;
                 this.m_Choices = (string[])m.m_Choices.Clone();
-
+                this.m_instructorQA=m.instructorQA;
+                this.m_queryStudent = m.queryStudent;
                 // Update the results
                 foreach( QuickPollResultModel res in m.QuickPollResults ) {
                     this.AddResult( res );
@@ -204,13 +221,15 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         /// <param name="slideId"></param>
         /// <param name="style"></param>
-        public QuickPollModel( Guid id, Guid slideId, QuickPollStyle style ) {
+        public QuickPollModel( Guid id, Guid slideId, QuickPollStyle style, List<String> instructorQA ) {
             this.m_Id = id;
             this.m_OriginalSlideId = slideId;
             this.m_QuickPollStyle = style;
             this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults");
             this.m_Changed = false;
             this.m_Choices = new string[0];
+            this.m_instructorQA=instructorQA;
+      
         }
 
         #endregion
@@ -230,7 +249,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
                     }
                 }
                 this.Updated = !this.Updated;
-            }
+            } 
         }
 
         #region QuickPollResultCollection

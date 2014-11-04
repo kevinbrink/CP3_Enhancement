@@ -19,6 +19,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
         private PresenterModel m_Model;
         private RoleModel m_Role;
         private TableOfContentsModel.Entry entry;
+        private List<String> instructorQA;
 
         public PollOptions()
         {
@@ -33,6 +34,18 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             {
                 m_Role = modelIn.Participant.Role;
             }
+        }
+
+        public List<String> InstructorQA
+        { 
+            get { return instructorQA; } 
+            set { instructorQA = value; }
+        }
+
+        public PresenterModel Model
+        {
+            get { return m_Model; }
+            set { m_Model = value; }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -135,6 +148,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                     ((InstructorModel)m_Role).AcceptingQuickPollSubmissions = true;
                 }
             }
+
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role, instructorQA);
 
             // TODO: Need to add actual polling results to the slide, and potentially advance to it
         }

@@ -17,13 +17,12 @@ using UW.ClassroomPresenter.Viewer.Menus;
 namespace UW.ClassroomPresenter.Viewer.ToolBars {
     /// <summary>
     /// Builds the instructor ToolBar buttons
-    /// </summary>    
-
+    /// </summary>
     public class InstructorToolBarButtons {
         /// <summary>
         /// The presenter model
         /// </summary>
-        private readonly PresenterModel m_Model;        
+        private readonly PresenterModel m_Model;
 
         /// <summary>
         /// Constructor
@@ -334,7 +333,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// <summary>
             /// True if disposed
             /// </summary>
-            private bool m_Disposed;            
+            private bool m_Disposed;
 
             /// <summary>
             /// Constructor
@@ -400,7 +399,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                     if( this.m_Role is InstructorModel ) {
                         this.m_Role.Changed["AcceptingQuickPollSubmissions"].Remove( this.m_QuickPollChangedDispatcher.Dispatcher );
                     }
-
+                
                     this.m_Role = value;
 
                     if( this.m_Role is InstructorModel ) {
@@ -417,42 +416,16 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// <param name="args">The event args</param>
             protected override void OnClick( EventArgs args ) {
                 if( !this.Enabled ) return;
-
-                this.Checked = !this.Checked;                
+       
+                this.Checked = !this.Checked;
 
                 // Add a slide to the quickpoll deck containing a new slide for this quickpoll
                 if( this.Checked ) {
-                    PollOptions pollOptions = new PollOptions(this.m_Model);
-                    pollOptions.Show();
-                    //DialogResult displayPoll = MessageBox.Show("Begin Poll",
-                    //                                            "Start polling",
-                    //                                            MessageBoxButtons.YesNo);
-                    // TODO: At this point, we want to create a new slide, and potentially switch to it
-                    //AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role);
+                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll( this.m_Model, this.m_Role );
                 } else {
-                    //
-                    // This is now being done in the PollOptions Class
-                    //
-
-                    AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll(this.m_Model); 
-                    
-                    // Just ended a quickpoll
-                    DialogResult displayPoll = MessageBox.Show("Display results from poll?",
-                                                                "Display polling results",
-                                                                MessageBoxButtons.YesNo);
-                    if (displayPoll == DialogResult.Yes)
-                    {   // Yes, we want to display
-                        // TODO: We need to actually switch to the polling results and figure out how we want to display it all     
-
-                        // check if slide contains poll
-                        using (Synchronizer.Lock(this.m_Slide))
-                        {
-                            bool tmp = this.m_Slide.Poll == null;
-                            MessageBox.Show("Results here! " + tmp);
-                        }                                                
-                    }
+                    AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll( this.m_Model );
                 }
-
+            
                 // Handle changing the value of whether a quickpoll is enabled or not
                 // NOTE: This should trigger a network message about the value changing
                 if( this.Role is InstructorModel ) {
@@ -460,6 +433,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         ((InstructorModel)this.Role).AcceptingQuickPollSubmissions = this.Checked;
                     }
                 }
+               
 
                 base.OnClick( args );
             }

@@ -14,6 +14,7 @@ using UW.ClassroomPresenter.Model.Stylus;
 using UW.ClassroomPresenter.Viewer.Text;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Viewer.TextAndImageEditing;
+using System.Collections.Generic;
 
 namespace UW.ClassroomPresenter.Viewer.Slides {
     public class MainSlideViewer : SlideViewer {
@@ -639,9 +640,52 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                     using (Synchronizer.Lock(presenter_model_.Participant.Role.SyncRoot))
                                     {
                                         if (pollOptions != null)
-                                        {
+                                        {                                            
                                             if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Close();
-                                            if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Show();
+                                            if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
+                                            {
+                                                List<String> instructorQA = new List<string>();
+                                                instructorQA.Add(value.Poll.GetQuestion());
+                                                int questioncounter = 0;
+                                                foreach (string s in value.Poll.GetAnswrs())
+                                                {
+                                                    if (!string.IsNullOrEmpty(s))
+                                                    {
+                                                        instructorQA.Add(s);
+                                                        questioncounter++;
+                                                    }
+                                                }
+
+                                                using (Synchronizer.Lock(presenter_model_.ViewerState.SyncRoot))
+                                                {
+                                                        if (value.Poll.GetPollType().Contains("Multi"))
+                                                        {
+                                                            switch (questioncounter){
+                                                                case 2:
+                                                                    // this needs to be fixed
+                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.YesNo;
+                                                                    break;
+                                                                case 3:
+                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABC;
+                                                                    break;
+                                                                case 4:
+                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCD;
+                                                                    break;
+                                                                case 5:
+                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCDE;
+                                                                    break;
+                                                            }                                                           
+                                                        }
+                                                        else
+                                                        {
+                                                            presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.YesNo;
+                                                        }
+                                                }
+
+                                                pollOptions.InstructorQA = instructorQA;
+                                                pollOptions.Model = presenter_model_;
+                                                pollOptions.Show();
+                                            }
                                         }
                                     }
                                 }
