@@ -1068,12 +1068,11 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars
                     yesNo.Add("Yes");
                     yesNo.Add("No");
 
-
                     if (quickPollStyle == QuickPollModel.QuickPollStyle.YesNoBoth)
                         yesNo.Add("Both");
-                    else
+                    else if(quickPollStyle == QuickPollModel.QuickPollStyle.YesNoNeither ){
                         yesNo.Add("Neither");
-
+                        }
 
                     foreach (string answerText in yesNo)
                     {
