@@ -88,7 +88,7 @@ namespace UW.ClassroomPresenter.Network.Messages {
             /* Build the message that we're going to send to the instructor */
             using( this.m_Model.Workspace.Lock() ) {
                 /* The question which we'll be sending */
-                ques = new QuestionInformationMessage(this.m_Model.Workspace.CurrentPresentation.Value.StudentQuestion);
+                ques = new QuestionInformationMessage(this.m_Model.StudentQuestion);
                 ques.Group = Groups.Group.Submissions;
 
                 /* Send the message */

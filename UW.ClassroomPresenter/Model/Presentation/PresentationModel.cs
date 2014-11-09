@@ -27,7 +27,7 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         private string m_HumanName;
 
-        private QuestionModel m_StudentQuestion;
+
 
         private bool m_IsUntitledPresentation;
 
@@ -124,20 +124,6 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         public string HumanName {
             get { return this.GetPublishedProperty("HumanName", ref this.m_HumanName); }
             set { this.SetPublishedProperty("HumanName", ref this.m_HumanName, value); }
-        }
-
-        #endregion
-
-        #region StudentQuestion
-
-        /// <summary>
-        /// Public property publisher for the Human Name
-        /// </summary>
-        [Published]
-        public QuestionModel StudentQuestion
-        {
-            get { return this.m_StudentQuestion; }
-            set { this.m_StudentQuestion = value; }
         }
 
         #endregion

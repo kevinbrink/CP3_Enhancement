@@ -17,6 +17,7 @@ namespace UW.ClassroomPresenter.Model {
         private readonly UndoModel m_Undo;
         private readonly ViewerStateModel m_ViewerState;
         private readonly VersionExchangeModel m_VersionExchange;
+        private QuestionModel m_StudentQuestion;
 
         //The ID of the local participant.
         public static Guid ParticipantId = Guid.Empty;
@@ -49,6 +50,20 @@ namespace UW.ClassroomPresenter.Model {
             get { return this.GetPublishedProperty("Stylus", ref this.m_Stylus); }
             set { this.SetPublishedProperty("Stylus", ref this.m_Stylus, value); }
         }
+
+        #region StudentQuestion
+
+        /// <summary>
+        /// Public property publisher for the Human Name
+        /// </summary>
+        [Published]
+        public QuestionModel StudentQuestion
+        {
+            get { return this.m_StudentQuestion; }
+            set { this.m_StudentQuestion = value; }
+        }
+
+        #endregion
 
         /// <summary>
         /// Reference to the current student QuickPollResultModel, this is what 

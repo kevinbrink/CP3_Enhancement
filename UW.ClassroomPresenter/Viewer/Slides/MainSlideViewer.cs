@@ -470,7 +470,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 status = SubmissionStatusModel.GetInstance().SubmissionStatus;
             }
-            if (status == SubmissionStatusModel.Status.NotReceived) {
+            /*if (status == SubmissionStatusModel.Status.NotReceived) {
                 StatusLabel.ChangeLabelForSlide(this.Slide, "Sending submission...");
                 submission_status_timer_.Stop();
                 submission_failed_timer_.Start();
@@ -481,7 +481,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             } else if (status == SubmissionStatusModel.Status.Failed) {
                 StatusLabel.ChangeLabelForSlide(this.Slide, "Submission Failed");
                 submission_status_timer_.Start();
-            }
+            }*/
         }
 
         /// <summary>

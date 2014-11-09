@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
+using Microsoft.VisualBasic;
+
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Model.Presentation;
@@ -365,14 +367,12 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 {
                     using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot))
                     {
-                        string messageBoxText = "Do you want to save changes?";
-                        string caption = "Word Processor";
-                        MessageBox.Show(messageBoxText, caption);
                         using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.SyncRoot))
                         {
                             using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.Value.SyncRoot))
                             {
-                                this.m_Model.Workspace.CurrentPresentation.Value.StudentQuestion = new QuestionModel(new Guid("{1afc601e-e601-43f9-86d4-06ad71238b29}"), "Hello? Are you there?");
+                                string input = Interaction.InputBox("Question Submission", "Enter your question below.");
+                                this.m_Model.StudentQuestion = new QuestionModel(new Guid("{1afc601e-e601-43f9-86d4-06ad71238b29}"), input);
                             }
                         }
                         this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal;
