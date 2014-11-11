@@ -6,12 +6,14 @@ using System.Windows.Forms;
 
 using UW.ClassroomPresenter.Model.Network;
 
-namespace UW.ClassroomPresenter.Model.Presentation {
+namespace UW.ClassroomPresenter.Model.Presentation
+{
     /// <summary>
     /// Class representing a result for a quickpoll
     /// </summary>
     [Serializable]
-    public class QuickPollResultModel : PropertyPublisher {
+    public class QuickPollResultModel : PropertyPublisher
+    {
         #region Private Members
 
         /// <summary>
@@ -32,15 +34,17 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// Get or Set the result for this model
         /// </summary>
         [Published]
-        public string ResultString {
-            get { return this.GetPublishedProperty( "ResultString", ref this.m_ResultString ); }
-            set { this.SetPublishedProperty( "ResultString", ref this.m_ResultString, value ); }
+        public string ResultString
+        {
+            get { return this.GetPublishedProperty("ResultString", ref this.m_ResultString); }
+            set { this.SetPublishedProperty("ResultString", ref this.m_ResultString, value); }
         }
 
         /// <summary>
         /// Get the participant who owns this result model
         /// </summary>
-        public Guid OwnerId {
+        public Guid OwnerId
+        {
             get { return this.m_OwnerId; }
         }
 
@@ -52,7 +56,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// Constructor
         /// </summary>
         /// <param name="owner">The owner of this result</param>
-        public QuickPollResultModel( Guid owner ) {
+        public QuickPollResultModel(Guid owner)
+        {
             this.m_OwnerId = owner;
             this.m_ResultString = "";
         }
@@ -62,7 +67,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         /// <param name="owner">The owner of this result</param>
         /// <param name="result">The result string</param>
-        public QuickPollResultModel( Guid owner, string result ) {
+        public QuickPollResultModel(Guid owner, string result)
+        {
             this.m_OwnerId = owner;
             this.m_ResultString = result;
         }
@@ -76,9 +82,11 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         /// <param name="obj">The result model to compare to</param>
         /// <returns>True if the owners are equal, false otherwise</returns>
-        public override bool Equals( object obj ) {
-            if( obj is QuickPollResultModel ) {
-                return ((QuickPollResultModel)obj).m_OwnerId.Equals( this.m_OwnerId );
+        public override bool Equals(object obj)
+        {
+            if (obj is QuickPollResultModel)
+            {
+                return ((QuickPollResultModel)obj).m_OwnerId.Equals(this.m_OwnerId);
             }
             return false;
         }
@@ -87,7 +95,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// Return a hashcode based on the participant only
         /// </summary>
         /// <returns>The hashcode for this result</returns>
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return this.m_OwnerId.GetHashCode();
         }
 
@@ -95,12 +104,14 @@ namespace UW.ClassroomPresenter.Model.Presentation {
     }
 
     [Serializable]
-    public class QuickPollModel : PropertyPublisher {
+    public class QuickPollModel : PropertyPublisher
+    {
 
         #region Enumerations
 
         // Fixed Set of Quick Poll Styles
-        public enum QuickPollStyle {
+        public enum QuickPollStyle
+        {
             Custom = 0,
             YesNo = 1,
             YesNoBoth = 2,
@@ -149,32 +160,36 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// <summary>
         /// Public accessor to the Id
         /// </summary>
-        public Guid Id {
+        public Guid Id
+        {
             get { return this.m_Id; }
         }
 
         /// <summary>
         /// Accessor for the original slide id that the quickpoll was created from
         /// </summary>
-        public Guid OriginalSlideId {
+        public Guid OriginalSlideId
+        {
             get { return this.m_OriginalSlideId; }
         }
 
-        public List<String> instructorQA{
-            get{return this.m_instructorQA;}
-            set{ this.instructorQA=value;}
+        public List<String> instructorQA
+        {
+            get { return this.m_instructorQA; }
+            set { this.instructorQA = value; }
         }
 
         public bool queryStudent
         {
-            get { return this.m_queryStudent;}
+            get { return this.m_queryStudent; }
             set { this.m_queryStudent = value; }
         }
 
         /// <summary>
         /// Accessor to get the style of the quickpoll
         /// </summary>
-        public QuickPollStyle PollStyle {
+        public QuickPollStyle PollStyle
+        {
             get { return this.m_QuickPollStyle; }
         }
 
@@ -182,14 +197,16 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// Accessor to the collection of results that are part of this quickpoll
         /// </summary>
         [Published]
-        public QuickPollResultCollection QuickPollResults {
-            get { return this.GetPublishedProperty( "QuickPollResults", ref this.m_QuickPollResults ); }
+        public QuickPollResultCollection QuickPollResults
+        {
+            get { return this.GetPublishedProperty("QuickPollResults", ref this.m_QuickPollResults); }
         }
 
         [Published]
-        public bool Updated {
-            get { return this.GetPublishedProperty( "Updated", ref this.m_Changed ); }
-            set { this.SetPublishedProperty( "Updated", ref this.m_Changed, value ); }
+        public bool Updated
+        {
+            get { return this.GetPublishedProperty("Updated", ref this.m_Changed); }
+            set { this.SetPublishedProperty("Updated", ref this.m_Changed, value); }
         }
 
         #endregion
@@ -199,19 +216,22 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// <summary>
         /// Constructor
         /// </summary>
-        public QuickPollModel( Guid id, QuickPollModel m) {
-            using( Synchronizer.Lock( m.SyncRoot ) ) {
+        public QuickPollModel(Guid id, QuickPollModel m)
+        {
+            using (Synchronizer.Lock(m.SyncRoot))
+            {
                 this.m_Id = id;
                 this.m_OriginalSlideId = m.OriginalSlideId;
                 this.m_QuickPollStyle = m.PollStyle;
-                this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults" );
+                this.m_QuickPollResults = new QuickPollResultCollection(this, "QuickPollResults");
                 this.m_Changed = false;
                 this.m_Choices = (string[])m.m_Choices.Clone();
-                this.m_instructorQA=m.instructorQA;
+                this.m_instructorQA = m.instructorQA;
                 this.m_queryStudent = m.queryStudent;
                 // Update the results
-                foreach( QuickPollResultModel res in m.QuickPollResults ) {
-                    this.AddResult( res );
+                foreach (QuickPollResultModel res in m.QuickPollResults)
+                {
+                    this.AddResult(res);
                 }
             }
         }
@@ -221,73 +241,89 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// </summary>
         /// <param name="slideId"></param>
         /// <param name="style"></param>
-        public QuickPollModel( Guid id, Guid slideId, QuickPollStyle style, List<String> instructorQA ) {
+        public QuickPollModel(Guid id, Guid slideId, QuickPollStyle style, List<String> instructorQA)
+        {
             this.m_Id = id;
             this.m_OriginalSlideId = slideId;
             this.m_QuickPollStyle = style;
-            this.m_QuickPollResults = new QuickPollResultCollection( this, "QuickPollResults");
+            this.m_QuickPollResults = new QuickPollResultCollection(this, "QuickPollResults");
             this.m_Changed = false;
             this.m_Choices = new string[0];
-            this.m_instructorQA=instructorQA;
-      
+            this.m_instructorQA = instructorQA;
         }
 
         #endregion
 
-        public void AddResult( QuickPollResultModel result ) {
-            using( Synchronizer.Lock( this.SyncRoot ) ) {
-                if( !this.QuickPollResults.Contains( result ) ) {
+        public void AddResult(QuickPollResultModel result)
+        {
+            using (Synchronizer.Lock(this.SyncRoot))
+            {
+                if (!this.QuickPollResults.Contains(result))
+                {
                     // Add the value
-                    this.QuickPollResults.Add( result );
-                } else {
+                    this.QuickPollResults.Add(result);
+                }
+                else
+                {
                     // Update the value only
-                    QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf( result )];
-                    using( Synchronizer.Lock( res.SyncRoot ) ) {
-                        using( Synchronizer.Lock( result.SyncRoot ) ) {
+                    QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf(result)];
+                    using (Synchronizer.Lock(res.SyncRoot))
+                    {
+                        using (Synchronizer.Lock(result.SyncRoot))
+                        {
                             res.ResultString = result.ResultString;
                         }
                     }
                 }
                 this.Updated = !this.Updated;
-            } 
+            }
         }
 
         #region QuickPollResultCollection
 
         [Serializable]
-        public class QuickPollResultCollection : PropertyCollectionBase {
-            internal QuickPollResultCollection( PropertyPublisher owner, string property )
-                : base( owner, property ) {
+        public class QuickPollResultCollection : PropertyCollectionBase
+        {
+            internal QuickPollResultCollection(PropertyPublisher owner, string property)
+                : base(owner, property)
+            {
             }
 
-            public QuickPollResultModel this[int index] {
+            public QuickPollResultModel this[int index]
+            {
                 get { return ((QuickPollResultModel)List[index]); }
                 set { List[index] = value; }
             }
 
-            public int Add( QuickPollResultModel value ) {
-                return List.Add( value );
+            public int Add(QuickPollResultModel value)
+            {
+                return List.Add(value);
             }
 
-            public int IndexOf( QuickPollResultModel value ) {
-                return List.IndexOf( value );
+            public int IndexOf(QuickPollResultModel value)
+            {
+                return List.IndexOf(value);
             }
 
-            public void Insert( int index, QuickPollResultModel value ) {
-                List.Insert( index, value );
+            public void Insert(int index, QuickPollResultModel value)
+            {
+                List.Insert(index, value);
             }
 
-            public void Remove( QuickPollResultModel value ) {
-                List.Remove( value );
+            public void Remove(QuickPollResultModel value)
+            {
+                List.Remove(value);
             }
 
-            public bool Contains( QuickPollResultModel value ) {
-                return List.Contains( value );
+            public bool Contains(QuickPollResultModel value)
+            {
+                return List.Contains(value);
             }
 
-            protected override void OnValidate( Object value ) {
-                if( !typeof( QuickPollResultModel ).IsInstanceOfType( value ) )
-                    throw new ArgumentException( "Value must be of type DeckTraversalModel.", "value" );
+            protected override void OnValidate(Object value)
+            {
+                if (!typeof(QuickPollResultModel).IsInstanceOfType(value))
+                    throw new ArgumentException("Value must be of type DeckTraversalModel.", "value");
             }
         }
 
@@ -299,18 +335,48 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// Gets the vote count
         /// </summary>
         /// <returns></returns>
-        public Hashtable GetVoteCount() {
+        public Hashtable GetVoteCount()
+        {
             // Get the possible strings
-            ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle );
+            //ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle );
+            ArrayList strings;
             Hashtable counts = new Hashtable();
-            foreach( string s in strings ) {
-                counts.Add( s, 0 );
-            }
+            if (PollStyle.ToString().Equals("YesNo"))
+            {
 
+                strings = new ArrayList { "Yes", "No" };
+
+            }
+            else if (PollStyle.ToString().Equals("YesNoBoth"))
+            {
+
+                strings = new ArrayList { "Yes", "No", "Both" };
+
+            }
+            else if (PollStyle.ToString().Equals("YesNoNeither"))
+            {
+
+                strings = new ArrayList { "Yes", "No", "Neither" };
+
+            }
+            else
+            {
+
+                strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
+
+            }
+            for (int i = 0; i < strings.Count; i++)
+            {
+                counts.Add(strings[i], 0);
+
+            }
             // Count up the votes
-            foreach( QuickPollResultModel m in this.m_QuickPollResults ) {
-                using( Synchronizer.Lock( m.SyncRoot ) ) {
-                    System.Diagnostics.Debug.Assert( counts.ContainsKey( m.ResultString ) );
+            foreach (QuickPollResultModel m in this.m_QuickPollResults)
+            {
+                using (Synchronizer.Lock(m.SyncRoot))
+                {
+
+                    System.Diagnostics.Debug.Assert(counts.ContainsKey(m.ResultString));
                     counts[m.ResultString] = ((int)counts[m.ResultString]) + 1;
                 }
             }
@@ -318,8 +384,10 @@ namespace UW.ClassroomPresenter.Model.Presentation {
             return counts;
         }
 
-        public static string GetLocalizedQuickPollString( string value ) {
-            switch( value ) {
+        public static string GetLocalizedQuickPollString(string value)
+        {
+            switch (value)
+            {
                 case "Yes":
                     return Strings.QuickPollYes;
                 case "No":
@@ -333,49 +401,50 @@ namespace UW.ClassroomPresenter.Model.Presentation {
             }
         }
 
-        public static ArrayList GetVoteStringsFromStyle( QuickPollStyle style ) {
+        public static ArrayList GetVoteStringsFromStyle(QuickPollStyle style)
+        {
             ArrayList strings = new ArrayList();
-            switch( style )
+            switch (style)
             {
-                case QuickPollStyle.YesNo:
-                    strings.Add( "Yes" );
-                    strings.Add( "No" );
+                case QuickPollStyle.YesNo:                    
+                    strings.Add("Yes");
+                    strings.Add("No");
                     break;
                 case QuickPollStyle.YesNoBoth:
-                    strings.Add( "Yes" );
-                    strings.Add( "No" );
-                    strings.Add( "Both" );
+                    strings.Add("Yes");
+                    strings.Add("No");
+                    strings.Add("Both");
                     break;
                 case QuickPollStyle.YesNoNeither:
-                    strings.Add( "Yes" );
-                    strings.Add( "No" );
-                    strings.Add( "Neither" );
+                    strings.Add("Yes");
+                    strings.Add("No");
+                    strings.Add("Neither");
                     break;
                 case QuickPollStyle.ABC:
-                    strings.Add( "A" );
-                    strings.Add( "B" );
-                    strings.Add( "C" );
+                    strings.Add("A");
+                    strings.Add("B");
+                    strings.Add("C");
                     break;
                 case QuickPollStyle.ABCD:
-                    strings.Add( "A" );
-                    strings.Add( "B" );
-                    strings.Add( "C" );
-                    strings.Add( "D" );
+                    strings.Add("A");
+                    strings.Add("B");
+                    strings.Add("C");
+                    strings.Add("D");
                     break;
                 case QuickPollStyle.ABCDE:
-                    strings.Add( "A" );
-                    strings.Add( "B" );
-                    strings.Add( "C" );
-                    strings.Add( "D" );
-                    strings.Add( "E" );
+                    strings.Add("A");
+                    strings.Add("B");
+                    strings.Add("C");
+                    strings.Add("D");
+                    strings.Add("E");
                     break;
                 case QuickPollStyle.ABCDEF:
-                    strings.Add( "A" );
-                    strings.Add( "B" );
-                    strings.Add( "C" );
-                    strings.Add( "D" );
-                    strings.Add( "E" );
-                    strings.Add( "F" );
+                    strings.Add("A");
+                    strings.Add("B");
+                    strings.Add("C");
+                    strings.Add("D");
+                    strings.Add("E");
+                    strings.Add("F");
                     break;
                 case QuickPollStyle.Custom:
                     // Do Nothing for now

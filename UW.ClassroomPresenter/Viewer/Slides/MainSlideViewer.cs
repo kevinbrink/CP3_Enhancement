@@ -663,7 +663,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                                             switch (questioncounter){
                                                                 case 2:
                                                                     // this needs to be fixed
-                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.YesNo;
+                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
                                                                     break;
                                                                 case 3:
                                                                     presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABC;
