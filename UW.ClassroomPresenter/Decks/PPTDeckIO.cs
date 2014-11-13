@@ -216,7 +216,7 @@ namespace UW.ClassroomPresenter.Decks
             List<TaggedShape> taggedShapeList = PPTDeckIO.BuildTaggedShapeList(currentShapes, pptpm);
 
 
-            /* The following code was added by Gabriel Martin on Sept 24, 2014 */
+            /* The following code was added by Gabriel Martin on Sep 24, 2014 */
             CustomPoll poll;
             ArrayList answrs;
             poll = null;

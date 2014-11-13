@@ -17,7 +17,7 @@ namespace UW.ClassroomPresenter.Model {
         private readonly UndoModel m_Undo;
         private readonly ViewerStateModel m_ViewerState;
         private readonly VersionExchangeModel m_VersionExchange;
-        private QuestionModel m_StudentQuestion;
+        private QuestionModel m_StudentQuestion; /* QuestionModel property added by Gabriel Martin and Eric Dodds */
 
         //The ID of the local participant.
         public static Guid ParticipantId = Guid.Empty;
@@ -51,6 +51,7 @@ namespace UW.ClassroomPresenter.Model {
             set { this.SetPublishedProperty("Stylus", ref this.m_Stylus, value); }
         }
 
+        /* StudentQuestion property added by Gabriel Martin and Eric Dodds */
         #region StudentQuestion
 
         /// <summary>

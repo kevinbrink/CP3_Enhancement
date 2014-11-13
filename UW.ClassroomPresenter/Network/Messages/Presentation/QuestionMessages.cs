@@ -1,4 +1,12 @@
-﻿using System;
+﻿/* 
+ * Author: Gabriel Martin
+ * SN:     040689552
+ * Date:   Oct 30, 2014
+ * Purpose: A question message class used for holding the QuestionModel that the student submits to the instructor.
+ *          This class is also responsible for dealing with the QuestionMessage once it is recieved on the instructors side (see UpdateTarget).
+ */
+
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Threading;
@@ -31,7 +39,7 @@ namespace UW.ClassroomPresenter.Network.Messages.Presentation
 
         protected override bool UpdateTarget(ReceiveContext context)
         {
-            /* Test dialog with question */
+            /* Simple dialog box with question */
             string messageBoxText = this.Question;
             string caption = "Student's Question";
             MessageBox.Show(messageBoxText, caption);

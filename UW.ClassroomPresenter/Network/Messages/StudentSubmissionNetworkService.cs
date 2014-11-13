@@ -76,7 +76,7 @@ namespace UW.ClassroomPresenter.Network.Messages {
         /// <param name="args">The parameters for the property</param>
         private void HandleSendSubmission( object sender, PropertyEventArgs args ) {
 
-            /* The following code was modified by Gabriel Martin on Oct 29, 2014 */
+            /* The following code was modified by Gabriel Martin and Eric Dodds on Nov 9, 2014 */
 
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 SubmissionStatusModel.GetInstance().SubmissionStatus = SubmissionStatusModel.Status.NotReceived;

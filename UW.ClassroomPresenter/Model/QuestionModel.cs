@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* 
+ * Author: Gabriel Martin
+ * SN:     040689552
+ * Date:   Oct 30, 2014
+ * Purpose: A simple question class used for holding question data that the student submits to the instructor.
+ */
+
+using System;
 
 using UW.ClassroomPresenter.Model.Network;
 

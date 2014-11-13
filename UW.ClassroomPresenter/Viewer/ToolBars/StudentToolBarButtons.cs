@@ -365,17 +365,23 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             protected override void OnClick(EventArgs args) {
                 if (this.Role is StudentModel)
                 {
+
+                    /* The following code was added/modified by Gabriel Martin and Eric Dodds on Nov 8, 2014 */
+
                     using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot))
                     {
                         using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.SyncRoot))
                         {
                             using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.Value.SyncRoot))
                             {
+                                /* Retrieve desired question from student through the use of an InputBox */
                                 string input = Interaction.InputBox("Question Submission", "Enter your question below.");
+
+                                /* Create a new QuestionModel and assign it to the StudentQuestion of the PresenterModel */
                                 this.m_Model.StudentQuestion = new QuestionModel(new Guid("{1afc601e-e601-43f9-86d4-06ad71238b29}"), input);
                             }
                         }
-                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal;
+                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal; /* Change the submission signal */
                     }
                 }
                 base.OnClick(args);

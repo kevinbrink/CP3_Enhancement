@@ -470,7 +470,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 status = SubmissionStatusModel.GetInstance().SubmissionStatus;
             }
-            /*if (status == SubmissionStatusModel.Status.NotReceived) {
+            /* The following error checking code caused problems for the student submission modifications we made. Removed by Eric Dodds.
+             * if (status == SubmissionStatusModel.Status.NotReceived) {
                 StatusLabel.ChangeLabelForSlide(this.Slide, "Sending submission...");
                 submission_status_timer_.Stop();
                 submission_failed_timer_.Start();
