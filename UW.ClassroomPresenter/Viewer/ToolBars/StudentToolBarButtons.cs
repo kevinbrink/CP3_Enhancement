@@ -26,7 +26,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         /// </summary>
         private readonly PresenterModel m_Model;
 
-        //private MyDialog qpDialog;
+        //private MyForm qpDialog;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -424,7 +424,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         private class StudentQuickPollToolBarButton : ParticipantToolBarButton {
 
             #region Private Members
-            public MyDialog qpDialog;
+            public MyForm qpDialog;
             /// <summary>
             /// The current role
             /// </summary>
@@ -712,7 +712,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                                 {
                                                     using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
                                                     {
-                                                        qpDialog = new MyDialog(this.m_Model, this.m_Role, (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.ToArray(), (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle);
+                                                        qpDialog = new MyForm(this.m_Model, this.m_Role, (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.ToArray(), (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle);
                                                         qpDialog.Show();
                                                     }
                                                 }
@@ -769,7 +769,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                                  )
                                                     {
                                                  
-                                                        MyDialog pollDialog = new MyDialog(this.m_Model, this.m_Role, (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.ToArray(), (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle);
+                                                        MyForm pollDialog = new MyForm(this.m_Model, this.m_Role, (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.ToArray(), (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle);
                                                         pollDialog.Show();
                                                         
                                                        /* 
@@ -848,7 +848,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
         #region Quickpoll Dialog Class
 
-        class MyDialog : System.Windows.Forms.Form
+        class MyForm : System.Windows.Forms.Form
         {
 
 
@@ -923,7 +923,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                     }
                 }
             }
-            public MyDialog(PresenterModel model, RoleModel role, String[] quickpollText, QuickPollModel.QuickPollStyle quickPollStyle)
+            public MyForm(PresenterModel model, RoleModel role, String[] quickpollText, QuickPollModel.QuickPollStyle quickPollStyle)
             {
                 this.m_role = role;
 
