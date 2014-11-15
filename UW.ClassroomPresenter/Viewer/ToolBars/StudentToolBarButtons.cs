@@ -848,22 +848,38 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
         #region Quickpoll Dialog Class
 
+        /// <summary>
+        /// Handles quickpoll UI on the student side
+        /// Worked on by Matt and Vince
+        /// </summary>
+        /// <param name="sender">The event sender</param>
+        /// <param name="args">The arguments</param>
+
         class MyForm : System.Windows.Forms.Form
         {
 
 
             private Label question;
             private GroupBox radiogroup;
-            //private RadioButton answer1, answer2, answer3, answer4;
             private readonly PresenterModel m_Model;
             private readonly RoleModel m_role;
 
+            /// <summary>
+            /// Handles the value of quickpoll being changed
+            /// </summary>
+            /// <param name="sender">The event sender</param>
+            /// <param name="e">The arguments</param>
             void radioButtons_CheckedChanged(object sender, EventArgs e)
             {
+                //interpret sender as the radio button that it is
                 RadioButton rb = sender as RadioButton;
+                
+                //get the text associated with the selected radio button 
                 this.Text = rb.Text;
+                
                 if (rb != null)
                 {
+                    //make sure button is checked
                     if (rb.Checked)
                     {
                         // Only do this if we are a student
@@ -871,17 +887,19 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         {
                             using (Synchronizer.Lock(this.m_Model))
                             {
+                                //see if we already have a result
                                 if (this.m_Model.CurrentStudentQuickPollResult != null)
                                 {
                                     // Update the existing QuickPollResultModel
                                     using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
                                     {
+                                        //set the s
                                         this.m_Model.CurrentStudentQuickPollResult.ResultString = this.Text;
                                     }
                                 }
                                 else
                                 {
-                                    // Create a new QuickPollResultModel and put it in all the right places                                    
+                                    // Create a new QuickPollResultModel and set the ResultString to the text associated with the selected radio button                                 
                                     CreateNewQuickPollResult(this.m_Model.Participant, this.Text);
                                 }
                             }
@@ -891,6 +909,11 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 }
             }
 
+            /// <summary>
+            /// Create a new QuickPollResult and add set the result string
+            /// </summary>
+            /// <param name="owner">The current participant</param>
+            /// <param name="result">The result string</param>
             private void CreateNewQuickPollResult(ParticipantModel owner, string result)
             {
                 using (Synchronizer.Lock(this.m_Model))
@@ -914,6 +937,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                     {
                                         if ((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults != null)
                                         {
+                                            //add the results to the quickpoll
                                             (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults.Add(this.m_Model.CurrentStudentQuickPollResult);
                                         }
                                     }
@@ -923,6 +947,16 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                     }
                 }
             }
+
+            /// <summary>
+            /// generates the quickpoll form
+            /// Worked on by Matt and Vince
+            /// </summary>
+            /// <param name="model">The presenter model</param>
+            /// <param name="role">The user role</param>
+            /// <param name="quickpollText">The Array containing the Question and Answers (InstructorQA)</param>
+            /// <param name="quickPollStyle">The poll style</param>
+
             public MyForm(PresenterModel model, RoleModel role, String[] quickpollText, QuickPollModel.QuickPollStyle quickPollStyle)
             {
                 this.m_role = role;
@@ -931,7 +965,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 Size = new Size(400, 250);
                 FormBorderStyle = FormBorderStyle.FixedDialog;
                 Text = "Quickpoll";
-
+                //Gets the question from quickpoll text from array (index 0 for question)
                 question = new Label();
                 question.Location = new Point(10, 10);
                 question.Size = new Size(380, 30);
@@ -940,13 +974,17 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
                 radiogroup = new GroupBox();
                 radiogroup.Location = new Point(10, 40);
-                radiogroup.Size = new Size(380, 130);
+                radiogroup.Size = new Size(380, 160);
                 Controls.Add(radiogroup);
 
                 int yValue = 10;
                 int yValueIncrement = 30;
+                //check the polly style is not yes no both/neither
                 if (quickPollStyle != QuickPollModel.QuickPollStyle.YesNo && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoBoth && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoNeither)
                 {
+                    //if multiple choice style 
+                    //then for every question string create a radio button with the question,
+                    //register checked change and add the button to the group
                     for (int i = 1; i < quickpollText.Length; i++)
                     {
                         RadioButton answer = new RadioButton();
@@ -961,18 +999,18 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 }
                 else
                 {
-
+                    //If yes no then we create a list of string to contain and add the options
                     List<String> yesNo = new List<String>();
                     yesNo.Add("Yes");
                     yesNo.Add("No");
 
-
+                    //depending on poll style add extra string
                     if (quickPollStyle == QuickPollModel.QuickPollStyle.YesNoBoth)
                         yesNo.Add("Both");
                     else if (quickPollStyle == QuickPollModel.QuickPollStyle.YesNoNeither)
                         yesNo.Add("Neither");
 
-
+                    // for each answer in the yesNo string-list create a radio button and add it to the group
                     foreach (string answerText in yesNo)
                     {
                         RadioButton answer = new RadioButton();

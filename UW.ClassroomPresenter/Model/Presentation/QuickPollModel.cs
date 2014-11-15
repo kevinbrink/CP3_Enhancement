@@ -254,6 +254,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
 
         #endregion
 
+
         public void AddResult(QuickPollResultModel result)
         {
             using (Synchronizer.Lock(this.SyncRoot))
@@ -338,33 +339,10 @@ namespace UW.ClassroomPresenter.Model.Presentation
         public Hashtable GetVoteCount()
         {
             // Get the possible strings
-            //ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle );
-            ArrayList strings;
+            ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle , m_instructorQA);
+           
             Hashtable counts = new Hashtable();
-            if (PollStyle.ToString().Equals("YesNo"))
-            {
-
-                strings = new ArrayList { "Yes", "No" };
-
-            }
-            else if (PollStyle.ToString().Equals("YesNoBoth"))
-            {
-
-                strings = new ArrayList { "Yes", "No", "Both" };
-
-            }
-            else if (PollStyle.ToString().Equals("YesNoNeither"))
-            {
-
-                strings = new ArrayList { "Yes", "No", "Neither" };
-
-            }
-            else
-            {
-
-                strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
-
-            }
+          
             for (int i = 0; i < strings.Count; i++)
             {
                 counts.Add(strings[i], 0);
@@ -401,7 +379,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
             }
         }
 
-        public static ArrayList GetVoteStringsFromStyle(QuickPollStyle style)
+        public static ArrayList GetVoteStringsFromStyle(QuickPollStyle style, List<String> instructorQA)
         {
             ArrayList strings = new ArrayList();
             switch (style)
@@ -421,30 +399,12 @@ namespace UW.ClassroomPresenter.Model.Presentation
                     strings.Add("Neither");
                     break;
                 case QuickPollStyle.ABC:
-                    strings.Add("A");
-                    strings.Add("B");
-                    strings.Add("C");
-                    break;
                 case QuickPollStyle.ABCD:
-                    strings.Add("A");
-                    strings.Add("B");
-                    strings.Add("C");
-                    strings.Add("D");
-                    break;
                 case QuickPollStyle.ABCDE:
-                    strings.Add("A");
-                    strings.Add("B");
-                    strings.Add("C");
-                    strings.Add("D");
-                    strings.Add("E");
-                    break;
                 case QuickPollStyle.ABCDEF:
-                    strings.Add("A");
-                    strings.Add("B");
-                    strings.Add("C");
-                    strings.Add("D");
-                    strings.Add("E");
-                    strings.Add("F");
+
+                    strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
+
                     break;
                 case QuickPollStyle.Custom:
                     // Do Nothing for now
