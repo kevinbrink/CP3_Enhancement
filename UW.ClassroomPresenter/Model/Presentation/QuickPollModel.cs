@@ -342,7 +342,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
             ArrayList strings = QuickPollModel.GetVoteStringsFromStyle( this.m_QuickPollStyle , m_instructorQA);
            
             Hashtable counts = new Hashtable();
-          
+           
             for (int i = 0; i < strings.Count; i++)
             {
                 counts.Add(strings[i], 0);
@@ -403,11 +403,11 @@ namespace UW.ClassroomPresenter.Model.Presentation
                 case QuickPollStyle.ABCDE:
                 case QuickPollStyle.ABCDEF:
 
-                    strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
+                  
 
-                    break;
                 case QuickPollStyle.Custom:
-                    // Do Nothing for now
+
+                    strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
                     break;
             }
 

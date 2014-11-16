@@ -725,7 +725,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                     if (qpDialog != null)
                                     {
                                         qpDialog.Hide();
-                                            using( Synchronizer.Lock( this.m_Model.SyncRoot ) ) {
+                                        using( Synchronizer.Lock( this.m_Model.SyncRoot ) ) {
                                             this.m_Model.CurrentStudentQuickPollResult = null;
                                         }
                                     }
@@ -973,13 +973,15 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 question.Text = Convert.ToString(quickpollText.GetValue(0));
                 Controls.Add(question);
 
+
+                int yValue = 10;
+                int yValueIncrement = 30;
+
                 radiogroup = new GroupBox();
                 radiogroup.Location = new Point(10, 40);
                 radiogroup.Size = new Size(380, 160);
                 Controls.Add(radiogroup);
 
-                int yValue = 10;
-                int yValueIncrement = 30;
                 //check the polly style is not yes no both/neither
                 if (quickPollStyle != QuickPollModel.QuickPollStyle.YesNo && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoBoth && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoNeither)
                 {
