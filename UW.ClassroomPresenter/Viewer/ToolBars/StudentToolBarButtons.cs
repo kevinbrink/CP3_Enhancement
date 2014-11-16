@@ -725,7 +725,9 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                     if (qpDialog != null)
                                     {
                                         qpDialog.Hide();
-
+                                            using( Synchronizer.Lock( this.m_Model.SyncRoot ) ) {
+                                            this.m_Model.CurrentStudentQuickPollResult = null;
+                                        }
                                     }
                                 }
                             }
@@ -875,7 +877,6 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 RadioButton rb = sender as RadioButton;
                 
                 //get the text associated with the selected radio button 
-                this.Text = rb.Text;
                 
                 if (rb != null)
                 {
@@ -893,14 +894,14 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                     // Update the existing QuickPollResultModel
                                     using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
                                     {
-                                        //set the s
-                                        this.m_Model.CurrentStudentQuickPollResult.ResultString = this.Text;
+                                        //set the ResultString
+                                        this.m_Model.CurrentStudentQuickPollResult.ResultString = rb.Text;
                                     }
                                 }
                                 else
                                 {
                                     // Create a new QuickPollResultModel and set the ResultString to the text associated with the selected radio button                                 
-                                    CreateNewQuickPollResult(this.m_Model.Participant, this.Text);
+                                    CreateNewQuickPollResult(this.m_Model.Participant, rb.Text);
                                 }
                             }
                         }
