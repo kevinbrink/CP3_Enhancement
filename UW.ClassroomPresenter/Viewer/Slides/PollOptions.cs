@@ -30,6 +30,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
         {
             InitializeComponent();
             m_Model = modelIn;
+            // extract roll from model
             using (Synchronizer.Lock(modelIn.Participant.SyncRoot))
             {
                 m_Role = modelIn.Participant.Role;
@@ -173,7 +174,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides
         }
 
         private void stopPollButton_Click(object sender, EventArgs e)
-        {                                    
+        {         
+            // stop polling               
             AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll(this.m_Model);
 
             if (this.m_Role is InstructorModel)
@@ -184,20 +186,13 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                 }
             }          
 
-            // Close out dialog
-            //this.Close();
-            // TODO: Advance to results slide, and end quick poll 
-
+            // stop timer and set buttons
             pollTimer.Stop();
-
             whenDoneRadioButton.Enabled = true;
             liveRadioButton.Enabled = true;
             neverRadioButton.Enabled = true;
             startPollButton.Enabled = true;
             stopPollButton.Enabled = false;
-
-            //seconds = 0;
-            //minutes = 0;
 
 
             if (whenDoneRadioButton.Checked)

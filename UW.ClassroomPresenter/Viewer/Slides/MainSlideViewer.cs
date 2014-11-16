@@ -106,8 +106,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// </summary>
         public MainSlideViewer() {
             this.Name = "MainSlideViewer";
-            //pollOptions = new PollOptions();
-
         }
 
         /// <summary>
@@ -636,19 +634,18 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                 using (Synchronizer.Lock(value))
                                 {
                                     using (Synchronizer.Lock(presenter_model_.Participant.Role.SyncRoot))
-                                    {
+                                    {                                        
                                         if (pollOptions == null)
                                             pollOptions = new PollOptions(presenter_model_);
 
                                         if (pollOptions != null)
                                         {
-                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
-                                            {
-                                                pollOptions.Hide();
-                                                //pollOptions = null;
-                                            }
+                                            // If there is no poll on the slide hide the control dialog
+                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Hide();
+                                           // If there is a poll set the pollstype, create and set the questions/answers
                                             if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
                                             {
+                                                // build Questions and Answers List
                                                 List<String> instructorQA = new List<string>();
                                                 instructorQA.Add(value.Poll.GetQuestion());
                                                 int questioncounter = 0;
@@ -661,13 +658,13 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                                     }
                                                 }
 
+                                                // set pollstype based on the number of questions and poll type
                                                 using (Synchronizer.Lock(presenter_model_.ViewerState.SyncRoot))
                                                 {
                                                         if (value.Poll.GetPollType().Contains("Multi"))
                                                         {
                                                             switch (questioncounter){
                                                                 case 2:
-                                                                    // this needs to be fixed
                                                                     presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
                                                                     break;
                                                                 case 3:
@@ -683,12 +680,11 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                                         }
                                                         else
                                                         {
-                                                            presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.YesNo;
+                                                            presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
                                                         }
                                                 }
 
                                                 pollOptions.InstructorQA = instructorQA;
-                                                pollOptions.Model = presenter_model_;
                                                 pollOptions.Show();
                                             }
                                         }
