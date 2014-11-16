@@ -628,6 +628,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                             current_image_helper_ = new ImageItCollectionHelper(this, value);
                         }                        
 
+                        // if Role is Instructor then launch an the poll control dialog
                         using (Synchronizer.Lock(presenter_model_.Participant.SyncRoot))
                         {
                             if (presenter_model_.Participant.Role is InstructorModel)
@@ -643,8 +644,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                         {
                                             if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
                                             {
-                                                pollOptions.Close();
-                                                pollOptions = null;
+                                                pollOptions.Hide();
+                                                //pollOptions = null;
                                             }
                                             if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
                                             {

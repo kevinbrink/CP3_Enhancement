@@ -47,16 +47,16 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             get { return m_Model; }
             set { m_Model = value; }
         }
-
-        /*protected override void OnFormClosing(FormClosingEventArgs e)
+        
+        // Ignore the X button if the user presses it
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
 
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
             e.Cancel = true;
-            this.Hide();
-        }*/
+        }
 
 
         private void startPollButton_Click(object sender, EventArgs e)
