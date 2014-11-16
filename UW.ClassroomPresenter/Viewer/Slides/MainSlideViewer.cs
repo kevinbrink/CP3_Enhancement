@@ -626,10 +626,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                             current_text_helper_ = new TextItBoxCollectionHelper(this, value);
                         } else if( current_stylus_ is ImageStylusModel ) {
                             current_image_helper_ = new ImageItCollectionHelper(this, value);
-                        }
-
-                        if (pollOptions == null)
-                            pollOptions = new PollOptions(presenter_model_);
+                        }                        
 
                         using (Synchronizer.Lock(presenter_model_.Participant.SyncRoot))
                         {
@@ -639,9 +636,16 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                 {
                                     using (Synchronizer.Lock(presenter_model_.Participant.Role.SyncRoot))
                                     {
+                                        if (pollOptions == null)
+                                            pollOptions = new PollOptions(presenter_model_);
+
                                         if (pollOptions != null)
-                                        {                                            
-                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Close();
+                                        {
+                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
+                                            {
+                                                pollOptions.Close();
+                                                pollOptions = null;
+                                            }
                                             if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
                                             {
                                                 List<String> instructorQA = new List<string>();

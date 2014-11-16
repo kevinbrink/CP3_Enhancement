@@ -48,7 +48,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             set { m_Model = value; }
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        /*protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
 
@@ -56,11 +56,14 @@ namespace UW.ClassroomPresenter.Viewer.Slides
 
             e.Cancel = true;
             this.Hide();
-        }
+        }*/
 
 
         private void startPollButton_Click(object sender, EventArgs e)
         {
+            DeckModel deck; // current deck
+            LocalId newslide = null; // LocalID for new Slide
+
             // Disable everything but the stop poll button
             whenDoneRadioButton.Enabled = false;
             liveRadioButton.Enabled = false;
@@ -69,15 +72,24 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             // Enable stop button
             stopPollButton.Enabled = true;
             // Start timer
-            pollTimer.Start();
-            // Get the deck
-            var deck = PresentationModel.CurrentPresentation.DeckTraversals[0].Deck;
+            seconds = 0;
+            minutes = 0;
+            pollTimer.Start();            
 
+            // Get the deck
+            using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.SyncRoot))
+            {
+                using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value))
+                {
+                    deck = this.m_Model.Workspace.CurrentDeckTraversal.Value.Deck;
+                }
+            }
+           
             // create results slide if whenDone or live is checked
             if (whenDoneRadioButton.Checked || liveRadioButton.Checked)
             {
 
-                // Create a lock on the deck
+                // Create a lock on the deck 
                 using (Synchronizer.Lock(deck.SyncRoot))
                 {
                     ///insert the new slide with poll data into our deck
@@ -88,11 +100,17 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                         {
                             using (Synchronizer.Lock(this.m_Model.Workspace.CurrentDeckTraversal.Value.Current.Slide))
                             {
-                                slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);
+                                slide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Empty, UW.ClassroomPresenter.Viewer.ViewerForm.DEFAULT_SLIDE_BOUNDS);                                
+                            }
 
+                            // get the LocaID for the new slide
+                            using (Synchronizer.Lock(slide.SyncRoot))
+                            {
+                                newslide = slide.LocalId;
                             }
                         }
                     }
+
                     using (Synchronizer.Lock(deck.SyncRoot))
                     {
                         deck.Dirty = true;
@@ -126,6 +144,17 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                     }
                 }
             }
+            
+            // start polling
+            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role, instructorQA, newslide);
+
+            if (this.m_Role is InstructorModel)
+            {   
+                using (Synchronizer.Lock(this.m_Role.SyncRoot))
+                {
+                    ((InstructorModel)this.m_Role).AcceptingQuickPollSubmissions = true;
+                }
+            }
 
             // switch to slide if live is checked
             if (liveRadioButton.Checked)
@@ -141,17 +170,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                     }
                 }
             }
-            using (Synchronizer.Lock(m_Model.Participant.SyncRoot))
-            {
-                using (Synchronizer.Lock(m_Model.Participant.Role.SyncRoot))
-                {
-                    ((InstructorModel)m_Role).AcceptingQuickPollSubmissions = true;
-                }
-            }
-
-            AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role, instructorQA);
-
-            // TODO: Need to add actual polling results to the slide, and potentially advance to it
         }
 
         private void stopPollButton_Click(object sender, EventArgs e)

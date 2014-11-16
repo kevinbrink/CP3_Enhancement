@@ -616,11 +616,11 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         }
 
         /// <summary>
-        /// Creates a new QuickPoll and the associated slide (and deck) from an existing poll slide
+        /// Creates a new QuickPoll and the associated slide (and deck) from an embedded poll slide
         /// </summary>
         /// <param name="model">The PresenterModel</param>
         /// <param name="role">The RoleModel</param>
-        public static void CreateNewQuickPoll(PresenterModel model, RoleModel role, List<String> instructorQA)
+        public static void CreateNewQuickPoll(PresenterModel model, RoleModel role, List<String> instructorQA, LocalId results_index )
         {
             // Create the quickpoll
             QuickPollModel newQuickPoll = null;
@@ -711,10 +711,16 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                         {
                             // Create the new slide to add
                             SlideModel newSlide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Remote | SlideDisposition.StudentSubmission, DEFAULT_SLIDE_BOUNDS, oldSlide.Id);
+                            SlideModel results_slide;
 
+                            // get the results slide from the regular presentation decks
+                            using (Synchronizer.Lock(model.Workspace.CurrentDeckTraversal.Value.Deck.SyncRoot))
+                            {
+                                results_slide = model.Workspace.CurrentDeckTraversal.Value.Deck.GetSlide(results_index);
+                            }
                             // Make a list of image content sheets that need to be added to the deck.
-                            List<ImageSheetModel> images = new List<ImageSheetModel>();
-
+                            List<ImageSheetModel> images = new List<ImageSheetModel>();                            
+                            
                             // Update the fields of the slide
                             using (Synchronizer.Lock(newSlide.SyncRoot))
                             {
@@ -764,6 +770,31 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                                         image = ism.Deck.GetSlideContent(ism.MD5);
                                 if (image != null)
                                     qpDeck.AddSlideContent(ism.MD5, image);
+                            }
+
+                            // copy the relevant results content fromt the quickpoll slide to our results slide in the regular presentation deck
+                            using (Synchronizer.Lock(results_slide.SyncRoot))
+                            {
+                                foreach (SheetModel s in newSlide.ContentSheets)
+                                {
+                                    results_slide.ContentSheets.Add(s);
+
+                                    // Queue up any image content to be added the deck below.
+                                    ImageSheetModel ism = s as ImageSheetModel;
+                                    if (ism != null)
+                                        images.Add(ism);
+                                }
+
+                                foreach (SheetModel s in newSlide.AnnotationSheets)
+                                {
+                                    SheetModel newSheet = InkSheetModel.InkSheetDeepCopyHelper(s);
+                                    results_slide.AnnotationSheets.Add(newSheet);
+
+                                    // Queue up any image content to be added the deck below.
+                                    ImageSheetModel ism = s as ImageSheetModel;
+                                    if (ism != null)
+                                        images.Add(ism);
+                                }
                             }
 
                             // Add the slide to the deck.
