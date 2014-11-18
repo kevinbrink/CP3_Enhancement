@@ -496,7 +496,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                 submission_status_timer_.Stop();
                 submission_failed_timer_.Start();
             } else if (status == SubmissionStatusModel.Status.Received) {
-                submission_status_form_ = new NotificationForm("Submission received!");
+                submission_status_form_ = new NotificationForm("Submission Acknowledged!");
                 submission_status_form_.Show();
                 submission_status_timer_.Start();
                 submission_failed_timer_.Stop();
