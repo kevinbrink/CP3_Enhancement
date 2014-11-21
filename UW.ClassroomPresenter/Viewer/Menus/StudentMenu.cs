@@ -536,7 +536,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                                     //If there are not a minimum of two answers, 
                                     if (i >= questions - 2)
                                     {
-                                        if (tempAnswers.Count < questions - 1)
+                                        if (tempAnswers.Count < i - (questions-3))
                                         {
                                             MessageBox.Show("Please enter a minimum of two answers");
                                             duplicate = true;
