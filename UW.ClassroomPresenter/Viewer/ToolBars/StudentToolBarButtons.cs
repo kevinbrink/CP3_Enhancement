@@ -673,15 +673,17 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 }
                     */
 
-
+                //Ensure the user is a student
                     if (Role is StudentModel)
                     {
                         using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.SyncRoot))
                         {
+                            //Ensure there is a current presentation
                             if (this.m_Model.Workspace.CurrentPresentation.Value != null)
                             {
                                 using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.Value.SyncRoot))
                                 {
+                                    //Get the participant from the current presentation
                                     participant = this.m_Model.Workspace.CurrentPresentation.Value.Owner;
                                 }
                             }
@@ -692,6 +694,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                             {
                                 if (participant.Role != null)
                                 {
+                                    //get the instructor from the participant
                                     instructor = participant.Role as InstructorModel;
                                 }
                             }
@@ -700,6 +703,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         {
                             using (Synchronizer.Lock(instructor.SyncRoot))
                             {
+                                //Check to see if the instructor is accepting poll submissions
                                 if (instructor.AcceptingQuickPollSubmissions)
                                 {
                                     using (this.m_Model.Workspace.Lock())
@@ -708,11 +712,14 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                         {
                                             using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).SyncRoot))
                                             {
+                                                //Ensure there is a current quickpoll
                                                 if ((~this.m_Model.Workspace.CurrentPresentation).QuickPoll != null)
                                                 {
                                                     using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
                                                     {
+                                                        //Create the new dialog with the instructors quick poll information
                                                         qpDialog = new MyForm(this.m_Model, this.m_Role, (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.instructorQA.ToArray(), (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.PollStyle);
+                                                        //SHow the quick poll dialog to the student
                                                         qpDialog.Show();
                                                     }
                                                 }
@@ -722,8 +729,10 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                 }
                                 else
                                 {
+                                    //If a current quick poll submission is ongoing
                                     if (qpDialog != null)
                                     {
+                                        //Close the dialog
                                         qpDialog.Hide();
                                         using( Synchronizer.Lock( this.m_Model.SyncRoot ) ) {
                                             this.m_Model.CurrentStudentQuickPollResult = null;

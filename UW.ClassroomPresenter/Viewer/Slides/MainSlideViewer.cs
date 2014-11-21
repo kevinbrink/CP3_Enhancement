@@ -645,24 +645,26 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                            // If there is a poll set the pollstype, create and set the questions/answers
                                             if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
                                             {
-                                                // build Questions and Answers List
+
                                                 List<String> instructorQA = new List<string>();
-                                                instructorQA.Add(value.Poll.GetQuestion());
-                                                int questioncounter = 0;
-                                                foreach (string s in value.Poll.GetAnswrs())
-                                                {
-                                                    if (!string.IsNullOrEmpty(s))
-                                                    {
-                                                        instructorQA.Add(s);
-                                                        questioncounter++;
-                                                    }
-                                                }
 
                                                 // set pollstype based on the number of questions and poll type
                                                 using (Synchronizer.Lock(presenter_model_.ViewerState.SyncRoot))
                                                 {
                                                         if (value.Poll.GetPollType().Contains("Multi"))
                                                         {
+                                                            // build Questions and Answers List                                                            
+                                                            instructorQA.Add(value.Poll.GetQuestion());
+                                                            int questioncounter = 0;
+                                                            foreach (string s in value.Poll.GetAnswrs())
+                                                            {
+                                                                if (!string.IsNullOrEmpty(s))
+                                                                {
+                                                                    instructorQA.Add(s);
+                                                                    questioncounter++;
+                                                                }
+                                                            }
+
                                                             switch (questioncounter){
                                                                 case 2:
                                                                     presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
@@ -679,7 +681,10 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                                                             }                                                           
                                                         }
                                                         else
-                                                        {
+                                                        {                                                            
+                                                            instructorQA.Add(value.Poll.GetQuestion());
+                                                            instructorQA.Add("True");
+                                                            instructorQA.Add("False");
                                                             presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
                                                         }
                                                 }

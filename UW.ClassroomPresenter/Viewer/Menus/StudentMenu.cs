@@ -449,13 +449,25 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="role">The RoleModel</param>
         public static void CreateNewQuickPoll(PresenterModel model, RoleModel role)
         {
-            // Create the quickpoll
+            
             QuickPollModel newQuickPoll = null;
+            //Used to store question and answers provided by the instructor
             List<String> instructorQA = new List<String>();
-            using( Synchronizer.Lock( model.ViewerState.SyncRoot ) ) {
+            //Holds all answers to ensure they are unique
+            List<String> tempAnswers = new List<String>();
+            //Flag to determine if a duplicate answer exists
+            bool duplicate = false;
+            //Used to get question String from the instructor, set by dialog box
+            String question = "";
+            //Used to get the answer String from the instructor, set by the dialog box
+            String answer = "";
 
+            using( Synchronizer.Lock( model.ViewerState.SyncRoot ) ) {
+                //No questions yet exists
                 int questions = 0;
-                String [] questionvalues={"A","B","C","D","E"};
+                //All letter options for answers
+                String [] answervalues={"A","B","C","D","E"};
+                //Check to see how many questions the instructor will be prompted to insert
                 if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
                 {
                     questions = 3;
@@ -472,18 +484,77 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 {
                     questions = 1;
                 }
-         
-                instructorQA.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1));
-                if (questions != 1)
+                
+                //Repeats if the instructor has yet to enter a question
+                while (question.Equals(""))
                 {
-                    for (int i = 0; i < questions; i++)
+                    //Prompt instructor to enter the question
+                    question=Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1);
+                    //Alert instructor if the question is blank
+                    if (question.Equals(""))
                     {
-                        instructorQA.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + questionvalues.GetValue(i), "", -1, -1));
-
+                        MessageBox.Show("Please enter a valid question");
+                    }
+                    else{
+                        instructorQA.Add(question);
                     }
                 }
+                //If poll style is not true or false
+                if (questions != 1)
+                {
+                    //Iterates for the number of dialogs the instructor must fill out
+                    for (int i = 0; i < questions; i++)
+                    {
+                       //loop if there are duplicates
+                        do
+                        {
+                            duplicate = false;
+                            //Dialog for instructor to enter answer
+                            answer = Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + answervalues.GetValue(i), "", -1, -1);
+                          //Check for duplicates
+                            foreach (String a in tempAnswers)
+                            {
+                                if (a.Equals(answer))
+                                {
+                                    duplicate = true;
+                                }
+                            }
+                            //if there are no duplicates, add the answer to the list
+                            if (duplicate == false)
+                            {
+                                if (!answer.Equals(""))
+                                {
+                                    tempAnswers.Add(answer);
+                                }
+                                else
+                                {
+                                    //If there are not a minimum of two answers, 
+                                    if (i >= questions - 2)
+                                    {
+                                        if (tempAnswers.Count < questions - 1)
+                                        {
+                                            MessageBox.Show("Please enter a minimum of two answers");
+                                            duplicate = true;
+                                        }
+
+                                    }
+                                }
+                            }
+                            //Alert the user that there are duplicates
+                            else
+                            {
+                                MessageBox.Show("Please enter a new, distinct answer");
+                            }
+                           
+                        
+                        } while (duplicate == true);
+                    }
+                }
+                //Add all answers and questions to the same list
+                instructorQA.AddRange(tempAnswers);
+                //Create the new quick poll model
                 newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle, instructorQA );
-                newQuickPoll.queryStudent = true;
+                
             }
 
             // Add a new QuickPoll to the model
