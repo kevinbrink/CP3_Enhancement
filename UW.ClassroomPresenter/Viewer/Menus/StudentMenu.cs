@@ -467,6 +467,11 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 int questions = 0;
                 //All letter options for answers
                 String [] answervalues={"A","B","C","D","E"};
+
+                if (model.ViewerState.PollStyle==QuickPollModel.QuickPollStyle.Custom || model.ViewerState.PollStyle==null)
+                {
+                    model.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCD;
+                }
                 //Check to see how many questions the instructor will be prompted to insert
                 if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
                 {
