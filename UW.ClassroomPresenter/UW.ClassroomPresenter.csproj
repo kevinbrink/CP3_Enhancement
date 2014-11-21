@@ -372,6 +372,7 @@
     <Compile Include="Model\PropertyPublisher.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\QuestionModel.cs" />
     <Compile Include="Model\Stylus\EraserStylusModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -494,6 +495,7 @@
     <Compile Include="Network\Messages\Presentation\PresentationNetworkService.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Network\Messages\Presentation\QuestionMessages.cs" />
     <Compile Include="Network\Messages\Presentation\QuickPollMessages.cs" />
     <Compile Include="Network\Messages\Presentation\QuickPollNetworkService.cs" />
     <Compile Include="Network\Messages\Presentation\QuickPollResultNetworkService.cs" />

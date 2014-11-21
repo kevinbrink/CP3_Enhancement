@@ -70,136 +70,29 @@ namespace UW.ClassroomPresenter.Network.Messages {
         #region Submissions
 
         /// <summary>
-        /// Send the current ink as a student submission slide
+        /// Send the question to the instructor
         /// </summary>
         /// <param name="sender">The object which sent this event, i.e. this class</param>
         /// <param name="args">The parameters for the property</param>
         private void HandleSendSubmission( object sender, PropertyEventArgs args ) {
 
+            /* The following code was modified by Gabriel Martin and Eric Dodds on Nov 9, 2014 */
+
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 SubmissionStatusModel.GetInstance().SubmissionStatus = SubmissionStatusModel.Status.NotReceived;
             }
             
-            
-            ///declare variables we will be using
-            UW.ClassroomPresenter.Network.Messages.Message pres, deck, slide, sheet;
-            // Construct the message to send
+            /* Question message */
+            UW.ClassroomPresenter.Network.Messages.Message ques;
+
+            /* Build the message that we're going to send to the instructor */
             using( this.m_Model.Workspace.Lock() ) {
-                // Add the presentation
-                if( this.m_Model.Workspace.CurrentPresentation == null )
-                    return;
-                ///the presentation message we will be sending
-                pres = new PresentationInformationMessage( this.m_Model.Workspace.CurrentPresentation );
-                pres.Group = Groups.Group.Submissions;
+                /* The question which we'll be sending */
+                ques = new QuestionInformationMessage(this.m_Model.StudentQuestion);
+                ques.Group = Groups.Group.Submissions;
 
-                //Add the current deck model that corresponds to this slide deck at the remote location
-                if( (~this.m_Model.Workspace.CurrentDeckTraversal) == null )
-                    return;
-                using( Synchronizer.Lock( (~this.m_Model.Workspace.CurrentDeckTraversal).SyncRoot ) ) {
-                    DeckModel dModel = (~this.m_Model.Workspace.CurrentDeckTraversal).Deck;
-                    foreach( DeckPairModel match in this.m_Model.Workspace.DeckMatches ) {
-                        ///check to see if the decks are the same
-                        if( match.LocalDeckTraversal.Deck == (~this.m_Model.Workspace.CurrentDeckTraversal).Deck )
-                            dModel = match.RemoteDeckTraversal.Deck;
-                    }
-                    ///create the deck message from this matched deck
-                    deck = new DeckInformationMessage( dModel );
-                    ///make the deck a submission type deck.
-                    deck.Group = Groups.Group.Submissions;
-                    ///tack this message onto the end.
-                    pres.InsertChild( deck );
-
-                    ///add the particular slide we're on the to message.
-                    if( (~this.m_Model.Workspace.CurrentDeckTraversal).Current == null )
-                        return;
-                    using( Synchronizer.Lock( (~this.m_Model.Workspace.CurrentDeckTraversal).Current.Slide.SyncRoot ) ) {
-                        // Add the Slide Message
-                        slide = new StudentSubmissionSlideInformationMessage( (~this.m_Model.Workspace.CurrentDeckTraversal).Current.Slide, Guid.NewGuid(), Guid.NewGuid() );
-                        slide.Group = Groups.Group.Submissions;
-                        deck.InsertChild( slide );
-
-                        // Find the correct user ink layer to send
-                        RealTimeInkSheetModel m_Sheet = null;
-                        int count = 0;
-                        foreach( SheetModel s in (~this.m_Model.Workspace.CurrentDeckTraversal).Current.Slide.AnnotationSheets ) {
-                            if( s is RealTimeInkSheetModel && (s.Disposition & SheetDisposition.Remote) == 0 ) {
-                                m_Sheet = (RealTimeInkSheetModel)s;
-                                count++;
-                            }
-                        }
-                       
-                        // DEBUGGING
-                        if( count > 1 )
-                            Debug.Assert( true, "Bad Count", "Bad" );
-
-                        // Find the existing ink on the slide
-                        Ink extracted;
-                        using( Synchronizer.Lock( m_Sheet.Ink.Strokes.SyncRoot ) ) {
-                            // Ensure that each stroke has a Guid which will uniquely identify it on the remote side
-                            foreach( Stroke stroke in m_Sheet.Ink.Strokes ) {
-                                if( !stroke.ExtendedProperties.DoesPropertyExist( InkSheetMessage.StrokeIdExtendedProperty ) )
-                                    stroke.ExtendedProperties.Add( InkSheetMessage.StrokeIdExtendedProperty, Guid.NewGuid().ToString() );
-                            }
-                            // Extract all of the strokes
-                            extracted = m_Sheet.Ink.ExtractStrokes( m_Sheet.Ink.Strokes, ExtractFlags.CopyFromOriginal );
-                        }
-
-
-                        // Find the Realtime ink on the slide
-                        RealTimeInkSheetModel newSheet = null;
-                        using( Synchronizer.Lock( m_Sheet.SyncRoot ) ) {
-                            newSheet = new RealTimeInkSheetModel( Guid.NewGuid(), m_Sheet.Disposition | SheetDisposition.Remote, m_Sheet.Bounds );
-                            using( Synchronizer.Lock( newSheet.SyncRoot ) ) {
-                                newSheet.CurrentDrawingAttributes = m_Sheet.CurrentDrawingAttributes;
-                            }
-                        }
-
-                        // Add a message to *create* the student's RealTimeInkSheetModel on the instructor client (without any ink).
-                        sheet = SheetMessage.ForSheet(newSheet, SheetMessage.SheetCollection.AnnotationSheets);
-                        sheet.Group = Groups.Group.Submissions;
-                        slide.InsertChild(sheet);
-
-                        //Scale the ink if necessary
-                        if (ViewerStateModel.NonStandardDpi) {
-                            extracted.Strokes.Transform(ViewerStateModel.DpiNormalizationSendMatrix);
-                        }
-
-                        // Add a message to copy the ink from the student's RealTimeInkSheetModel to the just-created sheet on the instructor.
-                        sheet = new InkSheetStrokesAddedMessage(newSheet, (Guid)slide.TargetId, SheetMessage.SheetCollection.AnnotationSheets, extracted);
-                        sheet.Group = Groups.Group.Submissions;
-                        slide.InsertChild( sheet );
-
-                        ///Add each text and image sheet into the message as children of the ink sheet if it is public
-                        foreach( SheetModel s in (~this.m_Model.Workspace.CurrentDeckTraversal).Current.Slide.AnnotationSheets ) {
-                            if( s is TextSheetModel && !(s is StatusLabel) && (s.Disposition & SheetDisposition.Remote) == 0) {
-                                TextSheetModel text_sheet = (TextSheetModel) s;
-                                text_sheet = text_sheet.Clone();
-                                ///some ugly code here due to synchronization
-                                bool sheet_is_public;
-                                using (Synchronizer.Lock(text_sheet.SyncRoot)) {
-                                    sheet_is_public = text_sheet.IsPublic;
-                                }
-                                if (sheet_is_public) {
-                                    TextSheetMessage t_message = new TextSheetMessage(text_sheet, SheetMessage.SheetCollection.AnnotationSheets);
-                                    t_message.Group = Groups.Group.Submissions;
-                                    slide.InsertChild(t_message);
-                                }
-                            }
-                            if (s is ImageSheetModel && !(s is StatusLabel) && (s.Disposition & SheetDisposition.Remote) == 0) {
-                                ImageSheetModel image_sheet = (ImageSheetModel)s;
-                                image_sheet = image_sheet.Clone();
-                                ImageSheetMessage i_message = new ImageSheetMessage(image_sheet, SheetMessage.SheetCollection.AnnotationSheets);
-                                i_message.Group = Groups.Group.Submissions;
-                                slide.InsertChild(i_message);
-                            
-                            }
-                        }
-
-
-                        // Send the message
-                        this.m_Sender.Send( pres );
-                    }
-                }
+                /* Send the message */
+                this.m_Sender.Send(ques);
             }
         }
 

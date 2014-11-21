@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
+using Microsoft.VisualBasic;
+
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Model.Presentation;
@@ -263,7 +265,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 : base(dispatcher, model) {
                 this.m_Model = model;
                 this.Name = "StudentSubmissionToolBarButton";
-                this.ToolTipText = "Submit the current slide to the instructor";
+                this.ToolTipText = "Ask the instructor a question";
                 
                 // This is the listener that we will attatch to the AcceptingStudentSubmissions field
                 // once we've got the current presentation.  We can't do this directly because
@@ -361,9 +363,25 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// </summary>
             /// <param name="args">The event args</param>
             protected override void OnClick(EventArgs args) {
-                if (this.Role is StudentModel) {
-                    using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot)) {
-                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal;
+                if (this.Role is StudentModel)
+                {
+
+                    /* The following code was added/modified by Gabriel Martin and Eric Dodds on Nov 8, 2014 */
+
+                    using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot))
+                    {
+                        using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.SyncRoot))
+                        {
+                            using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.Value.SyncRoot))
+                            {
+                                /* Retrieve desired question from student through the use of an InputBox */
+                                string input = Interaction.InputBox("Question Submission", "Enter your question below.");
+
+                                /* Create a new QuestionModel and assign it to the StudentQuestion of the PresenterModel */
+                                this.m_Model.StudentQuestion = new QuestionModel(new Guid("{1afc601e-e601-43f9-86d4-06ad71238b29}"), input);
+                            }
+                        }
+                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal; /* Change the submission signal */
                     }
                 }
                 base.OnClick(args);

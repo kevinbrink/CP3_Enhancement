@@ -2,6 +2,7 @@
 
 using System;
 
+using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
 
 namespace UW.ClassroomPresenter.Model.Presentation {
@@ -25,6 +26,8 @@ namespace UW.ClassroomPresenter.Model.Presentation {
         /// The friendly name for this Presentation
         /// </summary>
         private string m_HumanName;
+
+
 
         private bool m_IsUntitledPresentation;
 

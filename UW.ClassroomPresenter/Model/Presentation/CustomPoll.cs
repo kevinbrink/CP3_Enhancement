@@ -1,7 +1,7 @@
 ﻿/* 
  * Author: Gabriel Martin
  * SN:     040689552
- * Date:   Sept 24, 2014
+ * Date:   Sep 24, 2014
  * Purpose: A custom poll class used for holding new poll data that is read by the CreateSlide method of the PPTDeckIO class.
  */
 
