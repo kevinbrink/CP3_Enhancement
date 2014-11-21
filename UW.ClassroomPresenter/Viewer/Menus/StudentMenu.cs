@@ -468,7 +468,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 //All letter options for answers
                 String [] answervalues={"A","B","C","D","E"};
 
-                if (model.ViewerState.PollStyle==QuickPollModel.QuickPollStyle.Custom || model.ViewerState.PollStyle==null)
+                if (model.ViewerState.PollStyle==QuickPollModel.QuickPollStyle.Custom)
                 {
                     model.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCD;
                 }
