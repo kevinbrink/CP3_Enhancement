@@ -871,7 +871,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
 
             private Label question;
-            private GroupBox radiogroup;
+            private GroupBox checkgroup;
             private readonly PresenterModel m_Model;
             private readonly RoleModel m_role;
 
@@ -911,6 +911,50 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                                 {
                                     // Create a new QuickPollResultModel and set the ResultString to the text associated with the selected radio button                                 
                                     CreateNewQuickPollResult(this.m_Model.Participant, rb.Text);
+                                }
+                            }
+                        }
+                        base.OnClick(e);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Handles the value of quickpoll being changed
+            /// </summary>
+            /// <param name="sender">The event sender</param>
+            /// <param name="e">The arguments</param>
+            void checkButtons_CheckedChanged(object sender, EventArgs e)
+            {
+                //interpret sender as the check button that it is
+                CheckBox cb = sender as CheckBox;
+
+                //get the text associated with the selected check button 
+
+                if (cb != null)
+                {
+                    //make sure button is checked
+                    if (cb.Checked)
+                    {
+                        // Only do this if we are a student
+                        if (this.m_role is StudentModel)
+                        {
+                            using (Synchronizer.Lock(this.m_Model))
+                            {
+                               //see if we already have a result
+                                if (this.m_Model.CurrentStudentQuickPollResult != null)
+                                {
+                                    // Update the existing QuickPollResultModel
+                                    using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
+                                    {
+                                        //set the ResultString
+                                        CreateNewQuickPollResult(this.m_Model.Participant, cb.Text);
+                                    }
+                                }
+                                else
+                                {
+                                    // Create a new QuickPollResultModel and set the ResultString to the text associated with the selected radio button                                 
+                                    CreateNewQuickPollResult(this.m_Model.Participant, cb.Text);
                                 }
                             }
                         }
@@ -986,27 +1030,47 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 int yValue = 10;
                 int yValueIncrement = 30;
 
-                radiogroup = new GroupBox();
-                radiogroup.Location = new Point(10, 40);
-                radiogroup.Size = new Size(380, 160);
-                Controls.Add(radiogroup);
+                checkgroup = new GroupBox();
+                checkgroup.Location = new Point(10, 40);
+                checkgroup.Size = new Size(380, 160);
+                Controls.Add(checkgroup);
+                if ((quickpollText.GetValue(1).ToString().Contains("True")) || (quickpollText.GetValue(2).ToString().Contains("True") || (quickpollText.GetValue(1).ToString().Contains("true")) || (quickpollText.GetValue(2).ToString().Contains("true"))))
+                {
+                    List<String> TrueFalse = new List<String>();
+                    TrueFalse.Add("True");
+                    TrueFalse.Add("False");
 
+                    // for each answer in the yesNo string-list create a radio button and add it to the group
+                    foreach (string answerText in TrueFalse)
+                    {
+                        RadioButton answer = new RadioButton();
+                        answer.Location = new Point(10, yValue);
+                        yValue += yValueIncrement;
+                        answer.Size = new Size(360, 25);
+                        answer.Text = answerText;
+                        answer.CheckedChanged += radioButtons_CheckedChanged;
+                        checkgroup.Controls.Add(answer);
+                    }
+
+                }
                 //check the polly style is not yes no both/neither
-                if (quickPollStyle != QuickPollModel.QuickPollStyle.YesNo && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoBoth && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoNeither)
+                else if (quickPollStyle != QuickPollModel.QuickPollStyle.YesNo 
+                    && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoBoth 
+                    && quickPollStyle != QuickPollModel.QuickPollStyle.YesNoNeither )
                 {
                     //if multiple choice style 
                     //then for every question string create a radio button with the question,
                     //register checked change and add the button to the group
                     for (int i = 1; i < quickpollText.Length; i++)
                     {
-                        RadioButton answer = new RadioButton();
+                        CheckBox answer = new CheckBox();
                         answer.Location = new Point(10, yValue);
                         yValue += yValueIncrement;
                         answer.Size = new Size(360, 25);
                         answer.Text = Convert.ToString(quickpollText.GetValue(i));
-                        answer.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
+                        answer.CheckedChanged += new EventHandler(checkButtons_CheckedChanged);
 
-                        radiogroup.Controls.Add(answer);
+                        checkgroup.Controls.Add(answer);
                     }
                 }
                 else
@@ -1031,7 +1095,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                         answer.Size = new Size(360, 25);
                         answer.Text = answerText;
                         answer.CheckedChanged += radioButtons_CheckedChanged;
-                        radiogroup.Controls.Add(answer);
+                        checkgroup.Controls.Add(answer);
                     }
 
                 }
