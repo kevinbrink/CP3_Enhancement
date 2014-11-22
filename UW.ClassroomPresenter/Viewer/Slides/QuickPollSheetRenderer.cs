@@ -115,10 +115,10 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             Graphics g = args.Graphics;
             int startX, startY, endX, endY, width, height;
             RectangleF finalLocation;
-            Font writingFont = new Font(FontFamily.GenericSansSerif, 12.0f);
+            Font writingFont = new Font(FontFamily.GenericSansSerif, 10.0f);
             StringFormat format = new StringFormat(StringFormat.GenericDefault);
-            format.Alignment = StringAlignment.Center;
-            format.LineAlignment = StringAlignment.Center;
+            format.Alignment = StringAlignment.Near;
+            format.LineAlignment = StringAlignment.Near;
 
             // Sanity Check
             using (Synchronizer.Lock(this.m_Sheet.SyncRoot))
