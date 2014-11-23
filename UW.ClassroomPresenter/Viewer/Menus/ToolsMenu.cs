@@ -186,6 +186,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
 
                 using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
                     this.m_Model.Participant.Changed["Role"].Add( new PropertyEventHandler( this.HandleRoleChanged ) );
+                    this.MenuItems.Add(new PollTypeOptionMenuItem(model, "True/False", QuickPollModel.QuickPollStyle.ABC));
                 }
 
                 // Initialize the state of the menu items.
