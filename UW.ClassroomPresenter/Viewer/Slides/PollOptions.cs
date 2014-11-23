@@ -208,7 +208,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                     }
                 }
             }
-            
+
+            if (this.Visible == true)
+                this.Hide();            
         }
 
         // An event handler for each tick (in this case, 1 second) of the timer

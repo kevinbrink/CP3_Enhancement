@@ -119,7 +119,8 @@ namespace UW.ClassroomPresenter.Model.Presentation
             ABC = 4,
             ABCD = 5,
             ABCDE = 6,
-            ABCDEF = 7
+            ABCDEF = 7,
+            TrueFalse=8
         }
 
         #endregion
@@ -266,14 +267,22 @@ namespace UW.ClassroomPresenter.Model.Presentation
                 }
                 else
                 {
-                    // Update the value only
-                    QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf(result)];
-                    using (Synchronizer.Lock(res.SyncRoot))
-                    {
-                        using (Synchronizer.Lock(result.SyncRoot))
+                    if (m_QuickPollStyle == QuickPollStyle.YesNo || m_QuickPollStyle == QuickPollStyle.YesNoBoth || m_QuickPollStyle == QuickPollStyle.YesNoNeither || (instructorQA.Contains("True")))
+                    { 
+                        // Update the value only
+                        QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf(result)];
+                        using (Synchronizer.Lock(res.SyncRoot))
                         {
-                            res.ResultString = result.ResultString;
+                            using (Synchronizer.Lock(result.SyncRoot))
+                            {
+                                res.ResultString = result.ResultString;
+                            }
                         }
+                    }
+                    else
+                    {
+                        // Add the value
+                        this.QuickPollResults.Add(result);
                     }
                 }
                 this.Updated = !this.Updated;
@@ -343,6 +352,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
            
             Hashtable counts = new Hashtable();
            
+            //store possible answers in count
             for (int i = 0; i < strings.Count; i++)
             {
                 counts.Add(strings[i], 0);
@@ -354,7 +364,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
                 using (Synchronizer.Lock(m.SyncRoot))
                 {
 
-                    System.Diagnostics.Debug.Assert(counts.ContainsKey(m.ResultString));
+                    //System.Diagnostics.Debug.Assert(counts.ContainsKey(m.ResultString));
                     counts[m.ResultString] = ((int)counts[m.ResultString]) + 1;
                 }
             }
@@ -402,9 +412,6 @@ namespace UW.ClassroomPresenter.Model.Presentation
                 case QuickPollStyle.ABCD:
                 case QuickPollStyle.ABCDE:
                 case QuickPollStyle.ABCDEF:
-
-                  
-
                 case QuickPollStyle.Custom:
 
                     strings = new ArrayList(instructorQA.GetRange(1, instructorQA.Count - 1));
