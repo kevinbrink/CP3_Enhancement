@@ -468,10 +468,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 //All letter options for answers
                 String [] answervalues={"A","B","C","D","E"};
 
-                if (model.ViewerState.PollStyle==QuickPollModel.QuickPollStyle.Custom)
-                {
-                    model.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCD;
-                }
+               
                 //Check to see how many questions the instructor will be prompted to insert
                 if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
                 {
@@ -502,6 +499,12 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                     }
                     else{
                         instructorQA.Add(question);
+                        //Custom poll is used as true and false
+                        if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.Custom)
+                        {
+                            instructorQA.Add("True");
+                            instructorQA.Add("False");
+                        }
                     }
                 }
                 //If poll style is not true or false
