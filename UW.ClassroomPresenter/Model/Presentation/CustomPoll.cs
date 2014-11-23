@@ -1,7 +1,6 @@
 ﻿/* 
- * Author: Gabriel Martin
- * SN:     040689552
- * Date:   Sep 24, 2014
+ * Author:  Gabriel Martin
+ * Date:    Sep 24, 2014
  * Purpose: A custom poll class used for holding new poll data that is read by the CreateSlide method of the PPTDeckIO class.
  */
 
@@ -18,6 +17,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
     {
         #region Private Members
 
+        /* All of the necessary poll properties */
         private string question;
         private string pollType;
         private int slide;
@@ -41,6 +41,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
 
         #region Methods
 
+        /* Appropriate getter methods for retrieving the desired data */
         public string GetQuestion()
         {
             return question;

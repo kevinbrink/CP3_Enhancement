@@ -1,7 +1,6 @@
 ﻿/* 
- * Author: Gabriel Martin
- * SN:     040689552
- * Date:   Oct 30, 2014
+ * Author:  Gabriel Martin
+ * Date:    Oct 30, 2014
  * Purpose: A simple question class used for holding question data that the student submits to the instructor.
  */
 
@@ -42,7 +41,7 @@ namespace UW.ClassroomPresenter.Model
         #region Id
 
         /// <summary>
-        /// Guid to uniquely represent this PresentationModel
+        /// Guid to uniquely represent this QuestionModel
         /// </summary>
         public Guid Id
         {
@@ -54,7 +53,7 @@ namespace UW.ClassroomPresenter.Model
         #region Question
 
         /// <summary>
-        /// Public property publisher for the Human Name
+        /// Public property publisher for the Question string
         /// </summary>
         [Published]
         public string Question
