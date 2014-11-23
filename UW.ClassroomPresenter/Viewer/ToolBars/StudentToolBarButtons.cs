@@ -1034,11 +1034,13 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 checkgroup.Location = new Point(10, 40);
                 checkgroup.Size = new Size(380, 160);
                 Controls.Add(checkgroup);
-                if ((quickpollText.GetValue(1).ToString().Contains("True")) || (quickpollText.GetValue(2).ToString().Contains("True") || (quickpollText.GetValue(1).ToString().Contains("true")) || (quickpollText.GetValue(2).ToString().Contains("true"))))
+                if ((quickpollText.GetValue(1).ToString().ToLower().Equals("true") && quickpollText.GetValue(2).ToString().ToLower().Equals("false"))
+                    || (quickpollText.GetValue(1).ToString().ToLower().Equals("false")&& quickpollText.GetValue(2).ToString().ToLower().Equals("true"))
+                    )
                 {
                     List<String> TrueFalse = new List<String>();
-                    TrueFalse.Add("True");
-                    TrueFalse.Add("False");
+                    TrueFalse.Add(quickpollText.GetValue(1).ToString());
+                    TrueFalse.Add(quickpollText.GetValue(2).ToString());
 
                     // for each answer in the yesNo string-list create a radio button and add it to the group
                     foreach (string answerText in TrueFalse)

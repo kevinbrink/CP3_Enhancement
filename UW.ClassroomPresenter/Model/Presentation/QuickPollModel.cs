@@ -119,7 +119,8 @@ namespace UW.ClassroomPresenter.Model.Presentation
             ABC = 4,
             ABCD = 5,
             ABCDE = 6,
-            ABCDEF = 7
+            ABCDEF = 7,
+            TrueFalse=8
         }
 
         #endregion
