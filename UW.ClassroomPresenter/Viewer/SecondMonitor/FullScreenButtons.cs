@@ -25,6 +25,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
     /// <summary>
     /// Represents the deck navigation buttons
     /// </summary>
+    /// Class Modified by Eric Dodds to include IP display functionality
     public class FullScreenButtons
     {
         /// <summary>
@@ -400,6 +401,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 base.OnClick(e);
             }
         }
+        
         protected class DisplayIPButton : Button
         {
             PresenterModel m_Model;
@@ -408,6 +410,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 this.m_Model = model;
                 this.Text = "Display IP";
             }
+
             protected override void OnClick(EventArgs e)
             {
                 base.OnClick(e);
@@ -449,18 +452,19 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
 
         public class IPAddressMessageBox : Form
         {
+            //Create all components for dialog box
             Label label = new Label();
             Label selectedLabel = new Label();
             ListBox viewer = new ListBox();
-            Button button = new Button();
+            Button OKButton = new Button();
             String ip;
-
 
             public IPAddressMessageBox()
             {
                 WlanClient wlan = new WlanClient();
                 System.Collections.ObjectModel.Collection<String> connectedSsids = new System.Collections.ObjectModel.Collection<string>();
 
+                //Cycle through each WLAN interface to see which are connected
                 foreach (WlanClient.WlanInterface wlanInterface in wlan.Interfaces)
                 {
                     if (wlanInterface.InterfaceState == Wlan.WlanInterfaceState.Disconnected) continue;
@@ -468,6 +472,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                     connectedSsids.Add(new String(Encoding.ASCII.GetChars(ssid.SSID, 0, (int)ssid.SSIDLength)));
                 }
 
+                //Set items for dialog box
                 this.Font = Model.Viewer.ViewerStateModel.FormFont;
                 this.FormBorderStyle = FormBorderStyle.FixedDialog;
                 this.MaximizeBox = false;
@@ -486,19 +491,19 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 this.Controls.Add(viewer);
 
                 viewer.BeginUpdate();
-
+                //Cycle through all available interfaces
                 foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
-
+                    //Check that network is operational
                     ni.OperationalStatus.Equals(OperationalStatus.Up);
                     if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                     {
+                        //Get the IP for each interface
                         foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                         {
-
                             if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                             {
-
+                                //Check to make sure it is an ethernet or wifi interface
                                 if ((ni.Name.Equals("Ethernet") || ni.Name.Equals("Wi-Fi")) && (ni.OperationalStatus == OperationalStatus.Up))
                                 {
                                     if (ni.Name.Equals("Wi-Fi"))
@@ -517,7 +522,6 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 }
                 viewer.EndUpdate();
 
-
                 label.TextAlign = ContentAlignment.MiddleCenter;
                 label.Parent = this;
                 label.Size = label.PreferredSize;
@@ -525,43 +529,55 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 this.Width = 360;
                 this.Height = 270;
 
-                button.FlatStyle = FlatStyle.System;
-                button.Font = Model.Viewer.ViewerStateModel.StringFont1;
-                button.Parent = this;
-                button.Text = Strings.OK;
-                button.Location = new Point(this.Width / 2 - 115, 190);
-                button.Size = new Size(60, 40);
-                button.Click += new EventHandler(button_Click);
+                OKButton.FlatStyle = FlatStyle.System;
+                OKButton.Font = Model.Viewer.ViewerStateModel.StringFont1;
+                OKButton.Parent = this;
+                OKButton.Text = Strings.OK;
+                OKButton.Location = new Point(this.Width / 2 - 115, 190);
+                OKButton.Size = new Size(60, 40);
+                OKButton.Click += new EventHandler(button_Click);
             }
-
+            //Set up the dialog box which will contain the IP to dispay
             void button_Click(object sender, EventArgs e)
             {
+                //Retrieve IP from getSelected function
                 ip = getSelected();
                 this.Controls.Remove(viewer);
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.Location = new Point(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Right - 400, 2);
-                label.Text = "";
+
+                label.FlatStyle = FlatStyle.System;
+                label.Location = new Point(10, 15);
+
+                label.Font = new Font("Arial", 12);
+                label.Text = "IP address is : ";
+
+                label.TextAlign = ContentAlignment.MiddleCenter;
+                label.Parent = this;
+                label.Size = label.PreferredSize;
+
                 selectedLabel.Text = ip;
                 selectedLabel.Font = new Font("Arial", 16);
                 selectedLabel.Size = selectedLabel.PreferredSize;
-                selectedLabel.Location = new System.Drawing.Point(10, 45);
+                selectedLabel.Location = new System.Drawing.Point(20, 45);
                 selectedLabel.TextAlign = ContentAlignment.MiddleCenter;
                 selectedLabel.Parent = this;
 
-                button.Font = Model.Viewer.ViewerStateModel.StringFont1;
-                button.Parent = this;
-                button.Text = "Close";
-                button.DialogResult = DialogResult.OK;
-                button.Location = new Point(this.Width / 2, 80);
-                button.Size = new Size(50, 30);
+                OKButton.Font = Model.Viewer.ViewerStateModel.StringFont1;
+                OKButton.Parent = this;
+                OKButton.Text = Strings.OK;
+                OKButton.DialogResult = DialogResult.OK;
+                OKButton.Location = new Point(this.Width / 2 - 50, 80);
+                OKButton.Size = new Size(50, 30);
 
-                this.Height = 150;
-                this.Width = 400;
+                //Resize window and update with the new IP text
+                this.Height = 160;
+                this.Width = 500;
                 this.Update();
             }
 
+            //Get the selected IP from the dialog box and return it for display
             private string getSelected()
             {
+                //Cycle through list to find selected item
                 for (int x = 0; x < viewer.Items.Count; x++)
                 {
                     if (viewer.GetSelected(x) == true)
@@ -569,10 +585,9 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                         return viewer.SelectedItem.ToString();
                     }
                 }
+                //If no IP was selected instruct the user so
                 return "No IP Selected";
             }
-
         }
-
     }
 }
