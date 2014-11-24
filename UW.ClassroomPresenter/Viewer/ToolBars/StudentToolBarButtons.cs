@@ -72,6 +72,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         public void MakeButtons(ToolStrip main, ToolStrip extra, ControlEventQueue dispatcher) {
             ParticipantToolBarButton submit; // yes, no, both, neither, a, b, c, d, e;
 
+            new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "test", "test");
             submit = new SubmitStudentSubmissionToolBarButton( dispatcher, this.m_Model );
             submit.AutoSize = false;
             submit.Width = 54;
