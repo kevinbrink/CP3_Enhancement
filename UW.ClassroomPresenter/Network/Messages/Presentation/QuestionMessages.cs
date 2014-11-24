@@ -1,7 +1,6 @@
 ﻿/* 
- * Author: Gabriel Martin
- * SN:     040689552
- * Date:   Oct 30, 2014
+ * Author:  Gabriel Martin
+ * Date:    Oct 30, 2014
  * Purpose: A question message class used for holding the QuestionModel that the student submits to the instructor.
  *          This class is also responsible for dealing with the QuestionMessage once it is recieved on the instructors side (see UpdateTarget).
  */
@@ -28,10 +27,10 @@ namespace UW.ClassroomPresenter.Network.Messages.Presentation
         public QuestionMessage(QuestionModel question)
             : base(question.Id)
         {
-            this.AddLocalRef(question);
+            this.AddLocalRef(question); /* Add a reference to the question */
             using (Synchronizer.Lock(question.SyncRoot))
             {
-                this.Question = question.Question;
+                this.Question = question.Question; /* Set the question */
             }
         }
 
