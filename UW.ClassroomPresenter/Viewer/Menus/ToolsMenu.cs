@@ -177,6 +177,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 m_Model = model;
                 this.Text = Strings.PollType;
 
+                this.MenuItems.Add(new PollTypeOptionMenuItem(model, "True/False", QuickPollModel.QuickPollStyle.ABC));
                 this.MenuItems.Add( new PollTypeOptionMenuItem( model, "ABC", QuickPollModel.QuickPollStyle.ABC ) );
                 this.MenuItems.Add( new PollTypeOptionMenuItem( model, "ABCD", QuickPollModel.QuickPollStyle.ABCD ) );
                 this.MenuItems.Add( new PollTypeOptionMenuItem( model, "ABCDE", QuickPollModel.QuickPollStyle.ABCDE ) );
@@ -186,7 +187,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
 
                 using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
                     this.m_Model.Participant.Changed["Role"].Add( new PropertyEventHandler( this.HandleRoleChanged ) );
-                    this.MenuItems.Add(new PollTypeOptionMenuItem(model, "True/False", QuickPollModel.QuickPollStyle.ABC));
                 }
 
                 // Initialize the state of the menu items.
