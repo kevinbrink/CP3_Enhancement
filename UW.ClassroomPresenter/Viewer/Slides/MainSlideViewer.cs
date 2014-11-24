@@ -36,6 +36,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// </summary>
         private System.Windows.Forms.Timer submission_failed_timer_;
 
+        /* Custom form for the student submission notifications */
+        private NotificationForm submission_status_form_;
+
         // The width of the 3D border drawn by ControlPaint.DrawBorder3D.
         private const int BORDER_WIDTH = 2;
 
@@ -122,12 +125,15 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             ///Initialize timers
             submission_status_timer_ = new System.Windows.Forms.Timer();
             submission_failed_timer_ = new System.Windows.Forms.Timer();
+
+            /* The following code was modified by Gabriel Martin on Nov 15, 2014 in order to shorten the timers */
             ///leave the message received message up for 4 seconds before erasing.
-            submission_status_timer_.Interval = 4000;
+            submission_status_timer_.Interval = 1000;
             ///wait 10 seconds before declaring a submission to have failed.
-            submission_failed_timer_.Interval = 15000;
+            submission_failed_timer_.Interval = 1000;
+
             submission_status_timer_.Tick += new EventHandler(submission_status_timer__Tick);
-            submission_failed_timer_.Tick += new EventHandler(submission_failed_timer__Tick);
+            submission_failed_timer_.Tick += new EventHandler(submission_status_timer__Tick);
 
             ///we need to know when we go into text editing mode, so we need to monitor
             ///when the stylus changes
@@ -295,16 +301,10 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         }*/
 
         #region Submission Status
+        /* Method modified by Gabriel Martin to utilize new custom form */
         void submission_status_timer__Tick(object sender, EventArgs e) {
-            ///Remove the label from the slide.
-            StatusLabel.RemoveLabelForSlide(this.Slide);
+            submission_status_form_.Close();
             submission_status_timer_.Stop();
-        }
-        void submission_failed_timer__Tick(object sender, EventArgs e) {
-            using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
-                SubmissionStatusModel.GetInstance().SubmissionStatus = SubmissionStatusModel.Status.Failed;
-            }
-            submission_failed_timer_.Stop();
         }
         #endregion
 
@@ -468,21 +468,44 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             }
         }
 
+        /* The following class was created by Gabriel Martin on Nov 15, 2014
+         * It is used as a custom form for notifications for the student submission process */
+        public partial class NotificationForm : Form
+        {
+            Label label = new Label();
+
+            public NotificationForm(string label)
+            {
+                this.Width = 170;
+                this.Height = 80;
+
+                this.label.Location = new Point(10,10);
+                this.label.AutoSize = true;
+                this.label.Text = label;
+
+                this.Controls.Add(this.label);
+            }
+        }
+
         private void SubmissionStatusChanged(object o, PropertyEventArgs args) {
             UW.ClassroomPresenter.Model.Network.SubmissionStatusModel.Status status;
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 status = SubmissionStatusModel.GetInstance().SubmissionStatus;
             }
+            /* Modified by Gabriel Martin to use a custom form instead of the current slide for the notification. Primary reason is that there may not be a slide currently available (would throw an error) */
             if (status == SubmissionStatusModel.Status.NotReceived) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Sending submission...");
+                submission_status_form_ = new NotificationForm("Sending submission...");
+                submission_status_form_.Show();
                 submission_status_timer_.Stop();
                 submission_failed_timer_.Start();
             } else if (status == SubmissionStatusModel.Status.Received) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Submission received!");
+                submission_status_form_ = new NotificationForm("Submission Acknowledged!");
+                submission_status_form_.Show();
                 submission_status_timer_.Start();
                 submission_failed_timer_.Stop();
             } else if (status == SubmissionStatusModel.Status.Failed) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Submission Failed");
+                submission_status_form_ = new NotificationForm("Submission Failed!");
+                submission_status_form_.Show();
                 submission_status_timer_.Start();
             }
         }
@@ -1072,10 +1095,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         }
 
         public interface IAdaptee {
-            SlideModel Slide
-            {
-                set;
-            }
+            SlideModel Slide { set; }
             Color DefaultDeckBGColor { set; }
         }
     }

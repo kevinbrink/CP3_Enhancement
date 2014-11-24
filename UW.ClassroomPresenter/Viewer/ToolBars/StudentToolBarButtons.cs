@@ -5,11 +5,12 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using UW.ClassroomPresenter.Network.Messages.Presentation;
+using Microsoft.VisualBasic;
 
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Model.Presentation;
+using UW.ClassroomPresenter.Network.Messages.Presentation;
 using UW.ClassroomPresenter.Model.Viewer;
 using UW.ClassroomPresenter.Viewer.Slides;
 using UW.ClassroomPresenter.Viewer.Menus;
@@ -41,9 +42,8 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         /// <param name="parent">The toolbar to add the button to</param>
         /// <param name="dispatcher">The event queue to dispatch message onto</param>
         public void MakeButtons(ToolStrip parent, ControlEventQueue dispatcher) {
-           
-            /*ParticipantToolBarButton submit;
-           
+            ParticipantToolBarButton submit;
+
             submit = new SubmitStudentSubmissionToolBarButton( dispatcher, this.m_Model );
             submit.AutoSize = false;
             submit.Width = 68;
@@ -52,18 +52,15 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
             parent.Items.Add( submit );
 
-           parent.Items.Add( new 
-            * 
-            * 
-            * ( dispatcher, this.m_Model, Strings.QuickPollYes, "Yes" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNo, "No" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollBoth, "Both" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNeither, "Neither" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "A", "A" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "B", "B" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "C", "C" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "D", "D" ) );
-            parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "E", "E" ) );*/
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollYes, "Yes" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNo, "No" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollBoth, "Both" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNeither, "Neither" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "A", "A" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "B", "B" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "C", "C" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "D", "D" ) );
+            //parent.Items.Add( new StudentQuickPollToolBarButton( dispatcher, this.m_Model, "E", "E" ) );
         }
 
         /// <summary>
@@ -73,10 +70,8 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
         /// <param name="extra">The extra toolbar to add the button to</param>
         /// <param name="dispatcher">The event queue to dispatch message onto</param>
         public void MakeButtons(ToolStrip main, ToolStrip extra, ControlEventQueue dispatcher) {
+            ParticipantToolBarButton submit; // yes, no, both, neither, a, b, c, d, e;
 
-            new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "test");
-            /*ParticipantToolBarButton submit, yes, no, both, neither, a, b, c, d, e;
-            
             submit = new SubmitStudentSubmissionToolBarButton( dispatcher, this.m_Model );
             submit.AutoSize = false;
             submit.Width = 54;
@@ -85,69 +80,68 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
             extra.Items.Add( submit );
 
-            yes = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollYes, "Yes");
-            yes.AutoSize = false;
-            yes.Width = 54;
-            yes.Height = 32;
+            //yes = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollYes, "Yes");
+            //yes.AutoSize = false;
+            //yes.Width = 54;
+            //yes.Height = 32;
 
-            main.Items.Add( yes );
+            //main.Items.Add( yes );
 
-            no = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollNo, "No");
-            no.AutoSize = false;
-            no.Width = 54;
-            no.Height = 32;
+            //no = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollNo, "No");
+            //no.AutoSize = false;
+            //no.Width = 54;
+            //no.Height = 32;
 
-            main.Items.Add( no );
+            //main.Items.Add( no );
 
-            both = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollBoth, "Both");
-            both.AutoSize = false;
-            both.Width = 54;
-            both.Height = 32;
+            //both = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, Strings.QuickPollBoth, "Both");
+            //both.AutoSize = false;
+            //both.Width = 54;
+            //both.Height = 32;
 
-            main.Items.Add( both );
+            //main.Items.Add( both );
 
-            neither = new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNeither, "Neither" );
-            neither.AutoSize = false;
-            neither.Width = 54;
-            neither.Height = 32;
+            //neither = new StudentQuickPollToolBarButton( dispatcher, this.m_Model, Strings.QuickPollNeither, "Neither" );
+            //neither.AutoSize = false;
+            //neither.Width = 54;
+            //neither.Height = 32;
 
-            main.Items.Add( neither );
+            //main.Items.Add( neither );
 
-            a = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "A", "A");
-            a.AutoSize = false;
-            a.Width = 54;
-            a.Height = 18;
+            //a = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "A", "A");
+            //a.AutoSize = false;
+            //a.Width = 54;
+            //a.Height = 18;
 
-            extra.Items.Add( a );
+            //extra.Items.Add( a );
 
-            b = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "B", "B");
-            b.AutoSize = false;
-            b.Width = 54;
-            b.Height = 18;
+            //b = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "B", "B");
+            //b.AutoSize = false;
+            //b.Width = 54;
+            //b.Height = 18;
 
-            extra.Items.Add( b );
+            //extra.Items.Add( b );
 
-            c = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "C", "C");
-            c.AutoSize = false;
-            c.Width = 54;
-            c.Height = 18;
+            //c = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "C", "C");
+            //c.AutoSize = false;
+            //c.Width = 54;
+            //c.Height = 18;
 
-            extra.Items.Add( c );
+            //extra.Items.Add( c );
 
-            d = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "D", "D");
-            d.AutoSize = false;
-            d.Width = 54;
-            d.Height = 18;
+            //d = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "D", "D");
+            //d.AutoSize = false;
+            //d.Width = 54;
+            //d.Height = 18;
 
-            extra.Items.Add( d );
+            //extra.Items.Add( d );
 
-            e = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "E", "E");
-            e.AutoSize = false;
-            e.Width = 54;
-            e.Height = 18;
+            //e = new StudentQuickPollToolBarButton(dispatcher, this.m_Model, "E", "E");
+            //e.AutoSize = false;
+            //e.Width = 54;
+            //e.Height = 18;
 
-            extra.Items.Add( e );
-             * */
+            //extra.Items.Add( e );
         }
 
         #region ParticipantToolBarButton class
@@ -278,7 +272,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 : base(dispatcher, model) {
                 this.m_Model = model;
                 this.Name = "StudentSubmissionToolBarButton";
-                this.ToolTipText = "Submit the current slide to the instructor";
+                this.ToolTipText = "Ask the instructor a question";
                 
                 // This is the listener that we will attatch to the AcceptingStudentSubmissions field
                 // once we've got the current presentation.  We can't do this directly because
@@ -375,9 +369,25 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// </summary>
             /// <param name="args">The event args</param>
             protected override void OnClick(EventArgs args) {
-                if (this.Role is StudentModel) {
-                    using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot)) {
-                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal;
+                if (this.Role is StudentModel)
+                {
+
+                    /* The following code was added/modified by Gabriel Martin and Eric Dodds on Nov 8, 2014 */
+
+                    using (Synchronizer.Lock(this.m_Model.ViewerState.SyncRoot))
+                    {
+                        using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.SyncRoot))
+                        {
+                            using (Synchronizer.Lock(this.m_Model.Workspace.CurrentPresentation.Value.SyncRoot))
+                            {
+                                /* Retrieve desired question from student through the use of an InputBox */
+                                string input = Interaction.InputBox("Question Submission", "Enter your question below.");
+
+                                /* Create a new QuestionModel and assign it to the StudentQuestion of the PresenterModel */
+                                this.m_Model.StudentQuestion = new QuestionModel(new Guid("{1afc601e-e601-43f9-86d4-06ad71238b29}"), input);
+                            }
+                        }
+                        this.m_Model.ViewerState.StudentSubmissionSignal = !this.m_Model.ViewerState.StudentSubmissionSignal; /* Change the submission signal */
                     }
                 }
                 base.OnClick(args);
@@ -470,7 +480,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             /// </summary>
             /// <param name="dispatcher">The event queue</param>
             /// <param name="model">The presenter model</param>
-            public StudentQuickPollToolBarButton( ControlEventQueue dispatcher, PresenterModel model, string value )
+            public StudentQuickPollToolBarButton( ControlEventQueue dispatcher, PresenterModel model, string name, string value )
                 : base( dispatcher, model ) {
                 this.m_Model = model;
                 this.m_Value = "test";
