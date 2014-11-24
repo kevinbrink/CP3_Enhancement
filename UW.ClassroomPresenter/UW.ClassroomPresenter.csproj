@@ -797,12 +797,6 @@
     <Compile Include="Viewer\Slides\MainSlideViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Viewer\Slides\PollOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Viewer\Slides\PollOptions.Designer.cs">
-      <DependentUpon>PollOptions.cs</DependentUpon>
-    </Compile>
     <Compile Include="Viewer\Slides\QuickPollSheetRenderer.cs" />
     <Compile Include="Viewer\Slides\RealTimeInkSheetRenderer.cs">
       <SubType>Code</SubType>
@@ -908,9 +902,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\PropertiesForm\PropertiesForm.resx">
       <DependentUpon>PropertiesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Viewer\Slides\PollOptions.resx">
-      <DependentUpon>PollOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\Slides\SlideViewer.resx">
       <DependentUpon>SlideViewer.cs</DependentUpon>

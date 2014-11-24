@@ -3,6 +3,7 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+
 using UW.ClassroomPresenter.Decks;
 using UW.ClassroomPresenter.Model;
 using UW.ClassroomPresenter.Model.Network;
@@ -52,11 +53,9 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                     this.MenuItems.Add( new AcceptingStudentSubmissionsMenuItem( this.m_EventQueue, this.m_Model ) );
                     this.MenuItems.Add( new AcceptingQuickPollSubmissionsMenuItem( this.m_EventQueue, this.m_Model ) );
                     this.MenuItems.Add( new LinkedNavigationMenuItem( this.m_EventQueue, this.m_Model ) );
-                    
                     //this.MenuItems.Add( new StudentSubmissionStyleMenu( this.m_EventQueue, this.m_Model ) );
                     this.Enabled = this.Visible = true;
                 } else {
-                 
                     this.Enabled = this.Visible = false;
                     for (int i = 0; i < this.MenuItems.Count; i++) {
                         MenuItem mi = this.MenuItems[i];
@@ -68,8 +67,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 }
             }
         }
-
-       
     }
 
     #endregion
@@ -224,8 +221,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         }
 
         protected override void HandleRoleChanged(object sender, PropertyEventArgs args) {
-
-
             //Unregister the previous role's handler, if needed
             if (this.m_Role is InstructorModel) {
                 using (Synchronizer.Lock(this.m_Role.SyncRoot)) {
@@ -284,9 +279,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// </summary>
         private SlideModel m_Slide;
 
- 
-       
-
         #endregion
 
         #region Constructors
@@ -298,7 +290,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="model">The model to work with</param>
         public AcceptingQuickPollSubmissionsMenuItem( ControlEventQueue dispatcher, PresenterModel model )
             : base( dispatcher, model ) {
-            
             this.Text = Strings.EnableQuickPolling;
             this.m_HandleAcceptingQPChangedDispatcher = new EventQueue.PropertyEventDispatcher( this.m_EventQueue, new PropertyEventHandler( this.HandleAcceptingQPChanged ) );
             using( Synchronizer.Lock( this.m_Model.Participant.SyncRoot ) ) {
@@ -310,7 +301,7 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 }
             }
             this.HandleAcceptingQPChanged( this, null );
-            
+
             // Enable or disable based on there being a valid slide
             this.Enabled = false;
             this.m_Adapter = new WorkspaceModelAdapter( this.m_EventQueue, this, this.m_Model );
@@ -376,7 +367,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="args">The arguments</param>
         protected override void HandleRoleChanged( object sender, PropertyEventArgs args ) {
             //Unregister the previous role's handler, if needed
-
             if( this.m_Role is InstructorModel ) {
                 using( Synchronizer.Lock( this.m_Role.SyncRoot ) ) {
                     ((InstructorModel)this.m_Role).Changed["AcceptingQuickPollSubmissions"].Remove( this.m_HandleAcceptingQPChangedDispatcher.Dispatcher );
@@ -398,7 +388,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="sender">The event sender</param>
         /// <param name="args">The arguments</param>
         private void HandleAcceptingQPChanged( object sender, PropertyEventArgs args ) {
-
             if( this.m_Role is InstructorModel ) {
                 using( Synchronizer.Lock( this.m_Role.SyncRoot ) ) {
                     this.Checked = ((InstructorModel)this.m_Role).AcceptingQuickPollSubmissions;
@@ -412,15 +401,14 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// <param name="e">The event arguments</param>
         protected override void OnClick( EventArgs e ) {
             if( !this.Enabled ) return;
-      
+
             if( this.m_Role is InstructorModel ) {
                 // Update the checked state
                 this.Checked = !this.Checked;
-                
+
                 // Start or end the QuickPoll as needed
                 if( this.Checked ) {
-                  AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll(this.m_Model, this.m_Role);
-                   
+                    AcceptingQuickPollSubmissionsMenuItem.CreateNewQuickPoll( this.m_Model, this.m_Role );
                 } else {
                     AcceptingQuickPollSubmissionsMenuItem.EndQuickPoll( this.m_Model );
                 }
@@ -447,29 +435,13 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
         /// </summary>
         /// <param name="model">The PresenterModel</param>
         /// <param name="role">The RoleModel</param>
-        public static void CreateNewQuickPoll(PresenterModel model, RoleModel role)
+        public static void CreateNewQuickPoll( PresenterModel model, RoleModel role )
         {
-            
+            // Create the quickpoll
             QuickPollModel newQuickPoll = null;
-            //Used to store question and answers provided by the instructor
-            List<String> instructorQA = new List<String>();
-            //Holds all answers to ensure they are unique
-            List<String> tempAnswers = new List<String>();
-            //Flag to determine if a duplicate answer exists
-            bool duplicate = false;
-            //Used to get question String from the instructor, set by dialog box
-            String question = "";
-            //Used to get the answer String from the instructor, set by the dialog box
-            String answer = "";
-
             using( Synchronizer.Lock( model.ViewerState.SyncRoot ) ) {
-                //No questions yet exists
                 int questions = 0;
-                //All letter options for answers
-                String [] answervalues={"A","B","C","D","E"};
-
-               
-                //Check to see how many questions the instructor will be prompted to insert
+                String [] questionvalues={"A","B","C","D","E"};
                 if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.ABC)
                 {
                     questions = 3;
@@ -486,83 +458,17 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                 {
                     questions = 1;
                 }
-                
-                //Repeats if the instructor has yet to enter a question
-                while (question.Equals(""))
-                {
-                    //Prompt instructor to enter the question
-                    question=Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1);
-                    //Alert instructor if the question is blank
-                    if (question.Equals(""))
-                    {
-                        MessageBox.Show("Please enter a valid question");
-                    }
-                    else{
-                        instructorQA.Add(question);
-                        //Custom poll is used as true and false
-                        if (model.ViewerState.PollStyle == QuickPollModel.QuickPollStyle.Custom)
-                        {
-                            instructorQA.Add("True");
-                            instructorQA.Add("False");
-                        }
-                    }
-                }
-                //If poll style is not true or false
+                List<String> questionList = new List<String>();
+                questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter the question", "Question", "", -1, -1));
                 if (questions != 1)
                 {
-                    //Iterates for the number of dialogs the instructor must fill out
                     for (int i = 0; i < questions; i++)
                     {
-                       //loop if there are duplicates
-                        do
-                        {
-                            duplicate = false;
-                            //Dialog for instructor to enter answer
-                            answer = Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + answervalues.GetValue(i), "", -1, -1);
-                          //Check for duplicates
-                            foreach (String a in tempAnswers)
-                            {
-                                if (a.Equals(answer))
-                                {
-                                    duplicate = true;
-                                }
-                            }
-                            //if there are no duplicates, add the answer to the list
-                            if (duplicate == false)
-                            {
-                                if (!answer.Equals(""))
-                                {
-                                    tempAnswers.Add(answer);
-                                }
-                                else
-                                {
-                                    //If there are not a minimum of two answers, 
-                                    if (i >= questions - 2)
-                                    {
-                                        if (tempAnswers.Count < i - (questions-3))
-                                        {
-                                            MessageBox.Show("Please enter a minimum of two answers");
-                                            duplicate = true;
-                                        }
+                        questionList.Add(Microsoft.VisualBasic.Interaction.InputBox("Please enter an answer", "Answer " + questionvalues.GetValue(i), "", -1, -1));
 
-                                    }
-                                }
-                            }
-                            //Alert the user that there are duplicates
-                            else
-                            {
-                                MessageBox.Show("Please enter a new, distinct answer");
-                            }
-                           
-                        
-                        } while (duplicate == true);
                     }
                 }
-                //Add all answers and questions to the same list
-                instructorQA.AddRange(tempAnswers);
-                //Create the new quick poll model
-                newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle, instructorQA );
-                
+                newQuickPoll = new QuickPollModel( Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle );
             }
 
             // Add a new QuickPoll to the model
@@ -687,203 +593,6 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                             using( Synchronizer.Lock( qpDeck.TableOfContents.SyncRoot ) ) {
                                 TableOfContentsModel.Entry e = new TableOfContentsModel.Entry( Guid.NewGuid(), qpDeck.TableOfContents, newSlide );
                                 qpDeck.TableOfContents.Entries.Add( e );
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Creates a new QuickPoll and the associated slide (and deck) from an embedded poll slide
-        /// </summary>
-        /// <param name="model">The PresenterModel</param>
-        /// <param name="role">The RoleModel</param>
-        public static void CreateNewQuickPoll(PresenterModel model, RoleModel role, List<String> instructorQA, LocalId results_index )
-        {
-            // Create the quickpoll
-            QuickPollModel newQuickPoll = null;
-            using (Synchronizer.Lock(model.ViewerState.SyncRoot))
-            {                
-                newQuickPoll = new QuickPollModel(Guid.NewGuid(), Guid.NewGuid(), model.ViewerState.PollStyle, instructorQA);
-                newQuickPoll.queryStudent = true;
-            }
-
-            // Add a new QuickPoll to the model
-            // NOTE: This should trigger a network message about the new QuickPoll
-            // NOTE: Need to do this first before adding the sheet otherwise the 
-            //       public display will not be able to associate the sheet with
-            //       this quick poll.
-            using (model.Workspace.Lock())
-            {
-                using (Synchronizer.Lock((~model.Workspace.CurrentPresentation).SyncRoot))
-                {
-                    (~model.Workspace.CurrentPresentation).QuickPoll = newQuickPoll;
-                }
-            }
-
-            // Add the quickpoll slide to the quickpoll
-            using (model.Workspace.Lock())
-            {
-                using (Synchronizer.Lock(model.Participant.SyncRoot))
-                {
-                    DeckTraversalModel qpTraversal = null;
-                    DeckModel qpDeck = null;
-
-                    // Find the first quickpoll slidedeck.
-                    foreach (DeckTraversalModel candidate in model.Workspace.DeckTraversals)
-                    {
-                        if ((candidate.Deck.Disposition & DeckDisposition.QuickPoll) != 0)
-                        {
-                            qpTraversal = candidate;
-                            using (Synchronizer.Lock(qpTraversal.SyncRoot))
-                            {
-                                qpDeck = qpTraversal.Deck;
-                            }
-                            break;
-                        }
-                    }
-
-                    // If there is no existing quickpoll deck, create one.
-                    if (qpTraversal == null)
-                    {
-                        // Change the name of quickpoll according to the number of it
-                        string qpName = "QuickPoll";
-                        // NOTE: This code is duplicated in DecksMenu.CreateBlankWhiteboardDeckMenuItem.
-                        qpDeck = new DeckModel(Guid.NewGuid(), DeckDisposition.QuickPoll, qpName);
-                        qpDeck.Group = Network.Groups.Group.Submissions;
-                        qpTraversal = new SlideDeckTraversalModel(Guid.NewGuid(), qpDeck);
-
-                        if (model.Workspace.CurrentPresentation.Value != null)
-                        {
-                            using (Synchronizer.Lock((~model.Workspace.CurrentPresentation).SyncRoot))
-                            {
-                                (~model.Workspace.CurrentPresentation).DeckTraversals.Add(qpTraversal);
-                            }
-                        }
-                        else
-                        {
-                            model.Workspace.DeckTraversals.Add(qpTraversal);
-                        }
-                    }
-
-                    // Add the slide
-                    // TODO CMPRINCE: Associate the quickpoll with this slide
-                    using (Synchronizer.Lock(qpDeck.SyncRoot))
-                    {
-
-                        // Get the Current Slide
-                        SlideModel oldSlide;
-                        using (Synchronizer.Lock(role.SyncRoot))
-                        {
-                            using (Synchronizer.Lock(((InstructorModel)role).CurrentDeckTraversal.SyncRoot))
-                            {
-                                using (Synchronizer.Lock(((InstructorModel)role).CurrentDeckTraversal.Current.SyncRoot))
-                                {
-                                    oldSlide = ((InstructorModel)role).CurrentDeckTraversal.Current.Slide;
-                                }
-                            }
-                        }
-
-                        // Copy the values and sheets from the old slide to the new slide
-                        using (Synchronizer.Lock(oldSlide.SyncRoot))
-                        {
-                            // Create the new slide to add
-                            SlideModel newSlide = new SlideModel(Guid.NewGuid(), new LocalId(), SlideDisposition.Remote | SlideDisposition.StudentSubmission, DEFAULT_SLIDE_BOUNDS, oldSlide.Id);
-                            SlideModel results_slide;
-
-                            // get the results slide from the regular presentation decks
-                            using (Synchronizer.Lock(model.Workspace.CurrentDeckTraversal.Value.Deck.SyncRoot))
-                            {
-                                results_slide = model.Workspace.CurrentDeckTraversal.Value.Deck.GetSlide(results_index);
-                            }
-                            // Make a list of image content sheets that need to be added to the deck.
-                            List<ImageSheetModel> images = new List<ImageSheetModel>();                            
-                            
-                            // Update the fields of the slide
-                            using (Synchronizer.Lock(newSlide.SyncRoot))
-                            {
-                                newSlide.Title = oldSlide.Title;
-                                newSlide.Bounds = oldSlide.Bounds;
-                                newSlide.Zoom = oldSlide.Zoom;
-                                newSlide.BackgroundColor = oldSlide.BackgroundColor;
-                                newSlide.SubmissionSlideGuid = oldSlide.SubmissionSlideGuid;
-                                newSlide.SubmissionStyle = oldSlide.SubmissionStyle;
-
-                                // Copy all of the content sheets.
-                                // Because ContentSheets do not change, there is no 
-                                // need to do a deep copy (special case for ImageSheetModels).
-                                foreach (SheetModel s in oldSlide.ContentSheets)
-                                {
-                                    newSlide.ContentSheets.Add(s);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
-                                }
-
-                                // Add the QuickPollSheet
-                                newSlide.ContentSheets.Add(new QuickPollSheetModel(Guid.NewGuid(), newQuickPoll));
-
-                                // Make a deep copy of all the ink sheets
-                                foreach (SheetModel s in oldSlide.AnnotationSheets)
-                                {
-                                    SheetModel newSheet = InkSheetModel.InkSheetDeepCopyHelper(s);
-                                    newSlide.AnnotationSheets.Add(newSheet);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
-                                }
-                            }
-
-                            // Add the slide content to the deck.
-                            foreach (ImageSheetModel ism in images)
-                            {
-                                System.Drawing.Image image = ism.Image;
-                                if (image == null)
-                                    using (Synchronizer.Lock(ism.Deck.SyncRoot))
-                                    using (Synchronizer.Lock(ism.SyncRoot))
-                                        image = ism.Deck.GetSlideContent(ism.MD5);
-                                if (image != null)
-                                    qpDeck.AddSlideContent(ism.MD5, image);
-                            }
-
-                            // copy the relevant results content fromt the quickpoll slide to our results slide in the regular presentation deck
-                            using (Synchronizer.Lock(results_slide.SyncRoot))
-                            {
-                                foreach (SheetModel s in newSlide.ContentSheets)
-                                {
-                                    results_slide.ContentSheets.Add(s);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
-                                }
-
-                                foreach (SheetModel s in newSlide.AnnotationSheets)
-                                {
-                                    SheetModel newSheet = InkSheetModel.InkSheetDeepCopyHelper(s);
-                                    results_slide.AnnotationSheets.Add(newSheet);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
-                                }
-                            }
-
-                            // Add the slide to the deck.
-                            qpDeck.InsertSlide(newSlide);
-
-                            // Add an entry to the deck traversal so that we can navigate to the slide
-                            using (Synchronizer.Lock(qpDeck.TableOfContents.SyncRoot))
-                            {
-                                TableOfContentsModel.Entry e = new TableOfContentsModel.Entry(Guid.NewGuid(), qpDeck.TableOfContents, newSlide);
-                                qpDeck.TableOfContents.Entries.Add(e);
                             }
                         }
                     }

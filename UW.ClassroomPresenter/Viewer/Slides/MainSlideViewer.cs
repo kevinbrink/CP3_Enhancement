@@ -14,7 +14,6 @@ using UW.ClassroomPresenter.Model.Stylus;
 using UW.ClassroomPresenter.Viewer.Text;
 using UW.ClassroomPresenter.Model.Network;
 using UW.ClassroomPresenter.Viewer.TextAndImageEditing;
-using System.Collections.Generic;
 
 namespace UW.ClassroomPresenter.Viewer.Slides {
     public class MainSlideViewer : SlideViewer {
@@ -23,8 +22,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
 
         private static string NO_SLIDE_MESSAGE = Strings.NoSlide;
         public PresenterModel presenter_model_;
-        private PollOptions pollOptions;
-
 
         /// <summary>
         /// when we receive a message, this keeps the message up for a little before 
@@ -35,6 +32,9 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         /// timer that marks at which point a student submission has failed.
         /// </summary>
         private System.Windows.Forms.Timer submission_failed_timer_;
+
+        /* Custom form for the student submission notifications */
+        private NotificationForm submission_status_form_;
 
         // The width of the 3D border drawn by ControlPaint.DrawBorder3D.
         private const int BORDER_WIDTH = 2;
@@ -122,12 +122,15 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             ///Initialize timers
             submission_status_timer_ = new System.Windows.Forms.Timer();
             submission_failed_timer_ = new System.Windows.Forms.Timer();
+
+            /* The following code was modified by Gabriel Martin on Nov 15, 2014 in order to shorten the timers */
             ///leave the message received message up for 4 seconds before erasing.
-            submission_status_timer_.Interval = 4000;
+            submission_status_timer_.Interval = 1000;
             ///wait 10 seconds before declaring a submission to have failed.
-            submission_failed_timer_.Interval = 15000;
+            submission_failed_timer_.Interval = 1000;
+
             submission_status_timer_.Tick += new EventHandler(submission_status_timer__Tick);
-            submission_failed_timer_.Tick += new EventHandler(submission_failed_timer__Tick);
+            submission_failed_timer_.Tick += new EventHandler(submission_status_timer__Tick);
 
             ///we need to know when we go into text editing mode, so we need to monitor
             ///when the stylus changes
@@ -295,16 +298,10 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         }*/
 
         #region Submission Status
+        /* Method modified by Gabriel Martin to utilize new custom form */
         void submission_status_timer__Tick(object sender, EventArgs e) {
-            ///Remove the label from the slide.
-            StatusLabel.RemoveLabelForSlide(this.Slide);
+            submission_status_form_.Close();
             submission_status_timer_.Stop();
-        }
-        void submission_failed_timer__Tick(object sender, EventArgs e) {
-            using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
-                SubmissionStatusModel.GetInstance().SubmissionStatus = SubmissionStatusModel.Status.Failed;
-            }
-            submission_failed_timer_.Stop();
         }
         #endregion
 
@@ -468,21 +465,44 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
             }
         }
 
+        /* The following class was created by Gabriel Martin on Nov 15, 2014
+         * It is used as a custom form for notifications for the student submission process */
+        public partial class NotificationForm : Form
+        {
+            Label label = new Label();
+
+            public NotificationForm(string label)
+            {
+                this.Width = 170;
+                this.Height = 80;
+
+                this.label.Location = new Point(10,10);
+                this.label.AutoSize = true;
+                this.label.Text = label;
+
+                this.Controls.Add(this.label);
+            }
+        }
+
         private void SubmissionStatusChanged(object o, PropertyEventArgs args) {
             UW.ClassroomPresenter.Model.Network.SubmissionStatusModel.Status status;
             using (Synchronizer.Lock(SubmissionStatusModel.GetInstance().SyncRoot)) {
                 status = SubmissionStatusModel.GetInstance().SubmissionStatus;
             }
+            /* Modified by Gabriel Martin to use a custom form instead of the current slide for the notification. Primary reason is that there may not be a slide currently available (would throw an error) */
             if (status == SubmissionStatusModel.Status.NotReceived) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Sending submission...");
+                submission_status_form_ = new NotificationForm("Sending submission...");
+                submission_status_form_.Show();
                 submission_status_timer_.Stop();
                 submission_failed_timer_.Start();
             } else if (status == SubmissionStatusModel.Status.Received) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Submission received!");
+                submission_status_form_ = new NotificationForm("Submission Acknowledged!");
+                submission_status_form_.Show();
                 submission_status_timer_.Start();
                 submission_failed_timer_.Stop();
             } else if (status == SubmissionStatusModel.Status.Failed) {
-                StatusLabel.ChangeLabelForSlide(this.Slide, "Submission Failed");
+                submission_status_form_ = new NotificationForm("Submission Failed!");
+                submission_status_form_.Show();
                 submission_status_timer_.Start();
             }
         }
@@ -624,80 +644,8 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                             current_text_helper_ = new TextItBoxCollectionHelper(this, value);
                         } else if( current_stylus_ is ImageStylusModel ) {
                             current_image_helper_ = new ImageItCollectionHelper(this, value);
-                        }                        
-
-                        // if Role is Instructor then launch an the poll control dialog
-                        using (Synchronizer.Lock(presenter_model_.Participant.SyncRoot))
-                        {
-                            if (presenter_model_.Participant.Role is InstructorModel)
-                            {
-                                using (Synchronizer.Lock(value))
-                                {
-                                    using (Synchronizer.Lock(presenter_model_.Participant.Role.SyncRoot))
-                                    {                                        
-                                        if (pollOptions == null)
-                                            pollOptions = new PollOptions(presenter_model_);
-
-                                        if (pollOptions != null)
-                                        {
-                                            // If there is no poll on the slide hide the control dialog
-                                            if (value.Poll == null && pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false) pollOptions.Hide();
-                                           // If there is a poll set the pollstype, create and set the questions/answers
-                                            if (value.Poll != null && !pollOptions.Visible && ((InstructorModel)presenter_model_.Participant.Role).AcceptingQuickPollSubmissions == false)
-                                            {
-
-                                                List<String> instructorQA = new List<string>();
-
-                                                // set pollstype based on the number of questions and poll type
-                                                using (Synchronizer.Lock(presenter_model_.ViewerState.SyncRoot))
-                                                {
-                                                        if (value.Poll.GetPollType().Contains("Multi"))
-                                                        {
-                                                            // build Questions and Answers List                                                            
-                                                            instructorQA.Add(value.Poll.GetQuestion());
-                                                            int questioncounter = 0;
-                                                            foreach (string s in value.Poll.GetAnswrs())
-                                                            {
-                                                                if (!string.IsNullOrEmpty(s))
-                                                                {
-                                                                    instructorQA.Add(s);
-                                                                    questioncounter++;
-                                                                }
-                                                            }
-
-                                                            switch (questioncounter){
-                                                                case 2:
-                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
-                                                                    break;
-                                                                case 3:
-                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABC;
-                                                                    break;
-                                                                case 4:
-                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCD;
-                                                                    break;
-                                                                case 5:
-                                                                    presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.ABCDE;
-                                                                    break;
-                                                            }                                                           
-                                                        }
-                                                        else
-                                                        {                                                            
-                                                            instructorQA.Add(value.Poll.GetQuestion());
-                                                            instructorQA.Add("True");
-                                                            instructorQA.Add("False");
-                                                            presenter_model_.ViewerState.PollStyle = QuickPollModel.QuickPollStyle.Custom;
-                                                        }
-                                                }
-
-                                                pollOptions.InstructorQA = instructorQA;
-                                                pollOptions.Show();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
-                    }                    
+                    }
                 }
 
             }
@@ -1014,7 +962,6 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         private readonly DeckTraversalModel m_DeckTraversal;
         private readonly IAdaptee m_Viewer;
         private bool m_Disposed;
-        
 
         public DeckTraversalModelAdapter(EventQueue dispatcher, IAdaptee viewer, DeckTraversalModel traversal) {
             this.m_EventQueue = dispatcher;
@@ -1058,7 +1005,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
                 }
 
                 else {
-                    this.m_Viewer.Slide = this.m_DeckTraversal.Current.Slide;                    
+                    this.m_Viewer.Slide = this.m_DeckTraversal.Current.Slide;
                 }
             }
         }
@@ -1072,10 +1019,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides {
         }
 
         public interface IAdaptee {
-            SlideModel Slide
-            {
-                set;
-            }
+            SlideModel Slide { set; }
             Color DefaultDeckBGColor { set; }
         }
     }
