@@ -54,7 +54,7 @@ namespace UW.ClassroomPresenter.Misc {
  #endif
             int textLengthWOURL = this.aboutLinkLabel.Text.Length;
 
-            string URL = "http://classroompresenter.cs.washington.edu/";
+            string URL = "https://github.com/kevinbrink/CP3_Enhancement";
 
             this.aboutLinkLabel.Text += URL;
             this.aboutLinkLabel.Links.Add(textLengthWOURL, URL.Length, URL);

@@ -13,7 +13,7 @@ namespace UW.ClassroomPresenter.Model.Network {
         /// <summary>
         /// Where to point the user for detailed compatibility information
         /// </summary>
-        public static string CompatiblityInfoURL = "http://classroompresenter.cs.washington.edu/compatibility/";
+        public static string CompatiblityInfoURL = "https://github.com/kevinbrink/CP3_Enhancement";
         
         /// <summary>
         /// Local Node Version

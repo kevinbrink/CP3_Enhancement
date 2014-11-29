@@ -24,9 +24,9 @@ namespace UW.ClassroomPresenter {
             string lang = string.Empty;
             CultureInfo cultureInfo;
 
-            regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\UW CSE\\Presenter\\V3", true);
+            regkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("Software\\UW CSE\\Presenter\\V4", true);
             if( regkey == null )
-                regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey( "Software\\UW CSE\\Presenter\\V3" );
+                regkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey( "Software\\UW CSE\\Presenter\\V4" );
 
             if( regkey != null )
                 o = regkey.GetValue("Language");
