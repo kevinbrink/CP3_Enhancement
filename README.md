@@ -1,4 +1,6 @@
-CP3_Enhancement
+Classroom Presenter 4
 ===============
 
-A repository for Classroom Presenter 3 enhancements
+A fresh, new version of the open source software project, Classroom Presenter. Modified by students from Algonquin College.
+
+TODO: Add more details to this readme.
