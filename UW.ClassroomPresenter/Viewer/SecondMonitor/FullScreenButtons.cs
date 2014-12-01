@@ -543,6 +543,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 //Retrieve IP from getSelected function
                 ip = getSelected();
                 this.Controls.Remove(viewer);
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Location = new Point(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Right - 400, 2);
 
                 label.FlatStyle = FlatStyle.System;
                 label.Location = new Point(10, 15);
@@ -557,7 +559,7 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 selectedLabel.Text = ip;
                 selectedLabel.Font = new Font("Arial", 16);
                 selectedLabel.Size = selectedLabel.PreferredSize;
-                selectedLabel.Location = new System.Drawing.Point(20, 45);
+                selectedLabel.Location = new System.Drawing.Point(10, 45);
                 selectedLabel.TextAlign = ContentAlignment.MiddleCenter;
                 selectedLabel.Parent = this;
 
@@ -569,8 +571,8 @@ namespace UW.ClassroomPresenter.Viewer.SecondMonitor
                 OKButton.Size = new Size(50, 30);
 
                 //Resize window and update with the new IP text
-                this.Height = 160;
-                this.Width = 500;
+                this.Height = 150;
+                this.Width = 400;
                 this.Update();
             }
 
