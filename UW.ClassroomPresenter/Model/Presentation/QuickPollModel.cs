@@ -86,7 +86,7 @@ namespace UW.ClassroomPresenter.Model.Presentation
         {
             if (obj is QuickPollResultModel)
             {
-                return ((QuickPollResultModel)obj).m_OwnerId.Equals(this.m_OwnerId);
+                return ((QuickPollResultModel)obj).m_OwnerId.Equals(this.m_OwnerId) && ((QuickPollResultModel)obj).m_ResultString.Equals(this.m_ResultString);
             }
             return false;
         }
@@ -255,22 +255,33 @@ namespace UW.ClassroomPresenter.Model.Presentation
 
         #endregion
 
-
+        /// <summary>
+        /// Handeler for adding/removing polling results
+        /// modified by Mark Friedrich on Dec 1 2014
+        /// </summary>
         public void AddResult(QuickPollResultModel result)
         {
             using (Synchronizer.Lock(this.SyncRoot))
             {
-                if (!this.QuickPollResults.Contains(result))
+                // handel all forms of single response polls
+                if (m_QuickPollStyle == QuickPollStyle.YesNo || m_QuickPollStyle == QuickPollStyle.YesNoBoth || m_QuickPollStyle == QuickPollStyle.YesNoNeither || ((instructorQA.Contains("True") && instructorQA.Count == 3)))
                 {
-                    // Add the value
-                    this.QuickPollResults.Add(result);
-                }
-                else
-                {
-                    if (m_QuickPollStyle == QuickPollStyle.YesNo || m_QuickPollStyle == QuickPollStyle.YesNoBoth || m_QuickPollStyle == QuickPollStyle.YesNoNeither || (instructorQA.Contains("True")))
-                    { 
+                    QuickPollResultModel storedResult = null; // hold stored result if it exists 
+
+                    // loop through results and find the stored result for this student
+                    foreach (QuickPollResultModel r in this.QuickPollResults)
+                    {
+                        if (r.OwnerId.Equals(result.OwnerId))
+                        {
+                            storedResult = r;
+                            break;
+                        }
+                    }
+
+                    if (storedResult != null) // if there is a stored result update the value
+                    {
                         // Update the value only
-                        QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf(result)];
+                        QuickPollResultModel res = this.QuickPollResults[this.QuickPollResults.IndexOf(storedResult)];
                         using (Synchronizer.Lock(res.SyncRoot))
                         {
                             using (Synchronizer.Lock(result.SyncRoot))
@@ -284,6 +295,17 @@ namespace UW.ClassroomPresenter.Model.Presentation
                         // Add the value
                         this.QuickPollResults.Add(result);
                     }
+                }
+                else if (!this.QuickPollResults.Contains(result)) // if result doesn't exist add it
+                {
+                    // Add the value
+                    this.QuickPollResults.Add(result);
+                }
+                else if (this.QuickPollResults.Contains(result)) // if the result exists then we remove it
+                {
+                    // handle miltiple choice poll answer removal
+                    // if value already exists then we remove it
+                    this.QuickPollResults.Remove(result);
                 }
                 this.Updated = !this.Updated;
             }

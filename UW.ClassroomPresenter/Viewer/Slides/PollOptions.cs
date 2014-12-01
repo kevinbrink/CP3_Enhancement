@@ -12,6 +12,10 @@ using UW.ClassroomPresenter.Viewer.Menus;
 
 namespace UW.ClassroomPresenter.Viewer.Slides
 {
+    /// <summary>
+    /// Poll control form
+    /// Created by Mark Friedrich and Kevin Brink
+    /// </summary>
     public partial class PollOptions : Form
     {
         private uint seconds = 0;
@@ -60,7 +64,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
         }
 
 
-        private void startPollButton_Click(object sender, EventArgs e)
+        private void startPollButton_Click(object sender, EventArgs ex)
         {
             DeckModel deck; // current deck
             LocalId newslide = null; // LocalID for new Slide
@@ -167,7 +171,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                     DeckTraversalModel tmpTrav = this.m_Model.Workspace.CurrentDeckTraversal.Value;
                     using (Synchronizer.Lock(tmpTrav.SyncRoot))
                     {
-                        tmpTrav.Current = entry;
+                        tmpTrav.Current = entry;                        
                     }
                 }
             }
@@ -184,7 +188,7 @@ namespace UW.ClassroomPresenter.Viewer.Slides
                 {
                     ((InstructorModel)this.m_Role).AcceptingQuickPollSubmissions = false;
                 }
-            }          
+            }
 
             // stop timer and set buttons
             pollTimer.Stop();

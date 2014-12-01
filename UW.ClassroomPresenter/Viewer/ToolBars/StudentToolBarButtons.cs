@@ -14,6 +14,7 @@ using UW.ClassroomPresenter.Network.Messages.Presentation;
 using UW.ClassroomPresenter.Model.Viewer;
 using UW.ClassroomPresenter.Viewer.Slides;
 using UW.ClassroomPresenter.Viewer.Menus;
+using System.Collections;
 
 
 namespace UW.ClassroomPresenter.Viewer.ToolBars {
@@ -885,6 +886,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
             private GroupBox checkgroup;
             private readonly PresenterModel m_Model;
             private readonly RoleModel m_role;
+            private Hashtable previous;
 
             /// <summary>
             /// Handles the value of quickpoll being changed
@@ -932,50 +934,75 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
 
             /// <summary>
             /// Handles the value of quickpoll being changed
+            /// modified by Mark Friedrich on Dec 1 2014
             /// </summary>
             /// <param name="sender">The event sender</param>
             /// <param name="e">The arguments</param>
             void checkButtons_CheckedChanged(object sender, EventArgs e)
             {
-                //interpret sender as the check button that it is
-                CheckBox cb = sender as CheckBox;
-
-                //get the text associated with the selected check button 
-
-                if (cb != null)
+                if (this.m_role is StudentModel)
                 {
-                    //make sure button is checked
-                    if (cb.Checked)
+                    using (Synchronizer.Lock(this.m_Model))
                     {
-                        // Only do this if we are a student
-                        if (this.m_role is StudentModel)
+                        // if previous is empty populate it with possible results
+                        if (previous.Count == 0)
                         {
-                            using (Synchronizer.Lock(this.m_Model))
+                            foreach (CheckBox c in checkgroup.Controls)
                             {
-                               //see if we already have a result
-                                if (this.m_Model.CurrentStudentQuickPollResult != null)
+                                previous.Add(c.Text, null);
+                            }
+                        }
+
+                        // loop through all checkboxes and determine if they are checked or not
+                        foreach (CheckBox c in checkgroup.Controls)
+                        {                                
+                            if (c.Checked)
+                            {
+                                if (previous[c.Text] == null) // if the entry doesn't exist create it
                                 {
-                                    // Update the existing QuickPollResultModel
-                                    using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
+                                    if (this.m_Model.CurrentStudentQuickPollResult != null) // if no CurrentStudentQuickPollResult exists we need to create one
                                     {
-                                        //set the ResultString
-                                        CreateNewQuickPollResult(this.m_Model.Participant, cb.Text);
+                                        using (Synchronizer.Lock(this.m_Model.CurrentStudentQuickPollResult.SyncRoot))
+                                        {
+                                            CreateNewQuickPollResult(this.m_Model.Participant, c.Text);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        CreateNewQuickPollResult(this.m_Model.Participant, c.Text); // replace existing CurrentStudentQuickPollResult
                                     }
                                 }
-                                else
+                            }
+                            else if (!c.Checked)
+                            {
+                                if (previous[c.Text] != null) // if the entry exist create remove it
                                 {
-                                    // Create a new QuickPollResultModel and set the ResultString to the text associated with the selected radio button                                 
-                                    CreateNewQuickPollResult(this.m_Model.Participant, cb.Text);
+                                    using (this.m_Model.Workspace.Lock())
+                                    {
+                                        using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).SyncRoot))
+                                        {
+                                            using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.SyncRoot))
+                                            {
+                                                using (Synchronizer.Lock((~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults))
+                                                {
+                                                    (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults.Remove((QuickPollResultModel)previous[c.Text]); // remove result localy
+                                                    CreateNewQuickPollResult(this.m_Model.Participant, c.Text); // create the same entry to trigger professor side removal of entry
+                                                    (~this.m_Model.Workspace.CurrentPresentation).QuickPoll.QuickPollResults.Remove((QuickPollResultModel)previous[c.Text]); // remove previously created entry from local results
+                                                }
+                                            }
+                                        }
+                                    }
+                                    previous[c.Text] = null; // remove entry from hashtable
                                 }
                             }
                         }
-                        base.OnClick(e);
                     }
                 }
             }
 
             /// <summary>
             /// Create a new QuickPollResult and add set the result string
+            /// modified by Mark Friedrich on Dec 1 2014
             /// </summary>
             /// <param name="owner">The current participant</param>
             /// <param name="result">The result string</param>
@@ -986,7 +1013,17 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                     // Create the QuickPollResultModel
                     using (Synchronizer.Lock(owner.SyncRoot))
                     {
-                        this.m_Model.CurrentStudentQuickPollResult = new QuickPollResultModel(owner.Guid, result);
+
+                        if (previous.Count != 0) // determine if it's mutliple choice
+                        {
+                            QuickPollResultModel tmp = new QuickPollResultModel(owner.Guid, result);
+                            this.m_Model.CurrentStudentQuickPollResult = tmp;
+                            previous[result] = tmp;
+                        }
+                        else
+                        {
+                            this.m_Model.CurrentStudentQuickPollResult = new QuickPollResultModel(owner.Guid, result);
+                        }
                     }
 
                     // Add to the QuickPollResults
@@ -1036,6 +1073,7 @@ namespace UW.ClassroomPresenter.Viewer.ToolBars {
                 question.Size = new Size(380, 30);
                 question.Text = Convert.ToString(quickpollText.GetValue(0));
                 Controls.Add(question);
+                previous = new Hashtable();
 
 
                 int yValue = 10;
