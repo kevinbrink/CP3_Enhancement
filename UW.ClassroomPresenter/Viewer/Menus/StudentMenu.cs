@@ -857,22 +857,12 @@ namespace UW.ClassroomPresenter.Viewer.Menus {
                                 foreach (SheetModel s in newSlide.ContentSheets)
                                 {
                                     results_slide.ContentSheets.Add(s);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
                                 }
 
                                 foreach (SheetModel s in newSlide.AnnotationSheets)
                                 {
                                     SheetModel newSheet = InkSheetModel.InkSheetDeepCopyHelper(s);
                                     results_slide.AnnotationSheets.Add(newSheet);
-
-                                    // Queue up any image content to be added the deck below.
-                                    ImageSheetModel ism = s as ImageSheetModel;
-                                    if (ism != null)
-                                        images.Add(ism);
                                 }
                             }
 
