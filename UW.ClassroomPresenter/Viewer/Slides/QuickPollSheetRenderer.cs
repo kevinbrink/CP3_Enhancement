@@ -134,13 +134,22 @@ namespace UW.ClassroomPresenter.Viewer.Slides
             {
                 ///transform what we will paint so that it will fit nicely into our slideview
                 g.Transform = this.SlideDisplay.PixelTransform;
-
-                using (Synchronizer.Lock(this.SlideDisplay.Slide.SyncRoot))
-                {
-                    startX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.5f);
-                    endX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.95f);
-                    startY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.3f);
-                    endY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.85f);
+                if (this.SlideDisplay.Slide != null) {
+                    using (Synchronizer.Lock(this.SlideDisplay.Slide.SyncRoot)) {
+                        startX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.5f);
+                        endX = (int)(this.SlideDisplay.Slide.Bounds.Width * 0.95f);
+                        startY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.3f);
+                        endY = (int)(this.SlideDisplay.Slide.Bounds.Height * 0.85f);
+                        width = endX - startX;
+                        height = endY - startY;
+                        finalLocation = new RectangleF(startX, startY, width, height);
+                    }
+                }
+                else  {
+                    startX = (int)(this.SlideDisplay.Bounds.Width * 0.5f);
+                    endX = (int)(this.SlideDisplay.Bounds.Width * 0.95f);
+                    startY = (int)(this.SlideDisplay.Bounds.Height * 0.3f);
+                    endY = (int)(this.SlideDisplay.Bounds.Height * 0.85f);
                     width = endX - startX;
                     height = endY - startY;
                     finalLocation = new RectangleF(startX, startY, width, height);
